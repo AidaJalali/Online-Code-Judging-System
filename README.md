@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 # Online Code Judging System
 
 ## Project Overview
