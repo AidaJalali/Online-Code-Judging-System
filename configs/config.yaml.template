@@ -1,0 +1,22 @@
+database:
+  host: localhost
+  port: 5432
+  user: your_username
+  password: your_password
+  dbname: online_judge
+  sslmode: disable
+  max_open_conns: 25
+  max_idle_conns: 5
+  conn_max_lifetime: 5m
+  connect_timeout: 5
+
+server:
+  listen: ":8080"
+  secret_key: "your-secret-key-here"  # Used for session encryption
+  session_timeout: 24h
+
+runner:
+  max_concurrent: 5
+  timeout: 30s
+  memory_limit_mb: 256
+  cpu_limit: 1 

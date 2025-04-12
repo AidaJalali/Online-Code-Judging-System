@@ -210,3 +210,127 @@ online-judge/
     -   Instructions for running the project (`README.md`).
     -   Load testing scripts/tools used.
     -   Link to the GitHub repository.
+
+mkdir -p cmd/server
+mkdir -p internal/database
+mkdir -p configs
+mkdir -p migrations
+
+## Database Setup
+
+### Initial Setup
+
+1. Make sure you have PostgreSQL installed and running on your system.
+
+2. Create a new database:
+```bash
+createdb online_judge
+```
+
+3. Apply the database migrations:
+```bash
+psql -d online_judge -f migrations/000001_init_schema.up.sql
+```
+
+4. (Optional) Seed the database with sample data:
+```bash
+psql -d online_judge -f scripts/seed.sql
+```
+
+### Sample Data
+
+The seeding script (`scripts/seed.sql`) includes:
+
+- Users:
+  - Admin user: `admin` / `admin@example.com`
+  - Regular users: `user1` and `user2`
+  - Note: The password hashes in the seed file are placeholders. In a real environment, you should use proper password hashing.
+
+- Questions:
+  - "Hello World" (published)
+  - "Sum of Two Numbers" (published)
+  - "Factorial" (draft)
+
+- Test cases for each question
+- Sample submissions with different results
+
+### Configuration
+
+Create a `config.yaml` file in the project root with your database configuration:
+
+```yaml
+database:
+  host: localhost
+  port: 5432
+  user: your_username
+  password: your_password
+  dbname: online_judge
+  sslmode: disable
+  max_open_conns: 25
+  max_idle_conns: 5
+  conn_max_lifetime: 5m
+  connect_timeout: 5
+```
+
+## Secure Configuration Handling
+
+### Configuration Setup
+
+1. Copy the template configuration file:
+```bash
+cp configs/config.yaml.template config.yaml
+```
+
+2. Edit the `config.yaml` file with your specific settings:
+   - Replace all placeholder values with your actual configuration
+   - Never commit this file to version control
+   - Keep it secure and restrict access to it
+
+### Environment Variables (Alternative)
+
+For additional security, you can use environment variables instead of the config file:
+
+```bash
+# Database configuration
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_USER=your_username
+export DB_PASSWORD=your_password
+export DB_NAME=online_judge
+
+# Server configuration
+export SERVER_LISTEN=":8080"
+export SERVER_SECRET_KEY="your-secret-key-here"
+
+# Runner configuration
+export RUNNER_MAX_CONCURRENT=5
+export RUNNER_TIMEOUT=30s
+export RUNNER_MEMORY_LIMIT_MB=256
+export RUNNER_CPU_LIMIT=1
+```
+
+### Security Best Practices
+
+1. **Never commit sensitive data**:
+   - Keep `config.yaml` out of version control
+   - Use `.gitignore` to prevent accidental commits
+   - Consider using environment variables for sensitive data
+
+2. **File permissions**:
+   - Set appropriate file permissions (e.g., 600 for config files)
+   - Restrict access to configuration files
+
+3. **Production deployment**:
+   - Use different configuration files for development and production
+   - Consider using a secrets management service in production
+   - Use environment variables or secure vaults for sensitive data
+
+4. **Password security**:
+   - Use strong, unique passwords
+   - Consider using password managers
+   - Rotate passwords regularly
+
+5. **Database security**:
+   - Use SSL/TLS for database connections in production
+   - Implement proper access controls
+   - Regularly backup your database
