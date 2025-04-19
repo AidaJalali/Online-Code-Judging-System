@@ -23,7 +23,7 @@
 !/.env.example
 
 # IDE/Editor directories
-.idea/
+../.idea/
 .vscode/
 *.suo
 *.ntvs*

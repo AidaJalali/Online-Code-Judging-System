@@ -8,11 +8,11 @@ import (
 )
 
 type PageData struct {
-	Title    string
-	Error    string
-	User     *User
+	Title     string
+	Error     string
+	User      *User
 	Questions []Question
-	Question *Question
+	Question  *Question
 }
 
 type User struct {
@@ -109,12 +109,13 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		"templates/home.html",
 	)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("Error parsing templates: %v", err) // Log the detailed error
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Printf("Error executing template: %v", err) // Log execution errors too
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
 }
 
@@ -181,7 +182,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		data := PageData{
 			Title: "Create Account",
 		}
-
 		tmpl, err := template.ParseFiles(
 			"templates/base.html",
 			"templates/register.html",
@@ -190,7 +190,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-
 		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -397,7 +396,7 @@ func submitQuestionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "GET" {
-		questionID := r.URL.Query().Get("id")
+		//questionID := r.URL.Query().Get("id")
 		// TODO: Get question by ID
 		data := PageData{
 			Title:    "Submit Solution",
