@@ -106,3 +106,33 @@ func (r *UserRepository) EmailExists(email string) (bool, error) {
 
 	return exists, nil
 }
+
+func (r *UserRepository) GetUserBySession(sessionID string) (*User, error) {
+	query := `
+		SELECT u.id, u.username, u.password, u.email, u.full_name, u.role, u.created_at, u.updated_at
+		FROM users u
+		JOIN sessions s ON u.id = s.user_id
+		WHERE s.id = $1 AND s.expires_at > $2
+	`
+
+	user := &User{}
+	err := r.db.QueryRow(query, sessionID, time.Now()).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Password,
+		&user.Email,
+		&user.FullName,
+		&user.Role,
+		&user.CreatedAt,
+		&user.UpdatedAt,
+	)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return user, nil
+}

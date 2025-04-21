@@ -1,60 +1,46 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"log"
-	"path/filepath"
-	"runtime"
 
-	"online-judge/internal/config"
-	"online-judge/internal/database"
+	_ "github.com/lib/pq"
+)
+
+const (
+	host     = "b7cc3bd2-3f82-461a-b79f-21b3dd0b7461.hadb.ir"
+	port     = 30226
+	user     = "postgres"
+	password = "feJ9hH6xiSBkT27G4PW5"
+	dbname   = "postgres"
 )
 
 func main() {
-	// Get the absolute path to the config file
-	_, currentFile, _, _ := runtime.Caller(0)
-	configPath := filepath.Join(filepath.Dir(filepath.Dir(filepath.Dir(currentFile))), "configs", "config.yaml")
-
-	// Load configuration
-	cfg, err := config.LoadConfig(configPath)
-	if err != nil {
-		log.Fatalf("Failed to load config: %v", err)
-	}
-
 	// Initialize database connection
-	db, err := database.NewDB(database.Config{
-		Host:            cfg.Database.Host,
-		Port:            cfg.Database.Port,
-		User:            cfg.Database.User,
-		Password:        cfg.Database.Password,
-		DBName:          cfg.Database.DBName,
-		SSLMode:         cfg.Database.SSLMode,
-		MaxOpenConns:    cfg.Database.MaxOpenConns,
-		MaxIdleConns:    cfg.Database.MaxIdleConns,
-		ConnMaxLifetime: cfg.Database.ConnMaxLifetime,
-	})
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		log.Fatalf("Failed to open database connection: %v", err)
 	}
 	defer db.Close()
 
-	// Test a simple query
-	var result int
-	err = db.Get(&result, "SELECT 1")
+	// Test connection
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+
+	log.Println("Successfully connected to the database!")
+
+	// Test query
+	rows, err := db.Query("SELECT 1")
 	if err != nil {
 		log.Fatalf("Failed to execute test query: %v", err)
 	}
+	defer rows.Close()
 
-	log.Printf("Database connection test successful! Result: %d", result)
-
-	// Test listing databases (requires superuser privileges)
-	var databases []string
-	err = db.Select(&databases, "SELECT datname FROM pg_database")
-	if err != nil {
-		log.Printf("Warning: Could not list databases (might need superuser privileges): %v", err)
-	} else {
-		log.Println("Available databases:")
-		for _, dbname := range databases {
-			log.Printf("- %s", dbname)
-		}
-	}
+	log.Println("Successfully executed test query!")
 }
