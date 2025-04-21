@@ -1,0 +1,108 @@
+package repository
+
+import (
+	"database/sql"
+	"errors"
+	"time"
+)
+
+type User struct {
+	ID        int64
+	Username  string
+	Password  string
+	Email     string
+	FullName  string
+	Role      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
+type UserRepository struct {
+	db *sql.DB
+}
+
+func NewUserRepository(db *sql.DB) *UserRepository {
+	return &UserRepository{db: db}
+}
+
+func (r *UserRepository) CreateUser(user *User) error {
+	query := `
+		INSERT INTO users (username, password, email, full_name, role, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		RETURNING id
+	`
+
+	err := r.db.QueryRow(
+		query,
+		user.Username,
+		user.Password,
+		user.Email,
+		user.FullName,
+		user.Role,
+		time.Now(),
+		time.Now(),
+	).Scan(&user.ID)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *UserRepository) GetUserByUsername(username string) (*User, error) {
+	query := `
+		SELECT id, username, password, email, full_name, role, created_at, updated_at
+		FROM users
+		WHERE username = $1
+	`
+
+	user := &User{}
+	err := r.db.QueryRow(query, username).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Password,
+		&user.Email,
+		&user.FullName,
+		&user.Role,
+		&user.CreatedAt,
+		&user.UpdatedAt,
+	)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func (r *UserRepository) UsernameExists(username string) (bool, error) {
+	query := `
+		SELECT EXISTS(SELECT 1 FROM users WHERE username = $1)
+	`
+
+	var exists bool
+	err := r.db.QueryRow(query, username).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *UserRepository) EmailExists(email string) (bool, error) {
+	query := `
+		SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)
+	`
+
+	var exists bool
+	err := r.db.QueryRow(query, email).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}

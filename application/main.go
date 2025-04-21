@@ -4,23 +4,18 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"online-judge/internal/config"
+	"online-judge/internal/repository"
+	"strings"
 	"time"
 )
 
 type PageData struct {
 	Title     string
 	Error     string
-	User      *User
+	User      *repository.User
 	Questions []Question
 	Question  *Question
-}
-
-type User struct {
-	Username string
-	Password string
-	Role     string // "user" or "admin"
-	Email    string
-	FullName string
 }
 
 type Question struct {
@@ -46,25 +41,6 @@ type Submission struct {
 	Language   string
 	Status     string // "pending", "accepted", "rejected"
 	CreatedAt  time.Time
-}
-
-// In-memory stores (replace with database in production)
-var (
-	users       = make(map[string]User)
-	questions   = make(map[int]Question)
-	submissions = make(map[int]Submission)
-	nextID      = 1
-)
-
-// Add a default admin user
-func init() {
-	users["admin"] = User{
-		Username: "admin",
-		Password: "admin",
-		Role:     "admin",
-		Email:    "admin@example.com",
-		FullName: "Administrator",
-	}
 }
 
 func main() {
@@ -144,8 +120,22 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
-		user, exists := users[username]
-		if !exists || user.Password != password {
+		// Initialize database connection
+		db, err := config.InitDB()
+		if err != nil {
+			http.Error(w, "Database connection error", http.StatusInternalServerError)
+			return
+		}
+		defer db.Close()
+
+		userRepo := repository.NewUserRepository(db)
+		user, err := userRepo.GetUserByUsername(username)
+		if err != nil {
+			http.Error(w, "Database error", http.StatusInternalServerError)
+			return
+		}
+
+		if user == nil || user.Password != password {
 			data := PageData{
 				Title: "Sign In",
 				Error: "Invalid username or password",
@@ -200,57 +190,118 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		confirmPassword := r.FormValue("confirm_password")
+		email := r.FormValue("email")
+		fullName := r.FormValue("full_name")
+
+		// Validation
+		if len(username) < 3 {
+			renderError(w, "Username must be at least 3 characters long")
+			return
+		}
+
+		if len(password) < 8 {
+			renderError(w, "Password must be at least 8 characters long")
+			return
+		}
 
 		if password != confirmPassword {
-			data := PageData{
-				Title: "Create Account",
-				Error: "Passwords do not match",
-			}
-
-			tmpl, err := template.ParseFiles(
-				"templates/base.html",
-				"templates/register.html",
-			)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			renderError(w, "Passwords do not match")
 			return
 		}
 
-		if _, exists := users[username]; exists {
-			data := PageData{
-				Title: "Create Account",
-				Error: "Username already exists",
-			}
-
-			tmpl, err := template.ParseFiles(
-				"templates/base.html",
-				"templates/register.html",
-			)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+		if !isValidEmail(email) {
+			renderError(w, "Invalid email format")
 			return
 		}
 
-		users[username] = User{
+		// Initialize database connection
+		db, err := config.InitDB()
+		if err != nil {
+			http.Error(w, "Database connection error", http.StatusInternalServerError)
+			return
+		}
+		defer db.Close()
+
+		userRepo := repository.NewUserRepository(db)
+
+		// Check if username exists
+		exists, err := userRepo.UsernameExists(username)
+		if err != nil {
+			http.Error(w, "Database error", http.StatusInternalServerError)
+			return
+		}
+		if exists {
+			renderError(w, "Username already exists")
+			return
+		}
+
+		// Check if email exists
+		exists, err = userRepo.EmailExists(email)
+		if err != nil {
+			http.Error(w, "Database error", http.StatusInternalServerError)
+			return
+		}
+		if exists {
+			renderError(w, "Email already exists")
+			return
+		}
+
+		// Hash password (you should use a proper password hashing library like bcrypt)
+		hashedPassword, err := hashPassword(password)
+		if err != nil {
+			http.Error(w, "Error processing password", http.StatusInternalServerError)
+			return
+		}
+
+		// Create user
+		user := &repository.User{
 			Username: username,
-			Password: password,
-			Role:     "user", // Default role for new users
+			Password: hashedPassword,
+			Email:    email,
+			FullName: fullName,
+			Role:     "user",
+		}
+
+		err = userRepo.CreateUser(user)
+		if err != nil {
+			http.Error(w, "Error creating user", http.StatusInternalServerError)
+			return
 		}
 
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
+}
+
+func renderError(w http.ResponseWriter, errorMessage string) {
+	data := PageData{
+		Title: "Create Account",
+		Error: errorMessage,
+	}
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/register.html",
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func isValidEmail(email string) bool {
+	// Simple email validation
+	// You might want to use a more robust validation library
+	return strings.Contains(email, "@") && strings.Contains(email, ".")
+}
+
+func hashPassword(password string) (string, error) {
+	// You should use a proper password hashing library like bcrypt
+	// This is just a placeholder
+	return password, nil
 }
 
 func dashboardHandler(w http.ResponseWriter, r *http.Request) {
@@ -261,16 +312,29 @@ func dashboardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	data := PageData{
 		Title: "Dashboard",
-		User:  &user,
+		User:  user,
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -305,23 +369,31 @@ func questionsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	// Convert questions map to slice for template
-	var questionsList []Question
-	for _, q := range questions {
-		questionsList = append(questionsList, q)
-	}
-
+	// TODO: Get questions from database
 	data := PageData{
 		Title:     "Questions",
-		User:      &user,
-		Questions: questionsList,
+		User:      user,
+		Questions: []Question{}, // TODO: Get questions from database
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -346,9 +418,22 @@ func createQuestionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -356,7 +441,7 @@ func createQuestionHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		data := PageData{
 			Title: "Create Question",
-			User:  &user,
+			User:  user,
 		}
 
 		tmpl, err := template.ParseFiles(
@@ -388,20 +473,31 @@ func submitQuestionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	if r.Method == "GET" {
-		//questionID := r.URL.Query().Get("id")
-		// TODO: Get question by ID
 		data := PageData{
 			Title:    "Submit Solution",
-			User:     &user,
-			Question: &Question{}, // TODO: Get actual question
+			User:     user,
+			Question: &Question{}, // TODO: Get question from database
 		}
 
 		tmpl, err := template.ParseFiles(
@@ -433,9 +529,22 @@ func submissionsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -443,7 +552,7 @@ func submissionsHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Get user's submissions
 	data := PageData{
 		Title: "Submissions",
-		User:  &user,
+		User:  user,
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -468,9 +577,22 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	username := cookie.Value
-	user, exists := users[username]
-	if !exists {
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		http.Error(w, "Database connection error", http.StatusInternalServerError)
+		return
+	}
+	defer db.Close()
+
+	userRepo := repository.NewUserRepository(db)
+	user, err := userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -478,7 +600,7 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		data := PageData{
 			Title: "Profile",
-			User:  &user,
+			User:  user,
 		}
 
 		tmpl, err := template.ParseFiles(
