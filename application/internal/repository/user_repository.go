@@ -48,7 +48,7 @@ func (r *UserRepository) CreateUser(user *User) error {
 
 func (r *UserRepository) GetUserByUsername(username string) (*User, error) {
 	query := `
-		SELECT id, username, password, email, full_name, role, created_at, updated_at
+		SELECT id, username, password_hash, role, created_at, updated_at
 		FROM users
 		WHERE username = $1
 	`

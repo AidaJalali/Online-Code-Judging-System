@@ -96,6 +96,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		logger.Info("Login attempt for user: %s", username)
 
+		// Get user from database
 		user, err := h.userRepo.GetUserByUsername(username)
 		if err != nil {
 			logger.Error("Database error during login for user %s: %v", username, err)
@@ -103,8 +104,9 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if user == nil || user.Password != password {
-			logger.Info("Failed login attempt for user: %s", username)
+		// Check if user exists
+		if user == nil {
+			logger.Info("Failed login attempt for user %s: User not found", username)
 			data := PageData{
 				Title: "Sign In",
 				Error: "Invalid username or password",
@@ -127,7 +129,32 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		logger.Info("Successful login for user: %s", username)
+		// Verify password
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+		if err != nil {
+			logger.Info("Failed login attempt for user %s: Invalid password", username)
+			data := PageData{
+				Title: "Sign In",
+				Error: "Invalid username or password",
+			}
+
+			tmpl, err := template.ParseFiles(
+				"templates/base.html",
+				"templates/login.html",
+			)
+			if err != nil {
+				logger.Error("Failed to parse login template: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+				logger.Error("Failed to execute login template: %v", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+			return
+		}
+
 		// Set session cookie
 		http.SetCookie(w, &http.Cookie{
 			Name:  "username",
@@ -135,7 +162,14 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			Path:  "/",
 		})
 
-		http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
+		logger.Info("Successful login for user: %s with role: %s", username, user.Role)
+
+		// Redirect based on role
+		if user.Role == "admin" {
+			http.Redirect(w, r, "/admin-dashboard", http.StatusSeeOther)
+		} else {
+			http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
+		}
 	}
 }
 
@@ -243,9 +277,9 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		logger.Info("Successfully registered user: %s with role: %s", username, role)
 		// Redirect based on role
 		if role == "admin" {
-			http.Redirect(w, r, "/administrator-dashboard", http.StatusSeeOther)
+			http.Redirect(w, r, "/admin-dashboard", http.StatusSeeOther)
 		} else {
-			http.Redirect(w, r, "/normaluser-dashboard", http.StatusSeeOther)
+			http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
 		}
 	}
 }
@@ -551,5 +585,107 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
+	}
+}
+
+func (h *Handler) UserDashboard(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated
+	session, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(session.Value)
+	if err != nil {
+		logger.Error("Failed to get user data: %v", err)
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Render user dashboard template
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/user-dashboard.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse user dashboard template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title: "User Dashboard",
+		User:  user,
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		logger.Error("Failed to execute user dashboard template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+}
+
+func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated
+	session, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(session.Value)
+	if err != nil {
+		logger.Error("Failed to get user data: %v", err)
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Check if user is admin
+	if user.Role != "admin" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	// Render admin dashboard template
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/admin-dashboard.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse admin dashboard template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title: "Admin Dashboard",
+		User:  user,
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		logger.Error("Failed to execute admin dashboard template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

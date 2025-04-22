@@ -76,6 +76,8 @@ func main() {
 	mux.HandleFunc("/login", handler.Login)
 	mux.HandleFunc("/register", handler.Register)
 	mux.HandleFunc("/dashboard", handler.Dashboard)
+	mux.HandleFunc("/user-dashboard", handler.UserDashboard)
+	mux.HandleFunc("/admin-dashboard", handler.AdminDashboard)
 	mux.HandleFunc("/logout", handler.Logout)
 	mux.HandleFunc("/questions", handler.Questions)
 	mux.HandleFunc("/questions/create", handler.CreateQuestion)

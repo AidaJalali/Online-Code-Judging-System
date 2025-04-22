@@ -41,3 +41,22 @@ INFO: 2025/04/22 12:14:12 logger.go:39: [2025-04-22 12:14:12] Application starte
 INFO: 2025/04/22 12:14:23 logger.go:39: [2025-04-22 12:14:23] Registration attempt for user: mahdixak with role: regular
 INFO: 2025/04/22 12:14:47 logger.go:39: [2025-04-22 12:14:47] Register page accessed
 INFO: 2025/04/22 12:14:55 logger.go:39: [2025-04-22 12:14:55] Registration attempt for user: mahdixak with role: regular
+INFO: 2025/04/22 12:16:21 logger.go:39: [2025-04-22 12:16:21] Application started
+INFO: 2025/04/22 12:16:40 logger.go:39: [2025-04-22 12:16:40] Registration attempt for user: ayda with role: admin
+INFO: 2025/04/22 12:17:00 logger.go:39: [2025-04-22 12:17:00] Successfully registered user: ayda with role: admin
+INFO: 2025/04/22 12:34:09 logger.go:39: [2025-04-22 12:34:09] Application started
+INFO: 2025/04/22 12:34:25 logger.go:39: [2025-04-22 12:34:25] Register page accessed
+INFO: 2025/04/22 12:34:27 logger.go:39: [2025-04-22 12:34:27] Register page accessed
+INFO: 2025/04/22 12:34:37 logger.go:39: [2025-04-22 12:34:37] Registration attempt for user: askhar with role: admin
+INFO: 2025/04/22 12:34:41 logger.go:39: [2025-04-22 12:34:41] Successfully registered user: askhar with role: admin
+INFO: 2025/04/22 12:34:41 logger.go:39: [2025-04-22 12:34:41] Login page accessed
+INFO: 2025/04/22 12:38:18 logger.go:39: [2025-04-22 12:38:18] Application started
+INFO: 2025/04/22 12:38:24 logger.go:39: [2025-04-22 12:38:24] Login page accessed
+INFO: 2025/04/22 12:38:32 logger.go:39: [2025-04-22 12:38:32] Login attempt for user: asghar
+INFO: 2025/04/22 12:39:22 logger.go:39: [2025-04-22 12:39:22] Login attempt for user: asghar
+INFO: 2025/04/22 12:40:10 logger.go:39: [2025-04-22 12:40:10] Application started
+INFO: 2025/04/22 12:40:25 logger.go:39: [2025-04-22 12:40:25] Login attempt for user: asghar
+INFO: 2025/04/22 12:40:25 logger.go:39: [2025-04-22 12:40:25] Failed login attempt for user asghar: User not found
+INFO: 2025/04/22 12:40:41 logger.go:39: [2025-04-22 12:40:41] Login attempt for user: asghar
+INFO: 2025/04/22 12:40:41 logger.go:39: [2025-04-22 12:40:41] Login attempt for user: asghar
+INFO: 2025/04/22 12:40:54 logger.go:39: [2025-04-22 12:40:54] Failed login attempt for user asghar: User not found
