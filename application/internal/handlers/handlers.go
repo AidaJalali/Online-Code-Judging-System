@@ -17,6 +17,7 @@ type PageData struct {
 	User      *repository.User
 	Questions []Question
 	Question  *Question
+	Success   string
 }
 
 type Question struct {
@@ -550,39 +551,107 @@ func (h *Handler) Submissions(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodGet && r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	// Check if user is authenticated
-	session, err := r.Cookie("session")
+	session, err := r.Cookie("username")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	// Get user data from session
-	user, err := h.userRepo.GetUserBySession(session.Value)
+	user, err := h.userRepo.GetUserByUsername(session.Value)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	// Render profile template
-	tmpl, err := template.ParseFiles("templates/profile.html")
+	if r.Method == http.MethodPost {
+		// Get form values
+		currentPassword := r.FormValue("current_password")
+		newPassword := r.FormValue("new_password")
+		confirmPassword := r.FormValue("confirm_password")
+
+		// Verify current password
+		if currentPassword != user.Password {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "Current password is incorrect",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Validate new password
+		if newPassword != confirmPassword {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "New passwords do not match",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		if len(newPassword) < 6 {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "New password must be at least 6 characters long",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Update password
+		user.Password = newPassword
+
+		// Save changes
+		err = h.userRepo.UpdateUser(user)
+		if err != nil {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "Failed to update password",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Redirect back to profile page with success message
+		data := PageData{
+			Title:   "Profile",
+			User:    user,
+			Success: "Password updated successfully",
+		}
+		renderProfile(w, data)
+		return
+	}
+
+	// For GET requests, just render the profile page
+	data := PageData{
+		Title: "Profile",
+		User:  user,
+	}
+	renderProfile(w, data)
+}
+
+func renderProfile(w http.ResponseWriter, data PageData) {
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/profile.html",
+	)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		User *repository.User
-	}{
-		User: user,
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}

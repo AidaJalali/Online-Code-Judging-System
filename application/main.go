@@ -10,6 +10,8 @@ import (
 	"online-judge/internal/repository"
 	"strings"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type PageData struct {
@@ -18,6 +20,7 @@ type PageData struct {
 	User      *repository.User
 	Questions []Question
 	Question  *Question
+	Success   string
 }
 
 type Question struct {
@@ -601,13 +604,13 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "GET" {
 		data := PageData{
-			Title: "Profile",
+			Title: "Change Password",
 			User:  user,
 		}
 
 		tmpl, err := template.ParseFiles(
 			"templates/base.html",
-			"templates/profile.html",
+			"templates/user-dashboard/profile.html",
 		)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -621,7 +624,78 @@ func profileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "POST" {
-		// TODO: Implement profile update
-		http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		currentPassword := r.FormValue("current_password")
+		newPassword := r.FormValue("new_password")
+		confirmPassword := r.FormValue("confirm_password")
+
+		// Verify current password
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(currentPassword))
+		if err != nil {
+			data := PageData{
+				Title: "Change Password",
+				User:  user,
+				Error: "Current password is incorrect",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Validate new password
+		if len(newPassword) < 6 {
+			data := PageData{
+				Title: "Change Password",
+				User:  user,
+				Error: "New password must be at least 6 characters long",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		if newPassword != confirmPassword {
+			data := PageData{
+				Title: "Change Password",
+				User:  user,
+				Error: "New passwords do not match",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Hash new password
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+		if err != nil {
+			http.Error(w, "Error processing password", http.StatusInternalServerError)
+			return
+		}
+
+		// Update user password
+		user.Password = string(hashedPassword)
+		err = userRepo.UpdateUser(user)
+		if err != nil {
+			http.Error(w, "Error updating password", http.StatusInternalServerError)
+			return
+		}
+
+		data := PageData{
+			Title:   "Change Password",
+			User:    user,
+			Success: "Password successfully changed",
+		}
+		renderProfile(w, data)
+	}
+}
+
+func renderProfile(w http.ResponseWriter, data PageData) {
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/profile.html",
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
