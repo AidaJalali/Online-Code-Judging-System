@@ -1,0 +1,12 @@
+ERROR: 2025/04/22 11:37:26 logger.go:44: [2025-04-22 11:37:26] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:37:43 logger.go:44: [2025-04-22 11:37:43] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:40:30 logger.go:44: [2025-04-22 11:40:30] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:41:35 logger.go:44: [2025-04-22 11:41:35] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:48:25 logger.go:44: [2025-04-22 11:48:25] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:50:49 logger.go:44: [2025-04-22 11:50:49] Failed to create user mahdixak: pq: column "password" of relation "users" does not exist
+ERROR: 2025/04/22 11:56:25 logger.go:44: [2025-04-22 11:56:25] Failed to create user mahdixak: pq: column "full_name" of relation "users" does not exist
+ERROR: 2025/04/22 11:56:42 logger.go:44: [2025-04-22 11:56:42] Failed to create user mahdixak: pq: invalid input value for enum user_role: "user"
+ERROR: 2025/04/22 11:59:20 logger.go:44: [2025-04-22 11:59:20] Failed to create user mahdixak: pq: invalid input value for enum user_role: "user"
+ERROR: 2025/04/22 12:05:00 logger.go:44: [2025-04-22 12:05:00] Failed to create user mahdixak: pq: invalid input value for enum user_role: "user"
+ERROR: 2025/04/22 12:14:40 logger.go:44: [2025-04-22 12:14:40] Failed to create user mahdixak: pq: duplicate key value violates unique constraint "users_username_key"
+ERROR: 2025/04/22 12:16:20 logger.go:44: [2025-04-22 12:16:20] Failed to create user mahdixak: pq: duplicate key value violates unique constraint "users_username_key"

@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"online-judge/internal/config"
+	"online-judge/internal/handlers"
+	"online-judge/internal/logger"
 	"online-judge/internal/repository"
 	"strings"
 	"time"
@@ -44,6 +46,24 @@ type Submission struct {
 }
 
 func main() {
+	// Initialize logger
+	logger.Init()
+	logger.Info("Application started")
+
+	// Initialize database connection
+	db, err := config.InitDB()
+	if err != nil {
+		logger.Error("Failed to initialize database: %v", err)
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Create repositories
+	userRepo := repository.NewUserRepository(db)
+
+	// Create handlers
+	handler := handlers.NewHandler(userRepo)
+
 	// Create a new ServeMux
 	mux := http.NewServeMux()
 
@@ -52,16 +72,16 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// Handle routes
-	mux.HandleFunc("/", homeHandler)
-	mux.HandleFunc("/login", loginHandler)
-	mux.HandleFunc("/register", registerHandler)
-	mux.HandleFunc("/dashboard", dashboardHandler)
-	mux.HandleFunc("/logout", logoutHandler)
-	mux.HandleFunc("/questions", questionsHandler)
-	mux.HandleFunc("/questions/create", createQuestionHandler)
-	mux.HandleFunc("/questions/submit", submitQuestionHandler)
-	mux.HandleFunc("/submissions", submissionsHandler)
-	mux.HandleFunc("/profile", profileHandler)
+	mux.HandleFunc("/", handler.Home)
+	mux.HandleFunc("/login", handler.Login)
+	mux.HandleFunc("/register", handler.Register)
+	mux.HandleFunc("/dashboard", handler.Dashboard)
+	mux.HandleFunc("/logout", handler.Logout)
+	mux.HandleFunc("/questions", handler.Questions)
+	mux.HandleFunc("/questions/create", handler.CreateQuestion)
+	mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
+	mux.HandleFunc("/submissions", handler.Submissions)
+	mux.HandleFunc("/profile", handler.Profile)
 
 	// Start the server
 	log.Println("Starting server on :8080")
@@ -190,8 +210,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		confirmPassword := r.FormValue("confirm_password")
-		email := r.FormValue("email")
-		fullName := r.FormValue("full_name")
 
 		// Validation
 		if len(username) < 3 {
@@ -206,11 +224,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 
 		if password != confirmPassword {
 			renderError(w, "Passwords do not match")
-			return
-		}
-
-		if !isValidEmail(email) {
-			renderError(w, "Invalid email format")
 			return
 		}
 
@@ -235,17 +248,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Check if email exists
-		exists, err = userRepo.EmailExists(email)
-		if err != nil {
-			http.Error(w, "Database error", http.StatusInternalServerError)
-			return
-		}
-		if exists {
-			renderError(w, "Email already exists")
-			return
-		}
-
 		// Hash password (you should use a proper password hashing library like bcrypt)
 		hashedPassword, err := hashPassword(password)
 		if err != nil {
@@ -257,8 +259,6 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		user := &repository.User{
 			Username: username,
 			Password: hashedPassword,
-			Email:    email,
-			FullName: fullName,
 			Role:     "user",
 		}
 

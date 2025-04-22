@@ -10,8 +10,6 @@ type User struct {
 	ID        int64
 	Username  string
 	Password  string
-	Email     string
-	FullName  string
 	Role      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -27,8 +25,8 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 
 func (r *UserRepository) CreateUser(user *User) error {
 	query := `
-		INSERT INTO users (username, password, email, full_name, role, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
+		INSERT INTO users (username, password_hash, role, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id
 	`
 
@@ -36,8 +34,6 @@ func (r *UserRepository) CreateUser(user *User) error {
 		query,
 		user.Username,
 		user.Password,
-		user.Email,
-		user.FullName,
 		user.Role,
 		time.Now(),
 		time.Now(),
@@ -62,8 +58,6 @@ func (r *UserRepository) GetUserByUsername(username string) (*User, error) {
 		&user.ID,
 		&user.Username,
 		&user.Password,
-		&user.Email,
-		&user.FullName,
 		&user.Role,
 		&user.CreatedAt,
 		&user.UpdatedAt,
@@ -109,7 +103,7 @@ func (r *UserRepository) EmailExists(email string) (bool, error) {
 
 func (r *UserRepository) GetUserBySession(sessionID string) (*User, error) {
 	query := `
-		SELECT u.id, u.username, u.password, u.email, u.full_name, u.role, u.created_at, u.updated_at
+		SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at
 		FROM users u
 		JOIN sessions s ON u.id = s.user_id
 		WHERE s.id = $1 AND s.expires_at > $2
@@ -120,8 +114,6 @@ func (r *UserRepository) GetUserBySession(sessionID string) (*User, error) {
 		&user.ID,
 		&user.Username,
 		&user.Password,
-		&user.Email,
-		&user.FullName,
 		&user.Role,
 		&user.CreatedAt,
 		&user.UpdatedAt,

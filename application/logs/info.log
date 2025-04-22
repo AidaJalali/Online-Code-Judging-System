@@ -1,0 +1,43 @@
+INFO: 2025/04/22 11:34:11 logger.go:39: [2025-04-22 11:34:11] Application started
+INFO: 2025/04/22 11:37:03 logger.go:39: [2025-04-22 11:37:03] Application started
+INFO: 2025/04/22 11:37:17 logger.go:39: [2025-04-22 11:37:17] Application started
+INFO: 2025/04/22 11:37:26 logger.go:39: [2025-04-22 11:37:26] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:37:34 logger.go:39: [2025-04-22 11:37:34] Register page accessed
+INFO: 2025/04/22 11:37:43 logger.go:39: [2025-04-22 11:37:43] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:40:30 logger.go:39: [2025-04-22 11:40:30] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:40:58 logger.go:39: [2025-04-22 11:40:58] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:41:07 logger.go:39: [2025-04-22 11:41:07] Registration failed for user mahdixak: Passwords do not match
+INFO: 2025/04/22 11:41:35 logger.go:39: [2025-04-22 11:41:35] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:44:11 logger.go:39: [2025-04-22 11:44:11] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:44:59 logger.go:39: [2025-04-22 11:44:59] Application started
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Login page accessed
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
+INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
+INFO: 2025/04/22 11:45:55 logger.go:39: [2025-04-22 11:45:55] Application started
+INFO: 2025/04/22 11:46:28 logger.go:39: [2025-04-22 11:46:28] Application started
+INFO: 2025/04/22 11:46:44 logger.go:39: [2025-04-22 11:46:44] Register page accessed
+INFO: 2025/04/22 11:47:07 logger.go:39: [2025-04-22 11:47:07] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:48:41 logger.go:39: [2025-04-22 11:48:41] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:48:43 logger.go:39: [2025-04-22 11:48:43] Registration failed for user mahdixak: Passwords do not match
+INFO: 2025/04/22 11:49:22 logger.go:39: [2025-04-22 11:49:22] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:50:55 logger.go:39: [2025-04-22 11:50:55] Application started
+INFO: 2025/04/22 11:51:25 logger.go:39: [2025-04-22 11:51:25] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:56:28 logger.go:39: [2025-04-22 11:56:28] Application started
+INFO: 2025/04/22 11:56:41 logger.go:39: [2025-04-22 11:56:41] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:56:57 logger.go:39: [2025-04-22 11:56:57] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 11:59:22 logger.go:39: [2025-04-22 11:59:22] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 12:02:09 logger.go:39: [2025-04-22 12:02:09] Application started
+INFO: 2025/04/22 12:02:20 logger.go:39: [2025-04-22 12:02:20] Register page accessed
+INFO: 2025/04/22 12:03:26 logger.go:39: [2025-04-22 12:03:26] Registration attempt for user: mahdixak with role: user
+INFO: 2025/04/22 12:10:06 logger.go:39: [2025-04-22 12:10:06] Application started
+INFO: 2025/04/22 12:10:23 logger.go:39: [2025-04-22 12:10:23] Register page accessed
+INFO: 2025/04/22 12:10:46 logger.go:39: [2025-04-22 12:10:46] Registration attempt for user: mahdixak with role: regular
+INFO: 2025/04/22 12:14:06 logger.go:39: [2025-04-22 12:14:06] Successfully registered user: mahdixak with role: regular
+INFO: 2025/04/22 12:14:12 logger.go:39: [2025-04-22 12:14:12] Application started
+INFO: 2025/04/22 12:14:23 logger.go:39: [2025-04-22 12:14:23] Registration attempt for user: mahdixak with role: regular
+INFO: 2025/04/22 12:14:47 logger.go:39: [2025-04-22 12:14:47] Register page accessed
+INFO: 2025/04/22 12:14:55 logger.go:39: [2025-04-22 12:14:55] Registration attempt for user: mahdixak with role: regular

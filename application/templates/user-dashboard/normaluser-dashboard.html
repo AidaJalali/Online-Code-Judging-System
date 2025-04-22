@@ -1,0 +1,54 @@
+{{define "content"}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-6">
+        <h1 class="text-3xl font-bold text-gray-900">Normal User Dashboard</h1>
+        
+        <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Questions Section -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Questions</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">View and solve coding questions</p>
+                    </div>
+                    <div class="mt-5">
+                        <a href="/questions" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            View Questions
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submissions Section -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Submissions</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">View your submission history</p>
+                    </div>
+                    <div class="mt-5">
+                        <a href="/submissions" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            View Submissions
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Profile</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">Manage your account settings</p>
+                    </div>
+                    <div class="mt-5">
+                        <a href="/profile" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            View Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}} 

@@ -3,8 +3,12 @@ package handlers
 import (
 	"html/template"
 	"net/http"
+	"online-judge/internal/logger"
 	"online-judge/internal/repository"
 	"strings"
+	"unicode"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type PageData struct {
@@ -65,6 +69,7 @@ func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+		logger.Info("Login page accessed")
 		data := PageData{
 			Title: "Sign In",
 		}
@@ -74,11 +79,13 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			"templates/login.html",
 		)
 		if err != nil {
+			logger.Error("Failed to parse login template: %v", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+			logger.Error("Failed to execute login template: %v", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		return
@@ -87,14 +94,17 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
+		logger.Info("Login attempt for user: %s", username)
 
 		user, err := h.userRepo.GetUserByUsername(username)
 		if err != nil {
+			logger.Error("Database error during login for user %s: %v", username, err)
 			http.Error(w, "Database error", http.StatusInternalServerError)
 			return
 		}
 
 		if user == nil || user.Password != password {
+			logger.Info("Failed login attempt for user: %s", username)
 			data := PageData{
 				Title: "Sign In",
 				Error: "Invalid username or password",
@@ -105,16 +115,19 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 				"templates/login.html",
 			)
 			if err != nil {
+				logger.Error("Failed to parse login template: %v", err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
 			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+				logger.Error("Failed to execute login template: %v", err)
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
 			return
 		}
 
+		logger.Info("Successful login for user: %s", username)
 		// Set session cookie
 		http.SetCookie(w, &http.Cookie{
 			Name:  "username",
@@ -128,6 +141,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+		logger.Info("Register page accessed")
 		data := PageData{
 			Title: "Create Account",
 		}
@@ -136,10 +150,12 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 			"templates/register.html",
 		)
 		if err != nil {
+			logger.Error("Failed to parse register template: %v", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+			logger.Error("Failed to execute register template: %v", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		return
@@ -149,68 +165,88 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		confirmPassword := r.FormValue("confirm_password")
-		email := r.FormValue("email")
-		fullName := r.FormValue("full_name")
+		roleStr := r.FormValue("role")
 
-		// Validation
-		if len(username) < 3 {
-			renderError(w, "Username must be at least 3 characters long")
+		logger.Info("Registration attempt for user: %s with role: %s", username, roleStr)
+
+		// Convert role string to proper enum value
+		var role string
+		switch roleStr {
+		case "regular":
+			role = "regular"
+		case "admin":
+			role = "admin"
+		default:
+			logger.Error("Invalid role value: %s", roleStr)
+			renderError(w, "Invalid role selected")
 			return
 		}
 
-		if len(password) < 8 {
-			renderError(w, "Password must be at least 8 characters long")
+		// Password validation
+		if len(password) < 6 {
+			logger.Info("Registration failed for user %s: Password too short", username)
+			renderError(w, "Password must be at least 6 characters long")
+			return
+		}
+
+		hasDigit := false
+		hasLowercase := false
+		for _, char := range password {
+			if unicode.IsDigit(char) {
+				hasDigit = true
+			}
+			if unicode.IsLower(char) {
+				hasLowercase = true
+			}
+		}
+
+		if !hasDigit {
+			logger.Info("Registration failed for user %s: Password missing digit", username)
+			renderError(w, "Password must contain at least one digit")
+			return
+		}
+
+		if !hasLowercase {
+			logger.Info("Registration failed for user %s: Password missing lowercase", username)
+			renderError(w, "Password must contain at least one lowercase letter")
 			return
 		}
 
 		if password != confirmPassword {
+			logger.Info("Registration failed for user %s: Passwords do not match", username)
 			renderError(w, "Passwords do not match")
 			return
 		}
 
-		if !isValidEmail(email) {
-			renderError(w, "Invalid email format")
-			return
-		}
-
-		// Check if username exists
-		exists, err := h.userRepo.UsernameExists(username)
+		// Hash the password
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 		if err != nil {
-			http.Error(w, "Database error", http.StatusInternalServerError)
-			return
-		}
-		if exists {
-			renderError(w, "Username already exists")
-			return
-		}
-
-		// Check if email exists
-		exists, err = h.userRepo.EmailExists(email)
-		if err != nil {
-			http.Error(w, "Database error", http.StatusInternalServerError)
-			return
-		}
-		if exists {
-			renderError(w, "Email already exists")
+			logger.Error("Failed to hash password for user %s: %v", username, err)
+			http.Error(w, "Error hashing password", http.StatusInternalServerError)
 			return
 		}
 
 		// Create user
 		user := &repository.User{
 			Username: username,
-			Password: password,
-			Email:    email,
-			FullName: fullName,
-			Role:     "user",
+			Password: string(hashedPassword),
+			Role:     role,
 		}
 
 		err = h.userRepo.CreateUser(user)
 		if err != nil {
+			logger.Error("Failed to create user %s: %v", username, err)
 			http.Error(w, "Error creating user", http.StatusInternalServerError)
 			return
 		}
 
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		logger.Info("Successfully registered user: %s with role: %s", username, role)
+		// Redirect based on role
+		if role == "admin" {
+			http.Redirect(w, r, "/administrator-dashboard", http.StatusSeeOther)
+		} else {
+			http.Redirect(w, r, "/normaluser-dashboard", http.StatusSeeOther)
+		}
 	}
 }
 
