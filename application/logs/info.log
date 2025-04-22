@@ -99,3 +99,12 @@ INFO: 2025/04/22 18:48:40 logger.go:39: [2025-04-22 18:48:40] Application starte
 INFO: 2025/04/22 18:48:48 logger.go:39: [2025-04-22 18:48:48] Login page accessed
 INFO: 2025/04/22 18:48:50 logger.go:39: [2025-04-22 18:48:50] Login attempt for user: normalAida
 INFO: 2025/04/22 18:48:50 logger.go:39: [2025-04-22 18:48:50] Successful login for user: normalAida with role: regular
+INFO: 2025/04/22 18:50:53 logger.go:39: [2025-04-22 18:50:53] Register page accessed
+INFO: 2025/04/22 18:50:56 logger.go:39: [2025-04-22 18:50:56] Login page accessed
+INFO: 2025/04/22 18:51:49 logger.go:39: [2025-04-22 18:51:49] Login attempt for user: normalAida
+INFO: 2025/04/22 18:51:49 logger.go:39: [2025-04-22 18:51:49] Successful login for user: normalAida with role: regular
+INFO: 2025/04/22 18:56:33 logger.go:39: [2025-04-22 18:56:33] Login page accessed
+INFO: 2025/04/22 19:09:34 logger.go:39: [2025-04-22 19:09:34] Login page accessed
+INFO: 2025/04/22 19:09:36 logger.go:39: [2025-04-22 19:09:36] Login attempt for user: normalAida
+INFO: 2025/04/22 19:09:37 logger.go:39: [2025-04-22 19:09:37] Successful login for user: normalAida with role: regular
+INFO: 2025/04/22 19:14:18 logger.go:39: [2025-04-22 19:14:18] Application started

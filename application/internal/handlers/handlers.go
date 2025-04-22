@@ -6,18 +6,26 @@ import (
 	"online-judge/internal/logger"
 	"online-judge/internal/repository"
 	"strings"
+	"time"
 	"unicode"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type PageData struct {
-	Title     string
-	Error     string
-	User      *repository.User
-	Questions []Question
-	Question  *Question
-	Success   string
+	Title       string
+	Error       string
+	User        *repository.User
+	Questions   []Question
+	Question    *Question
+	Success     string
+	Submissions []struct {
+		ID         int
+		QuestionID int
+		Status     string
+		Language   string
+		CreatedAt  time.Time
+	}
 }
 
 type Question struct {
@@ -499,52 +507,54 @@ func (h *Handler) Submissions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//// Check if user is authenticated
-	//session, err := r.Cookie("session")
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
+	// Get username from cookie
+	cookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
 
-	// Get user data from session
-	//user, err := h.userRepo.GetUserBySession(session.Value)
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
 
-	// TODO: Get user's submissions from repository
+	if user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Sample submissions data (to be replaced with actual database queries)
 	submissions := []struct {
 		ID         int
 		QuestionID int
 		Status     string
 		Language   string
-		Time       string
+		CreatedAt  time.Time
 	}{
-		{1, 1, "Accepted", "Go", "2024-03-20 10:00:00"},
-		{2, 2, "Wrong Answer", "Python", "2024-03-20 11:00:00"},
+		{1, 1, "accepted", "Python", time.Now()},
+		{2, 2, "pending", "Java", time.Now().Add(-1 * time.Hour)},
+	}
+
+	data := PageData{
+		Title:       "Submissions",
+		User:        user,
+		Submissions: submissions,
 	}
 
 	// Render submissions template
-	tmpl, err := template.ParseFiles("templates/submissions.html")
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/submissions.html",
+	)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Submissions []struct {
-			ID         int
-			QuestionID int
-			Status     string
-			Language   string
-			Time       string
-		}
-	}{
-		Submissions: submissions,
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
