@@ -380,50 +380,58 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check if user is authenticated
-	session, err := r.Cookie("session")
+	// Get username from cookie
+	cookie, err := r.Cookie("username")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	// Get user data from session
-	_, err = h.userRepo.GetUserBySession(session.Value)
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(cookie.Value)
 	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	// TODO: Get questions from repository
-	questions := []struct {
-		ID          int
-		Title       string
-		Description string
-		Difficulty  string
-	}{
-		{1, "Two Sum", "Given an array of integers...", "Easy"},
-		{2, "Add Two Numbers", "You are given two non-empty linked lists...", "Medium"},
+	questions := []Question{
+		{
+			ID:          1,
+			Title:       "Two Sum",
+			Description: "Given an array of integers...",
+			Difficulty:  "Easy",
+		},
+		{
+			ID:          2,
+			Title:       "Add Two Numbers",
+			Description: "You are given two non-empty linked lists...",
+			Difficulty:  "Medium",
+		},
+	}
+
+	data := PageData{
+		Title:     "Questions",
+		User:      user,
+		Questions: questions,
 	}
 
 	// Render questions template
-	tmpl, err := template.ParseFiles("templates/questions.html")
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/questions.html",
+	)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Questions []struct {
-			ID          int
-			Title       string
-			Description string
-			Difficulty  string
-		}
-	}{
-		Questions: questions,
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
