@@ -3,17 +3,9 @@ package repository
 import (
 	"database/sql"
 	"errors"
+	"online-judge/internal/models"
 	"time"
 )
-
-type User struct {
-	ID        int64
-	Username  string
-	Password  string
-	Role      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
 
 type UserRepository struct {
 	db *sql.DB
@@ -23,10 +15,10 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 	return &UserRepository{db: db}
 }
 
-func (r *UserRepository) CreateUser(user *User) error {
+func (r *UserRepository) CreateUser(user *models.User) error {
 	query := `
-		INSERT INTO users (username, password_hash, role, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5)
+		INSERT INTO users (username, password_hash, role)
+		VALUES ($1, $2, $3)
 		RETURNING id
 	`
 
@@ -35,8 +27,6 @@ func (r *UserRepository) CreateUser(user *User) error {
 		user.Username,
 		user.Password,
 		user.Role,
-		time.Now(),
-		time.Now(),
 	).Scan(&user.ID)
 
 	if err != nil {
@@ -46,21 +36,19 @@ func (r *UserRepository) CreateUser(user *User) error {
 	return nil
 }
 
-func (r *UserRepository) GetUserByUsername(username string) (*User, error) {
+func (r *UserRepository) GetUserByUsername(username string) (*models.User, error) {
 	query := `
-		SELECT id, username, password_hash, role, created_at, updated_at
+		SELECT id, username, password_hash, role
 		FROM users
 		WHERE username = $1
 	`
 
-	user := &User{}
+	user := &models.User{}
 	err := r.db.QueryRow(query, username).Scan(
 		&user.ID,
 		&user.Username,
 		&user.Password,
 		&user.Role,
-		&user.CreatedAt,
-		&user.UpdatedAt,
 	)
 
 	if err != nil {
@@ -101,22 +89,20 @@ func (r *UserRepository) EmailExists(email string) (bool, error) {
 	return exists, nil
 }
 
-func (r *UserRepository) GetUserBySession(sessionID string) (*User, error) {
+func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error) {
 	query := `
-		SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at
+		SELECT u.id, u.username, u.password, u.role
 		FROM users u
 		JOIN sessions s ON u.id = s.user_id
 		WHERE s.id = $1 AND s.expires_at > $2
 	`
 
-	user := &User{}
+	user := &models.User{}
 	err := r.db.QueryRow(query, sessionID, time.Now()).Scan(
 		&user.ID,
 		&user.Username,
 		&user.Password,
 		&user.Role,
-		&user.CreatedAt,
-		&user.UpdatedAt,
 	)
 
 	if err != nil {

@@ -297,7 +297,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create user
-		user := &repository.User{
+		user := &models.User{
 			Username: username,
 			Password: string(hashedPassword),
 			Role:     role,
@@ -383,7 +383,7 @@ func (h *Handler) Dashboard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		User *repository.User
+		User *models.User
 	}{
 		User: user,
 	}
@@ -623,7 +623,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		User *repository.User
+		User *models.User
 	}{
 		User: user,
 	}
@@ -634,7 +634,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func toModelsUser(user *repository.User) *models.User {
+func toModelsUser(user *models.User) *models.User {
 	if user == nil {
 		return nil
 	}

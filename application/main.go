@@ -7,6 +7,7 @@ import (
 	"online-judge/internal/config"
 	"online-judge/internal/handlers"
 	"online-judge/internal/logger"
+	"online-judge/internal/models"
 	"online-judge/internal/repository"
 	"strings"
 	"time"
@@ -15,7 +16,7 @@ import (
 type PageData struct {
 	Title     string
 	Error     string
-	User      *repository.User
+	User      *models.User
 	Questions []Question
 	Question  *Question
 }
@@ -259,7 +260,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create user
-		user := &repository.User{
+		user := &models.User{
 			Username: username,
 			Password: hashedPassword,
 			Role:     "user",

@@ -126,3 +126,5 @@ INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Login attempt for 
 INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Successful login for user: askhar with role: admin
 INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Admin dashboard access attempt by user askhar with role admin
 INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Rendering admin dashboard for user askhar
+INFO: 2025/04/22 22:26:06 logger.go:39: [2025-04-22 22:26:06] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/22 22:26:06 logger.go:39: [2025-04-22 22:26:06] Rendering admin dashboard for user askhar
