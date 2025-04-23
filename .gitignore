@@ -1,0 +1,51 @@
+# Log files
+*.log
+logs/
+log/
+*.log.*
+*.log.[0-9]*
+
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/vendor/
+/go.sum
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+/bin/
+/build/
+/dist/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+/temp/
+
+# Coverage files
+*.cover
+*.out
+coverage.txt
+profile.out 

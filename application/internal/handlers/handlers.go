@@ -27,6 +27,7 @@ type PageData struct {
 		CreatedAt  time.Time
 	}
 	Success string
+	Users   []*models.User
 }
 
 type Question struct {
@@ -643,13 +644,14 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == http.MethodPost {
-		// Get form values
+		// Handle password change
 		currentPassword := r.FormValue("current_password")
 		newPassword := r.FormValue("new_password")
 		confirmPassword := r.FormValue("confirm_password")
 
 		// Verify current password
-		if currentPassword != user.Password {
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(currentPassword))
+		if err != nil {
 			data := PageData{
 				Title: "Profile",
 				User:  user,
@@ -660,16 +662,6 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Validate new password
-		if newPassword != confirmPassword {
-			data := PageData{
-				Title: "Profile",
-				User:  user,
-				Error: "New passwords do not match",
-			}
-			renderProfile(w, data)
-			return
-		}
-
 		if len(newPassword) < 6 {
 			data := PageData{
 				Title: "Profile",
@@ -680,35 +672,111 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Update password
-		user.Password = newPassword
-
-		// Save changes
-		err = h.userRepo.UpdateUser(user)
-		if err != nil {
+		if newPassword != confirmPassword {
 			data := PageData{
 				Title: "Profile",
 				User:  user,
-				Error: "Failed to update password",
+				Error: "New passwords do not match",
 			}
 			renderProfile(w, data)
 			return
 		}
 
-		// Redirect back to profile page with success message
+		// Hash new password
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+		if err != nil {
+			http.Error(w, "Error processing password", http.StatusInternalServerError)
+			return
+		}
+
+		// Update user password
+		user.Password = string(hashedPassword)
+		err = h.userRepo.UpdateUser(user)
+		if err != nil {
+			http.Error(w, "Error updating password", http.StatusInternalServerError)
+			return
+		}
+
 		data := PageData{
 			Title:   "Profile",
 			User:    user,
-			Success: "Password updated successfully",
+			Success: "Password successfully changed",
 		}
 		renderProfile(w, data)
 		return
 	}
 
+	// For GET requests, get all users if the current user is an admin
+	var users []*models.User
+	if user.Role == "admin" {
+		users, err = h.userRepo.GetAllUsers()
+		if err != nil {
+			http.Error(w, "Error fetching users", http.StatusInternalServerError)
+			return
+		}
+	}
+
 	data := PageData{
-		User: user,
+		Title: "Profile",
+		User:  user,
+		Users: users,
 	}
 	renderProfile(w, data)
+}
+
+func (h *Handler) UpdateUserRole(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is admin
+	session, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	adminUser, err := h.userRepo.GetUserByUsername(session.Value)
+	if err != nil || adminUser == nil || adminUser.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get form values
+	username := r.FormValue("username")
+	currentRole := r.FormValue("current_role")
+
+	// If trying to demote an admin, check if they're the last admin
+	if currentRole == "admin" {
+		isLastAdmin, err := h.userRepo.IsLastAdmin(username)
+		if err != nil {
+			http.Error(w, "Error checking admin status", http.StatusInternalServerError)
+			return
+		}
+		if isLastAdmin {
+			http.Redirect(w, r, "/profile?error=Cannot demote the last admin user", http.StatusSeeOther)
+			return
+		}
+	}
+
+	// Determine new role
+	var newRole string
+	if currentRole == "admin" {
+		newRole = "regular"
+	} else {
+		newRole = "admin"
+	}
+
+	// Update user role
+	err = h.userRepo.UpdateUserRole(username, newRole)
+	if err != nil {
+		http.Error(w, "Error updating user role", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect back to profile page with success message
+	http.Redirect(w, r, "/profile?success=User role updated successfully", http.StatusSeeOther)
 }
 
 func renderProfile(w http.ResponseWriter, data PageData) {
@@ -843,6 +911,58 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 	logger.Info("Rendering admin dashboard for user %s", user.Username)
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		logger.Error("Failed to execute admin dashboard template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+}
+
+func (h *Handler) ManageUsers(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is admin
+	session, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	adminUser, err := h.userRepo.GetUserByUsername(session.Value)
+	if err != nil || adminUser == nil || adminUser.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get all users
+	users, err := h.userRepo.GetAllUsers()
+	if err != nil {
+		http.Error(w, "Error fetching users", http.StatusInternalServerError)
+		return
+	}
+
+	// Get success/error messages from query parameters
+	success := r.URL.Query().Get("success")
+	errorMsg := r.URL.Query().Get("error")
+
+	data := PageData{
+		Title:   "User Management",
+		User:    adminUser,
+		Users:   users,
+		Success: success,
+		Error:   errorMsg,
+	}
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/manage-users.html",
+	)
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

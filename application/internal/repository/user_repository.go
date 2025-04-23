@@ -135,3 +135,70 @@ func (r *UserRepository) UpdateUser(user *models.User) error {
 
 	return nil
 }
+
+func (r *UserRepository) GetAllUsers() ([]*models.User, error) {
+	query := `
+		SELECT id, username, role
+		FROM users
+		ORDER BY username
+	`
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []*models.User
+	for rows.Next() {
+		user := &models.User{}
+		err := rows.Scan(&user.ID, &user.Username, &user.Role)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
+func (r *UserRepository) UpdateUserRole(username string, newRole string) error {
+	query := `
+		UPDATE users 
+		SET role = $1, updated_at = $2
+		WHERE username = $3
+	`
+
+	_, err := r.db.Exec(
+		query,
+		newRole,
+		time.Now(),
+		username,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *UserRepository) IsLastAdmin(username string) (bool, error) {
+	query := `
+		SELECT COUNT(*) 
+		FROM users 
+		WHERE role = 'admin' AND username != $1
+	`
+
+	var count int
+	err := r.db.QueryRow(query, username).Scan(&count)
+	if err != nil {
+		return false, err
+	}
+
+	return count == 0, nil
+}
