@@ -7,6 +7,7 @@ import (
 	"online-judge/internal/config"
 	"online-judge/internal/handlers"
 	"online-judge/internal/logger"
+	"online-judge/internal/models"
 	"online-judge/internal/repository"
 	"strings"
 	"time"
@@ -17,7 +18,7 @@ import (
 type PageData struct {
 	Title     string
 	Error     string
-	User      *repository.User
+	User      *models.User
 	Questions []Question
 	Question  *Question
 	Success   string
@@ -78,14 +79,15 @@ func main() {
 	mux.HandleFunc("/", handler.Home)
 	mux.HandleFunc("/login", handler.Login)
 	mux.HandleFunc("/register", handler.Register)
-	mux.HandleFunc("/dashboard", handler.Dashboard)
+	//mux.HandleFunc("/dashboard", handler.Dashboard)
 	mux.HandleFunc("/user-dashboard", handler.UserDashboard)
 	mux.HandleFunc("/admin-dashboard", handler.AdminDashboard)
-	mux.HandleFunc("/logout", handler.Logout)
-	mux.HandleFunc("/questions", handler.Questions)
-	mux.HandleFunc("/questions/create", handler.CreateQuestion)
-	mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
-	mux.HandleFunc("/submissions", handler.Submissions)
+	//mux.HandleFunc("/logout", handler.Logout)
+	//mux.HandleFunc("/questions", handler.Questions)
+	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
+	mux.HandleFunc("/create-question", handler.HandleCreateQuestion)
+	//mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
+	//mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
 
 	// Start the server
@@ -261,7 +263,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Create user
-		user := &repository.User{
+		user := &models.User{
 			Username: username,
 			Password: hashedPassword,
 			Role:     "user",

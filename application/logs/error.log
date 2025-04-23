@@ -12,3 +12,4 @@ ERROR: 2025/04/22 12:14:40 logger.go:44: [2025-04-22 12:14:40] Failed to create 
 ERROR: 2025/04/22 12:16:20 logger.go:44: [2025-04-22 12:16:20] Failed to create user mahdixak: pq: duplicate key value violates unique constraint "users_username_key"
 ERROR: 2025/04/22 12:38:32 logger.go:44: [2025-04-22 12:38:32] Database error during login for user asghar: pq: column "password" does not exist
 ERROR: 2025/04/22 12:40:07 logger.go:44: [2025-04-22 12:40:07] Database error during login for user asghar: pq: column "password" does not exist
+ERROR: 2025/04/22 21:18:03 logger.go:44: [2025-04-22 21:18:03] Failed to create user akbari: pq: duplicate key value violates unique constraint "users_username_key"
