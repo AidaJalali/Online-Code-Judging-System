@@ -27,7 +27,7 @@ func (r *QuestionRepository) CreateQuestion(question *models.Question) error {
 	err := r.db.QueryRow(
 		query,
 		question.Title,
-		question.Statement,
+		question.Description,
 		question.TimeLimitMs,
 		question.MemoryLimitMb,
 		question.Status,

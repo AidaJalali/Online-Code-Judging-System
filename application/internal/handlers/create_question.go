@@ -69,13 +69,13 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	question := &models.Question{
 		Title:         r.FormValue("title"),
-		Statement:     r.FormValue("statement"),
+		Description:   r.FormValue("statement"),
 		TimeLimitMs:   parseInt(r.FormValue("timeLimit"), 1000),
 		MemoryLimitMb: parseInt(r.FormValue("memoryLimit"), 128),
 		Status:        models.StatusDraft,
 		OwnerID:       user.ID, // Assuming User model has ID field
-		CreatedAt:     now.Format(time.RFC3339),
-		UpdatedAt:     now.Format(time.RFC3339),
+		CreatedAt:     now,
+		UpdatedAt:     now,
 	}
 
 	if err := h.questionRepo.CreateQuestion(question); err != nil {
