@@ -114,3 +114,24 @@ func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error
 
 	return user, nil
 }
+
+func (r *UserRepository) UpdateUser(user *User) error {
+	query := `
+		UPDATE users 
+		SET password_hash = $1, updated_at = $2
+		WHERE username = $3
+	`
+
+	_, err := r.db.Exec(
+		query,
+		user.Password,
+		time.Now(),
+		user.Username,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

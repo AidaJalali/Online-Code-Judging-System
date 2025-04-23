@@ -7,6 +7,7 @@ import (
 	"online-judge/internal/models"
 	"online-judge/internal/repository"
 	"strings"
+	"time"
 	"unicode"
 
 	"golang.org/x/crypto/bcrypt"
@@ -417,50 +418,58 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check if user is authenticated
-	session, err := r.Cookie("session")
+	// Get username from cookie
+	cookie, err := r.Cookie("username")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	// Get user data from session
-	_, err = h.userRepo.GetUserBySession(session.Value)
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(cookie.Value)
 	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	// TODO: Get questions from repository
-	questions := []struct {
-		ID          int
-		Title       string
-		Description string
-		Difficulty  string
-	}{
-		{1, "Two Sum", "Given an array of integers...", "Easy"},
-		{2, "Add Two Numbers", "You are given two non-empty linked lists...", "Medium"},
+	questions := []Question{
+		{
+			ID:          1,
+			Title:       "Two Sum",
+			Description: "Given an array of integers...",
+			Difficulty:  "Easy",
+		},
+		{
+			ID:          2,
+			Title:       "Add Two Numbers",
+			Description: "You are given two non-empty linked lists...",
+			Difficulty:  "Medium",
+		},
+	}
+
+	data := PageData{
+		Title:     "Questions",
+		User:      user,
+		Questions: questions,
 	}
 
 	// Render questions template
-	tmpl, err := template.ParseFiles("templates/questions.html")
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/questions.html",
+	)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Questions []struct {
-			ID          int
-			Title       string
-			Description string
-			Difficulty  string
-		}
-	}{
-		Questions: questions,
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -544,81 +553,139 @@ func (h *Handler) Submissions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//// Check if user is authenticated
-	//session, err := r.Cookie("session")
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
+	// Get username from cookie
+	cookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
 
-	// Get user data from session
-	//user, err := h.userRepo.GetUserBySession(session.Value)
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
 
-	// TODO: Get user's submissions from repository
+	if user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Sample submissions data (to be replaced with actual database queries)
 	submissions := []struct {
 		ID         int
 		QuestionID int
 		Status     string
 		Language   string
-		Time       string
+		CreatedAt  time.Time
 	}{
-		{1, 1, "Accepted", "Go", "2024-03-20 10:00:00"},
-		{2, 2, "Wrong Answer", "Python", "2024-03-20 11:00:00"},
+		{1, 1, "accepted", "Python", time.Now()},
+		{2, 2, "pending", "Java", time.Now().Add(-1 * time.Hour)},
+	}
+
+	data := PageData{
+		Title:       "Submissions",
+		User:        user,
+		Submissions: submissions,
 	}
 
 	// Render submissions template
-	tmpl, err := template.ParseFiles("templates/submissions.html")
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/submissions.html",
+	)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Submissions []struct {
-			ID         int
-			QuestionID int
-			Status     string
-			Language   string
-			Time       string
-		}
-	}{
-		Submissions: submissions,
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 }
 
 func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodGet && r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	// Check if user is authenticated
-	session, err := r.Cookie("session")
+	session, err := r.Cookie("username")
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
 	// Get user data from session
-	user, err := h.userRepo.GetUserBySession(session.Value)
+	user, err := h.userRepo.GetUserByUsername(session.Value)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	// Render profile template
-	tmpl, err := template.ParseFiles("templates/profile.html")
-	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	if r.Method == http.MethodPost {
+		// Get form values
+		currentPassword := r.FormValue("current_password")
+		newPassword := r.FormValue("new_password")
+		confirmPassword := r.FormValue("confirm_password")
+
+		// Verify current password
+		if currentPassword != user.Password {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "Current password is incorrect",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Validate new password
+		if newPassword != confirmPassword {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "New passwords do not match",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		if len(newPassword) < 6 {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "New password must be at least 6 characters long",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Update password
+		user.Password = newPassword
+
+		// Save changes
+		err = h.userRepo.UpdateUser(user)
+		if err != nil {
+			data := PageData{
+				Title: "Profile",
+				User:  user,
+				Error: "Failed to update password",
+			}
+			renderProfile(w, data)
+			return
+		}
+
+		// Redirect back to profile page with success message
+		data := PageData{
+			Title:   "Profile",
+			User:    user,
+			Success: "Password updated successfully",
+		}
+		renderProfile(w, data)
 		return
 	}
 
@@ -627,8 +694,20 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	}{
 		User: user,
 	}
+	renderProfile(w, data)
+}
 
-	if err := tmpl.Execute(w, data); err != nil {
+func renderProfile(w http.ResponseWriter, data PageData) {
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/profile.html",
+	)
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
