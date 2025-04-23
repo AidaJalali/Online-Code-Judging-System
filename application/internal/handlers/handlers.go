@@ -14,11 +14,19 @@ import (
 )
 
 type PageData struct {
-	Title     string
-	Error     string
-	User      *models.User
-	Questions []models.Question
-	Question  *models.Question
+	Title       string
+	Error       string
+	User        *models.User
+	Questions   []models.Question
+	Question    *models.Question
+	Submissions []struct {
+		ID         int
+		QuestionID int
+		Status     string
+		Language   string
+		CreatedAt  time.Time
+	}
+	Success string
 }
 
 type Question struct {
@@ -383,9 +391,7 @@ func (h *Handler) Dashboard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := struct {
-		User *models.User
-	}{
+	data := PageData{
 		User: user,
 	}
 
@@ -438,18 +444,28 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO: Get questions from repository
-	questions := []Question{
+	questions := []models.Question{
 		{
-			ID:          1,
-			Title:       "Two Sum",
-			Description: "Given an array of integers...",
-			Difficulty:  "Easy",
+			ID:            1,
+			Title:         "Two Sum",
+			Statement:     "Given an array of integers...",
+			TimeLimitMs:   1000,
+			MemoryLimitMb: 128,
+			Status:        models.StatusDraft,
+			OwnerID:       1,
+			CreatedAt:     time.Now().Format(time.RFC3339),
+			UpdatedAt:     time.Now().Format(time.RFC3339),
 		},
 		{
-			ID:          2,
-			Title:       "Add Two Numbers",
-			Description: "You are given two non-empty linked lists...",
-			Difficulty:  "Medium",
+			ID:            2,
+			Title:         "Add Two Numbers",
+			Statement:     "You are given two non-empty linked lists...",
+			TimeLimitMs:   1000,
+			MemoryLimitMb: 128,
+			Status:        models.StatusDraft,
+			OwnerID:       1,
+			CreatedAt:     time.Now().Format(time.RFC3339),
+			UpdatedAt:     time.Now().Format(time.RFC3339),
 		},
 	}
 
@@ -689,9 +705,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := struct {
-		User *models.User
-	}{
+	data := PageData{
 		User: user,
 	}
 	renderProfile(w, data)

@@ -83,11 +83,11 @@ func main() {
 	mux.HandleFunc("/user-dashboard", handler.UserDashboard)
 	mux.HandleFunc("/admin-dashboard", handler.AdminDashboard)
 	//mux.HandleFunc("/logout", handler.Logout)
-	//mux.HandleFunc("/questions", handler.Questions)
+	mux.HandleFunc("/questions", handler.Questions)
 	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
 	mux.HandleFunc("/create-question", handler.HandleCreateQuestion)
-	//mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
-	//mux.HandleFunc("/submissions", handler.Submissions)
+	mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
+	mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
 
 	// Start the server

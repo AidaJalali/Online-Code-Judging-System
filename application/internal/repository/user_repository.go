@@ -115,7 +115,7 @@ func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error
 	return user, nil
 }
 
-func (r *UserRepository) UpdateUser(user *User) error {
+func (r *UserRepository) UpdateUser(user *models.User) error {
 	query := `
 		UPDATE users 
 		SET password_hash = $1, updated_at = $2

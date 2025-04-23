@@ -2,9 +2,11 @@
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Questions</h1>
+        {{if eq .User.Role "admin"}}
         <a href="/questions/create" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
             Create Question
         </a>
+        {{end}}
     </div>
 
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
