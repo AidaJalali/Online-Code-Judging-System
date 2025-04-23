@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
 	"html/template"
 	"net/http"
 	"online-judge/internal/logger"
@@ -733,13 +735,21 @@ func (h *Handler) UpdateUserRole(w http.ResponseWriter, r *http.Request) {
 	// Check if user is authenticated and is admin
 	session, err := r.Cookie("username")
 	if err != nil {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Not authenticated",
+		})
 		return
 	}
 
 	adminUser, err := h.userRepo.GetUserByUsername(session.Value)
 	if err != nil || adminUser == nil || adminUser.Role != "admin" {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Not authorized",
+		})
 		return
 	}
 
@@ -747,15 +757,33 @@ func (h *Handler) UpdateUserRole(w http.ResponseWriter, r *http.Request) {
 	username := r.FormValue("username")
 	currentRole := r.FormValue("current_role")
 
+	// Prevent changing own role
+	if username == adminUser.Username {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "You cannot change your own role",
+		})
+		return
+	}
+
 	// If trying to demote an admin, check if they're the last admin
 	if currentRole == "admin" {
 		isLastAdmin, err := h.userRepo.IsLastAdmin(username)
 		if err != nil {
-			http.Error(w, "Error checking admin status", http.StatusInternalServerError)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": "Error checking admin status",
+			})
 			return
 		}
 		if isLastAdmin {
-			http.Redirect(w, r, "/profile?error=Cannot demote the last admin user", http.StatusSeeOther)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{
+				"error": "Cannot demote the last admin user",
+			})
 			return
 		}
 	}
@@ -771,12 +799,28 @@ func (h *Handler) UpdateUserRole(w http.ResponseWriter, r *http.Request) {
 	// Update user role
 	err = h.userRepo.UpdateUserRole(username, newRole)
 	if err != nil {
-		http.Error(w, "Error updating user role", http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{
+			"error": "Error updating user role",
+		})
 		return
 	}
 
-	// Redirect back to profile page with success message
-	http.Redirect(w, r, "/profile?success=User role updated successfully", http.StatusSeeOther)
+	// Return success response
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{
+		"success": fmt.Sprintf("Successfully %s user %s",
+			func() string {
+				if currentRole == "admin" {
+					return "demoted"
+				}
+				return "promoted"
+			}(),
+			username,
+		),
+	})
 }
 
 func renderProfile(w http.ResponseWriter, data PageData) {
