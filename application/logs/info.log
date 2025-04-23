@@ -43,3 +43,15 @@ INFO: 2025/04/23 11:21:20 logger.go:39: [2025-04-23 11:21:20] Rendering admin da
 INFO: 2025/04/23 11:21:22 logger.go:39: [2025-04-23 11:21:22] Login page accessed
 INFO: 2025/04/23 11:21:26 logger.go:39: [2025-04-23 11:21:26] Login attempt for user: normalAida
 INFO: 2025/04/23 11:21:27 logger.go:39: [2025-04-23 11:21:27] Successful login for user: normalAida with role: regular
+INFO: 2025/04/23 11:23:52 logger.go:39: [2025-04-23 11:23:52] Application started
+INFO: 2025/04/23 11:23:59 logger.go:39: [2025-04-23 11:23:59] Login page accessed
+INFO: 2025/04/23 11:24:03 logger.go:39: [2025-04-23 11:24:03] Login attempt for user: aida
+INFO: 2025/04/23 11:24:03 logger.go:39: [2025-04-23 11:24:03] Successful login for user: aida with role: admin
+INFO: 2025/04/23 11:24:03 logger.go:39: [2025-04-23 11:24:03] Admin dashboard access attempt by user aida with role admin
+INFO: 2025/04/23 11:24:03 logger.go:39: [2025-04-23 11:24:03] Rendering admin dashboard for user aida
+INFO: 2025/04/23 11:26:22 logger.go:39: [2025-04-23 11:26:22] Application started
+INFO: 2025/04/23 11:26:26 logger.go:39: [2025-04-23 11:26:26] Admin dashboard access attempt by user aida with role admin
+INFO: 2025/04/23 11:26:26 logger.go:39: [2025-04-23 11:26:26] Rendering admin dashboard for user aida
+INFO: 2025/04/23 11:29:29 logger.go:39: [2025-04-23 11:29:29] Application started
+INFO: 2025/04/23 11:29:32 logger.go:39: [2025-04-23 11:29:32] Admin dashboard access attempt by user aida with role admin
+INFO: 2025/04/23 11:29:32 logger.go:39: [2025-04-23 11:29:32] Rendering admin dashboard for user aida
