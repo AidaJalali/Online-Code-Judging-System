@@ -1,0 +1,92 @@
+{{define "content"}}
+<div class="container mt-5">
+    <h2>Create Question</h2>
+    <form action="/create-question" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{if .Draft}}{{.Draft.Title}}{{end}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="statement" class="form-label">Problem Statement</label>
+            <textarea class="form-control" id="statement" name="statement" rows="5" required>{{if .Draft}}{{.Draft.Statement}}{{end}}</textarea>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="timeLimit" class="form-label">Time Limit (ms)</label>
+                <input type="number" class="form-control" id="timeLimit" name="timeLimit" value="{{if .Draft}}{{.Draft.TimeLimitMs}}{{else}}1000{{end}}" required>
+            </div>
+            <div class="col">
+                <label for="memoryLimit" class="form-label">Memory Limit (MB)</label>
+                <input type="number" class="form-control" id="memoryLimit" name="memoryLimit" value="{{if .Draft}}{{.Draft.MemoryLimitMb}}{{else}}128{{end}}" required>
+            </div>
+        </div>
+
+        <div id="testCases">
+            <h4>Test Cases</h4>
+            {{if .Draft}}
+                {{range $index, $case := .Draft.GetTestCases}}
+                <div class="test-case mb-3">
+                    <h5>Test Case {{add $index 1}}</h5>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label">Test Case {{add $index 1}} Input</label>
+                            <textarea class="form-control" name="test_input[]" rows="3" required>{{$case.Input}}</textarea>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Test Case {{add $index 1}} Output</label>
+                            <textarea class="form-control" name="test_output[]" rows="3" required>{{$case.Output}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            {{end}}
+        </div>
+
+        <button type="button" class="btn btn-secondary mb-3" id="addTestCase">Add Test Case</button>
+        <span id="testCaseCount" class="ms-2">(0/30 test cases)</span>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Save Question</button>
+        </div>
+    </form>
+</div>
+
+<script>
+let testCaseCount = document.querySelectorAll('.test-case').length;
+const MAX_TEST_CASES = 30;
+
+function updateTestCaseCount() {
+    document.getElementById('testCaseCount').textContent = `(${testCaseCount}/30 test cases)`;
+    const addButton = document.getElementById('addTestCase');
+    addButton.disabled = testCaseCount >= MAX_TEST_CASES;
+}
+
+document.getElementById('addTestCase').addEventListener('click', function() {
+    if (testCaseCount >= MAX_TEST_CASES) {
+        alert('Maximum number of test cases (30) reached.');
+        return;
+    }
+
+    testCaseCount++;
+    const template = `
+        <div class="test-case mb-3">
+            <h5>Test Case ${testCaseCount}</h5>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">Test Case ${testCaseCount} Input</label>
+                    <textarea class="form-control" name="test_input[]" rows="3" required></textarea>
+                </div>
+                <div class="col">
+                    <label class="form-label">Test Case ${testCaseCount} Output</label>
+                    <textarea class="form-control" name="test_output[]" rows="3" required></textarea>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('testCases').insertAdjacentHTML('beforeend', template);
+    updateTestCaseCount();
+});
+
+// Initialize the counter
+updateTestCaseCount();
+</script>
+{{end}} 

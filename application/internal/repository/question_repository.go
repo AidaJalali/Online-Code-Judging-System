@@ -20,8 +20,9 @@ func (r *QuestionRepository) CreateQuestion(question *models.Question) error {
 	query := `
 		INSERT INTO questions (
 			title, statement, time_limit_ms, memory_limit_mb,
-			status, owner_id, created_at, updated_at
-		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+			status, owner_id, created_at, updated_at,
+			test_input, test_output
+		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 		RETURNING id`
 
 	err := r.db.QueryRow(
@@ -34,6 +35,8 @@ func (r *QuestionRepository) CreateQuestion(question *models.Question) error {
 		question.OwnerID,
 		question.CreatedAt,
 		question.UpdatedAt,
+		question.TestInput,
+		question.TestOutput,
 	).Scan(&question.ID)
 
 	if err != nil {

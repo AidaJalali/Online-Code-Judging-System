@@ -38,11 +38,13 @@ type TestCase struct {
 type Handler struct {
 	userRepo     *repository.UserRepository
 	questionRepo QuestionRepository
+	draftRepo    *repository.DraftRepository
 }
 
-func NewHandler(userRepo *repository.UserRepository) *Handler {
+func NewHandler(userRepo *repository.UserRepository, draftRepo *repository.DraftRepository) *Handler {
 	return &Handler{
-		userRepo: userRepo,
+		userRepo:  userRepo,
+		draftRepo: draftRepo,
 	}
 }
 
@@ -466,45 +468,6 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) CreateQuestion(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	//// Check if user is authenticated
-	//session, err := r.Cookie("session")
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
-
-	//// Get user data from session
-	//user, err := h.userRepo.GetUserBySession(session.Value)
-	//if err != nil {
-	//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-	//	return
-	//}
-
-	// Check if user is admin
-	//if !user.IsAdmin {
-	//	http.Error(w, "Unauthorized", http.StatusUnauthorized)
-	//	return
-	//}
-
-	// Render create question template
-	tmpl, err := template.ParseFiles("templates/create_question.html")
-	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
-
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
-}
-
 func (h *Handler) SubmitQuestion(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -752,4 +715,8 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 		logger.Error("Failed to execute admin dashboard template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+}
+
+func (h *Handler) SetQuestionRepo(repo QuestionRepository) {
+	h.questionRepo = repo
 }

@@ -61,9 +61,12 @@ func main() {
 
 	// Create repositories
 	userRepo := repository.NewUserRepository(db)
+	draftRepo := repository.NewDraftRepository(db)
+	questionRepo := repository.NewQuestionRepository(db)
 
 	// Create handlers
-	handler := handlers.NewHandler(userRepo)
+	handler := handlers.NewHandler(userRepo, draftRepo)
+	handler.SetQuestionRepo(questionRepo)
 
 	// Create a new ServeMux
 	mux := http.NewServeMux()

@@ -1,130 +1,58 @@
-INFO: 2025/04/22 11:34:11 logger.go:39: [2025-04-22 11:34:11] Application started
-INFO: 2025/04/22 11:37:03 logger.go:39: [2025-04-22 11:37:03] Application started
-INFO: 2025/04/22 11:37:17 logger.go:39: [2025-04-22 11:37:17] Application started
-INFO: 2025/04/22 11:37:26 logger.go:39: [2025-04-22 11:37:26] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:37:34 logger.go:39: [2025-04-22 11:37:34] Register page accessed
-INFO: 2025/04/22 11:37:43 logger.go:39: [2025-04-22 11:37:43] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:40:30 logger.go:39: [2025-04-22 11:40:30] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:40:58 logger.go:39: [2025-04-22 11:40:58] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:41:07 logger.go:39: [2025-04-22 11:41:07] Registration failed for user mahdixak: Passwords do not match
-INFO: 2025/04/22 11:41:35 logger.go:39: [2025-04-22 11:41:35] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:44:11 logger.go:39: [2025-04-22 11:44:11] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:44:59 logger.go:39: [2025-04-22 11:44:59] Application started
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Login page accessed
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration attempt for user:  with role: 
-INFO: 2025/04/22 11:45:52 logger.go:39: [2025-04-22 11:45:52] Registration failed for user : Password too short
-INFO: 2025/04/22 11:45:55 logger.go:39: [2025-04-22 11:45:55] Application started
-INFO: 2025/04/22 11:46:28 logger.go:39: [2025-04-22 11:46:28] Application started
-INFO: 2025/04/22 11:46:44 logger.go:39: [2025-04-22 11:46:44] Register page accessed
-INFO: 2025/04/22 11:47:07 logger.go:39: [2025-04-22 11:47:07] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:48:41 logger.go:39: [2025-04-22 11:48:41] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:48:43 logger.go:39: [2025-04-22 11:48:43] Registration failed for user mahdixak: Passwords do not match
-INFO: 2025/04/22 11:49:22 logger.go:39: [2025-04-22 11:49:22] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:50:55 logger.go:39: [2025-04-22 11:50:55] Application started
-INFO: 2025/04/22 11:51:25 logger.go:39: [2025-04-22 11:51:25] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:56:28 logger.go:39: [2025-04-22 11:56:28] Application started
-INFO: 2025/04/22 11:56:41 logger.go:39: [2025-04-22 11:56:41] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:56:57 logger.go:39: [2025-04-22 11:56:57] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 11:59:22 logger.go:39: [2025-04-22 11:59:22] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 12:02:09 logger.go:39: [2025-04-22 12:02:09] Application started
-INFO: 2025/04/22 12:02:20 logger.go:39: [2025-04-22 12:02:20] Register page accessed
-INFO: 2025/04/22 12:03:26 logger.go:39: [2025-04-22 12:03:26] Registration attempt for user: mahdixak with role: user
-INFO: 2025/04/22 12:10:06 logger.go:39: [2025-04-22 12:10:06] Application started
-INFO: 2025/04/22 12:10:23 logger.go:39: [2025-04-22 12:10:23] Register page accessed
-INFO: 2025/04/22 12:10:46 logger.go:39: [2025-04-22 12:10:46] Registration attempt for user: mahdixak with role: regular
-INFO: 2025/04/22 12:14:06 logger.go:39: [2025-04-22 12:14:06] Successfully registered user: mahdixak with role: regular
-INFO: 2025/04/22 12:14:12 logger.go:39: [2025-04-22 12:14:12] Application started
-INFO: 2025/04/22 12:14:23 logger.go:39: [2025-04-22 12:14:23] Registration attempt for user: mahdixak with role: regular
-INFO: 2025/04/22 12:14:47 logger.go:39: [2025-04-22 12:14:47] Register page accessed
-INFO: 2025/04/22 12:14:55 logger.go:39: [2025-04-22 12:14:55] Registration attempt for user: mahdixak with role: regular
-INFO: 2025/04/22 12:16:21 logger.go:39: [2025-04-22 12:16:21] Application started
-INFO: 2025/04/22 12:16:40 logger.go:39: [2025-04-22 12:16:40] Registration attempt for user: ayda with role: admin
-INFO: 2025/04/22 12:17:00 logger.go:39: [2025-04-22 12:17:00] Successfully registered user: ayda with role: admin
-INFO: 2025/04/22 12:34:09 logger.go:39: [2025-04-22 12:34:09] Application started
-INFO: 2025/04/22 12:34:25 logger.go:39: [2025-04-22 12:34:25] Register page accessed
-INFO: 2025/04/22 12:34:27 logger.go:39: [2025-04-22 12:34:27] Register page accessed
-INFO: 2025/04/22 12:34:37 logger.go:39: [2025-04-22 12:34:37] Registration attempt for user: askhar with role: admin
-INFO: 2025/04/22 12:34:41 logger.go:39: [2025-04-22 12:34:41] Successfully registered user: askhar with role: admin
-INFO: 2025/04/22 12:34:41 logger.go:39: [2025-04-22 12:34:41] Login page accessed
-INFO: 2025/04/22 12:38:18 logger.go:39: [2025-04-22 12:38:18] Application started
-INFO: 2025/04/22 12:38:24 logger.go:39: [2025-04-22 12:38:24] Login page accessed
-INFO: 2025/04/22 12:38:32 logger.go:39: [2025-04-22 12:38:32] Login attempt for user: asghar
-INFO: 2025/04/22 12:39:22 logger.go:39: [2025-04-22 12:39:22] Login attempt for user: asghar
-INFO: 2025/04/22 12:40:10 logger.go:39: [2025-04-22 12:40:10] Application started
-INFO: 2025/04/22 12:40:25 logger.go:39: [2025-04-22 12:40:25] Login attempt for user: asghar
-INFO: 2025/04/22 12:40:25 logger.go:39: [2025-04-22 12:40:25] Failed login attempt for user asghar: User not found
-INFO: 2025/04/22 12:40:41 logger.go:39: [2025-04-22 12:40:41] Login attempt for user: asghar
-INFO: 2025/04/22 12:40:41 logger.go:39: [2025-04-22 12:40:41] Login attempt for user: asghar
-INFO: 2025/04/22 12:40:54 logger.go:39: [2025-04-22 12:40:54] Failed login attempt for user asghar: User not found
-INFO: 2025/04/22 12:43:58 logger.go:39: [2025-04-22 12:43:58] Failed login attempt for user asghar: User not found
-INFO: 2025/04/22 12:44:11 logger.go:39: [2025-04-22 12:44:11] Login attempt for user: askhar
-INFO: 2025/04/22 12:44:20 logger.go:39: [2025-04-22 12:44:20] Successful login for user: askhar with role: admin
-INFO: 2025/04/22 12:45:50 logger.go:39: [2025-04-22 12:45:50] Login attempt for user: mahdixak
-INFO: 2025/04/22 12:45:50 logger.go:39: [2025-04-22 12:45:50] Successful login for user: mahdixak with role: regular
-INFO: 2025/04/22 21:13:49 logger.go:39: [2025-04-22 21:13:49] Application started
-INFO: 2025/04/22 21:14:07 logger.go:39: [2025-04-22 21:14:07] Register page accessed
-INFO: 2025/04/22 21:14:18 logger.go:39: [2025-04-22 21:14:18] Registration attempt for user: akbari with role: admin
-INFO: 2025/04/22 21:14:22 logger.go:39: [2025-04-22 21:14:22] Successfully registered user: akbari with role: admin
-INFO: 2025/04/22 21:16:08 logger.go:39: [2025-04-22 21:16:08] Registration attempt for user: akbari with role: admin
-INFO: 2025/04/22 21:18:07 logger.go:39: [2025-04-22 21:18:07] Application started
-INFO: 2025/04/22 21:18:17 logger.go:39: [2025-04-22 21:18:17] Register page accessed
-INFO: 2025/04/22 21:18:17 logger.go:39: [2025-04-22 21:18:17] Registration attempt for user: akbari with role: admin
-INFO: 2025/04/22 21:18:17 logger.go:39: [2025-04-22 21:18:17] Register page accessed
-INFO: 2025/04/22 21:18:17 logger.go:39: [2025-04-22 21:18:17] Registration failed for user akbari: Username already exists
-INFO: 2025/04/22 21:18:28 logger.go:39: [2025-04-22 21:18:28] Registration attempt for user: akbari with role: admin
-INFO: 2025/04/22 21:18:28 logger.go:39: [2025-04-22 21:18:28] Registration failed for user akbari: Username already exists
-INFO: 2025/04/22 21:18:58 logger.go:39: [2025-04-22 21:18:58] Registration attempt for user: bozghale with role: admin
-INFO: 2025/04/22 21:19:05 logger.go:39: [2025-04-22 21:19:05] Successfully registered user: bozghale with role: admin
-INFO: 2025/04/22 21:34:28 logger.go:39: [2025-04-22 21:34:28] Application started
-INFO: 2025/04/22 21:34:36 logger.go:39: [2025-04-22 21:34:36] Register page accessed
-INFO: 2025/04/22 21:34:48 logger.go:39: [2025-04-22 21:34:48] Registration attempt for user: asoon with role: admin
-INFO: 2025/04/22 21:34:51 logger.go:39: [2025-04-22 21:34:51] Successfully registered user: asoon with role: admin
-INFO: 2025/04/22 21:34:51 logger.go:39: [2025-04-22 21:34:51] Admin dashboard access attempt by user mahdixak with role regular
-INFO: 2025/04/22 21:34:51 logger.go:39: [2025-04-22 21:34:51] Unauthorized access attempt to admin dashboard by user mahdixak with role regular
-INFO: 2025/04/22 21:35:02 logger.go:39: [2025-04-22 21:35:02] Register page accessed
-INFO: 2025/04/22 21:35:05 logger.go:39: [2025-04-22 21:35:05] Register page accessed
-INFO: 2025/04/22 21:35:23 logger.go:39: [2025-04-22 21:35:23] Registration attempt for user: mahdixakbari with role: admin
-INFO: 2025/04/22 21:35:24 logger.go:39: [2025-04-22 21:35:24] Successfully registered user: mahdixakbari with role: admin
-INFO: 2025/04/22 21:35:25 logger.go:39: [2025-04-22 21:35:25] Admin dashboard access attempt by user mahdixak with role regular
-INFO: 2025/04/22 21:35:25 logger.go:39: [2025-04-22 21:35:25] Unauthorized access attempt to admin dashboard by user mahdixak with role regular
-INFO: 2025/04/22 21:35:34 logger.go:39: [2025-04-22 21:35:34] Register page accessed
-INFO: 2025/04/22 21:35:44 logger.go:39: [2025-04-22 21:35:44] Registration attempt for user: mimalan with role: admin
-INFO: 2025/04/22 21:35:45 logger.go:39: [2025-04-22 21:35:45] Successfully registered user: mimalan with role: admin
-INFO: 2025/04/22 21:36:12 logger.go:39: [2025-04-22 21:36:12] Admin dashboard access attempt by user mahdixak with role regular
-INFO: 2025/04/22 21:36:12 logger.go:39: [2025-04-22 21:36:12] Unauthorized access attempt to admin dashboard by user mahdixak with role regular
-INFO: 2025/04/22 21:37:29 logger.go:39: [2025-04-22 21:37:29] Application started
-INFO: 2025/04/22 21:37:36 logger.go:39: [2025-04-22 21:37:36] Register page accessed
-INFO: 2025/04/22 21:37:49 logger.go:39: [2025-04-22 21:37:49] Registration attempt for user: hello with role: admin
-INFO: 2025/04/22 21:37:50 logger.go:39: [2025-04-22 21:37:50] Successfully registered user: hello with role: admin
-INFO: 2025/04/22 21:37:52 logger.go:39: [2025-04-22 21:37:52] Admin dashboard access attempt by user mahdixak with role regular
-INFO: 2025/04/22 21:37:52 logger.go:39: [2025-04-22 21:37:52] Unauthorized access attempt to admin dashboard by user mahdixak with role regular
-INFO: 2025/04/22 21:38:14 logger.go:39: [2025-04-22 21:38:14] Registration attempt for user: mmmm with role: regular
-INFO: 2025/04/22 21:38:15 logger.go:39: [2025-04-22 21:38:15] Successfully registered user: mmmm with role: regular
-INFO: 2025/04/22 21:42:22 logger.go:39: [2025-04-22 21:42:22] Application started
-INFO: 2025/04/22 21:42:27 logger.go:39: [2025-04-22 21:42:27] Register page accessed
-INFO: 2025/04/22 21:42:37 logger.go:39: [2025-04-22 21:42:37] Registration attempt for user: armin with role: admin
-INFO: 2025/04/22 21:42:37 logger.go:39: [2025-04-22 21:42:37] Registering user with role: admin
-INFO: 2025/04/22 21:42:39 logger.go:39: [2025-04-22 21:42:39] Successfully registered user: armin with role: admin
-INFO: 2025/04/22 21:42:41 logger.go:39: [2025-04-22 21:42:41] Redirecting admin user armin to admin dashboard
-INFO: 2025/04/22 21:42:43 logger.go:39: [2025-04-22 21:42:43] Admin dashboard access attempt by user armin with role admin
-INFO: 2025/04/22 21:42:43 logger.go:39: [2025-04-22 21:42:43] Rendering admin dashboard for user armin
-INFO: 2025/04/22 22:17:49 logger.go:39: [2025-04-22 22:17:49] Application started
-INFO: 2025/04/22 22:18:12 logger.go:39: [2025-04-22 22:18:12] Admin dashboard access attempt by user armin with role admin
-INFO: 2025/04/22 22:18:12 logger.go:39: [2025-04-22 22:18:12] Rendering admin dashboard for user armin
-INFO: 2025/04/22 22:18:19 logger.go:39: [2025-04-22 22:18:19] Login page accessed
-INFO: 2025/04/22 22:18:48 logger.go:39: [2025-04-22 22:18:48] Login attempt for user: askhar
-INFO: 2025/04/22 22:18:49 logger.go:39: [2025-04-22 22:18:49] Successful login for user: askhar with role: admin
-INFO: 2025/04/22 22:18:49 logger.go:39: [2025-04-22 22:18:49] Admin dashboard access attempt by user askhar with role admin
-INFO: 2025/04/22 22:18:49 logger.go:39: [2025-04-22 22:18:49] Rendering admin dashboard for user askhar
-INFO: 2025/04/22 22:22:02 logger.go:39: [2025-04-22 22:22:02] Application started
-INFO: 2025/04/22 22:22:16 logger.go:39: [2025-04-22 22:22:16] Login page accessed
-INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Login attempt for user: askhar
-INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Successful login for user: askhar with role: admin
-INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Admin dashboard access attempt by user askhar with role admin
-INFO: 2025/04/22 22:22:24 logger.go:39: [2025-04-22 22:22:24] Rendering admin dashboard for user askhar
-INFO: 2025/04/22 22:26:06 logger.go:39: [2025-04-22 22:26:06] Admin dashboard access attempt by user askhar with role admin
-INFO: 2025/04/22 22:26:06 logger.go:39: [2025-04-22 22:26:06] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 11:19:06 logger.go:39: [2025-04-23 11:19:06] Application started
+INFO: 2025/04/23 11:28:32 logger.go:39: [2025-04-23 11:28:32] Login page accessed
+INFO: 2025/04/23 11:28:40 logger.go:39: [2025-04-23 11:28:40] Login attempt for user: askhar
+INFO: 2025/04/23 11:28:40 logger.go:39: [2025-04-23 11:28:40] Successful login for user: askhar with role: admin
+INFO: 2025/04/23 11:28:40 logger.go:39: [2025-04-23 11:28:40] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/23 11:28:40 logger.go:39: [2025-04-23 11:28:40] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 12:45:01 logger.go:39: [2025-04-23 12:45:01] Application started
+INFO: 2025/04/23 12:45:15 logger.go:39: [2025-04-23 12:45:15] Login page accessed
+INFO: 2025/04/23 12:45:21 logger.go:39: [2025-04-23 12:45:21] Login attempt for user: askhar
+INFO: 2025/04/23 12:45:21 logger.go:39: [2025-04-23 12:45:21] Successful login for user: askhar with role: admin
+INFO: 2025/04/23 12:45:21 logger.go:39: [2025-04-23 12:45:21] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/23 12:45:21 logger.go:39: [2025-04-23 12:45:21] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 12:58:16 logger.go:39: [2025-04-23 12:58:16] Application started
+INFO: 2025/04/23 12:58:26 logger.go:39: [2025-04-23 12:58:26] Login page accessed
+INFO: 2025/04/23 12:58:33 logger.go:39: [2025-04-23 12:58:33] Login attempt for user: askhar
+INFO: 2025/04/23 12:58:33 logger.go:39: [2025-04-23 12:58:33] Successful login for user: askhar with role: admin
+INFO: 2025/04/23 12:58:33 logger.go:39: [2025-04-23 12:58:33] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/23 12:58:33 logger.go:39: [2025-04-23 12:58:33] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 13:00:46 logger.go:39: [2025-04-23 13:00:46] Application started
+INFO: 2025/04/23 13:01:13 logger.go:39: [2025-04-23 13:01:13] Application started
+INFO: 2025/04/23 13:01:23 logger.go:39: [2025-04-23 13:01:23] Login page accessed
+INFO: 2025/04/23 13:01:29 logger.go:39: [2025-04-23 13:01:29] Login attempt for user: askhar
+INFO: 2025/04/23 13:01:29 logger.go:39: [2025-04-23 13:01:29] Successful login for user: askhar with role: admin
+INFO: 2025/04/23 13:01:29 logger.go:39: [2025-04-23 13:01:29] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/23 13:01:29 logger.go:39: [2025-04-23 13:01:29] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 13:18:37 logger.go:39: [2025-04-23 13:18:37] Application started
+INFO: 2025/04/23 13:18:47 logger.go:39: [2025-04-23 13:18:47] Login page accessed
+INFO: 2025/04/23 13:18:51 logger.go:39: [2025-04-23 13:18:51] Login attempt for user: askhar
+INFO: 2025/04/23 13:18:51 logger.go:39: [2025-04-23 13:18:51] Successful login for user: askhar with role: admin
+INFO: 2025/04/23 13:18:51 logger.go:39: [2025-04-23 13:18:51] Admin dashboard access attempt by user askhar with role admin
+INFO: 2025/04/23 13:18:51 logger.go:39: [2025-04-23 13:18:51] Rendering admin dashboard for user askhar
+INFO: 2025/04/23 18:14:12 logger.go:39: [2025-04-23 18:14:12] Application started
+INFO: 2025/04/23 18:14:33 logger.go:39: [2025-04-23 18:14:33] Application started
+INFO: 2025/04/23 18:20:57 logger.go:39: [2025-04-23 18:20:57] Application started
+INFO: 2025/04/23 18:21:12 logger.go:39: [2025-04-23 18:21:12] Login page accessed
+INFO: 2025/04/23 18:21:17 logger.go:39: [2025-04-23 18:21:17] Login page accessed
+INFO: 2025/04/23 18:21:24 logger.go:39: [2025-04-23 18:21:24] Login attempt for user: askhar
+INFO: 2025/04/23 18:21:24 logger.go:39: [2025-04-23 18:21:24] Failed login attempt for user askhar: User not found
+INFO: 2025/04/23 18:21:31 logger.go:39: [2025-04-23 18:21:31] Register page accessed
+INFO: 2025/04/23 18:21:41 logger.go:39: [2025-04-23 18:21:41] Registration attempt for user: mahdixak with role: admin
+INFO: 2025/04/23 18:21:41 logger.go:39: [2025-04-23 18:21:41] Registering user with role: admin
+INFO: 2025/04/23 18:21:42 logger.go:39: [2025-04-23 18:21:42] Successfully registered user: mahdixak with role: admin
+INFO: 2025/04/23 18:21:43 logger.go:39: [2025-04-23 18:21:43] Redirecting admin user mahdixak to admin dashboard
+INFO: 2025/04/23 18:21:44 logger.go:39: [2025-04-23 18:21:44] Admin dashboard access attempt by user mahdixak with role admin
+INFO: 2025/04/23 18:21:44 logger.go:39: [2025-04-23 18:21:44] Rendering admin dashboard for user mahdixak
+INFO: 2025/04/23 18:46:56 logger.go:39: [2025-04-23 18:46:56] Application started
+INFO: 2025/04/23 18:47:05 logger.go:39: [2025-04-23 18:47:05] Login page accessed
+INFO: 2025/04/23 18:47:16 logger.go:39: [2025-04-23 18:47:16] Login attempt for user: mahdixak
+INFO: 2025/04/23 18:47:16 logger.go:39: [2025-04-23 18:47:16] Successful login for user: mahdixak with role: admin
+INFO: 2025/04/23 18:47:16 logger.go:39: [2025-04-23 18:47:16] Admin dashboard access attempt by user mahdixak with role admin
+INFO: 2025/04/23 18:47:16 logger.go:39: [2025-04-23 18:47:16] Rendering admin dashboard for user mahdixak
+INFO: 2025/04/23 19:43:52 logger.go:39: [2025-04-23 19:43:52] Application started
+INFO: 2025/04/23 19:44:04 logger.go:39: [2025-04-23 19:44:04] Login page accessed
+INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Login attempt for user: mahdixak
+INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Successful login for user: mahdixak with role: admin
+INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Admin dashboard access attempt by user mahdixak with role admin
+INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Rendering admin dashboard for user mahdixak
+INFO: 2025/04/24 12:04:25 logger.go:39: [2025-04-24 12:04:25] Application started

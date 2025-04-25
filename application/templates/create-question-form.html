@@ -1,143 +1,142 @@
 {{define "content"}}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="md:flex md:items-center md:justify-between mb-8">
-        <div class="flex-1 min-w-0">
-            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">Create New Question</h2>
-        </div>
-        <div class="mt-4 flex md:mt-0 md:ml-4">
-            <a href="/admin-dashboard" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                Back to Dashboard
-            </a>
-        </div>
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Create Question</h1>
     </div>
 
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-        <form action="/create-question" method="POST" enctype="multipart/form-data" class="divide-y divide-gray-200">
-            <!-- Basic Information -->
-            <div class="px-4 py-5 sm:p-6">
-                <div class="grid grid-cols-1 gap-6">
-                    <!-- Title -->
-                    <div>
-                        <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" name="title" id="title" required
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
-
-                    <!-- Statement -->
-                    <div>
-                        <label for="statement" class="block text-sm font-medium text-gray-700">Problem Statement</label>
-                        <textarea id="statement" name="statement" rows="6" required
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
-                        <p class="mt-2 text-sm text-gray-500">Describe the problem statement clearly, including any constraints and examples.</p>
-                    </div>
-
-                    <!-- Limits -->
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div>
-                            <label for="timeLimit" class="block text-sm font-medium text-gray-700">Time Limit (milliseconds)</label>
-                            <input type="number" name="timeLimit" id="timeLimit" required min="100" max="10000" value="1000"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        </div>
-                        <div>
-                            <label for="memoryLimit" class="block text-sm font-medium text-gray-700">Memory Limit (MB)</label>
-                            <input type="number" name="memoryLimit" id="memoryLimit" required min="16" max="512" value="128"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <!-- Input/Output Format -->
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div>
-                            <label for="input" class="block text-sm font-medium text-gray-700">Input Format</label>
-                            <textarea id="input" name="input" rows="4" required
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
-                            <p class="mt-2 text-sm text-gray-500">Describe the input format that solutions should expect.</p>
-                        </div>
-                        <div>
-                            <label for="output" class="block text-sm font-medium text-gray-700">Output Format</label>
-                            <textarea id="output" name="output" rows="4" required
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
-                            <p class="mt-2 text-sm text-gray-500">Describe the expected output format that solutions should produce.</p>
-                        </div>
-                    </div>
+        <div class="px-4 py-5 sm:p-6">
+            <form action="/create-question" method="POST" class="space-y-6" enctype="multipart/form-data">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" name="title" id="title" value="{{if .Draft}}{{.Draft.Title}}{{end}}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
                 </div>
-            </div>
 
-            <!-- Test Cases -->
-            <div class="px-4 py-5 sm:p-6">
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Test Cases</h3>
-                        <p class="mt-1 text-sm text-gray-500">Add test cases to validate solutions.</p>
+                <div>
+                    <label for="statement" class="block text-sm font-medium text-gray-700">Problem Statement</label>
+                    <textarea name="statement" id="statement" rows="4"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>{{if .Draft}}{{.Draft.Statement}}{{end}}</textarea>
+                </div>
+
+                <div>
+                    <label for="timeLimit" class="block text-sm font-medium text-gray-700">Time Limit (ms)</label>
+                    <input type="number" name="timeLimit" id="timeLimit" 
+                        value="{{if .Draft}}{{.Draft.TimeLimitMs}}{{else}}1000{{end}}" min="100"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
+                </div>
+
+                <div>
+                    <label for="memoryLimit" class="block text-sm font-medium text-gray-700">Memory Limit (MB)</label>
+                    <input type="number" name="memoryLimit" id="memoryLimit" 
+                        value="{{if .Draft}}{{.Draft.MemoryLimitMb}}{{else}}128{{end}}" min="1"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
+                </div>
+
+                <div>
+                    <label for="solutionFile" class="block text-sm font-medium text-gray-700">Solution File (Go)</label>
+                    <div class="mt-1 flex items-center">
+                        <input type="file" name="solutionFile" id="solutionFile" accept=".go"
+                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            required>
                     </div>
+                    <p class="mt-2 text-sm text-gray-500">Upload your Go solution file. This will be used to validate test cases.</p>
+                </div>
 
-                    <div id="testCasesContainer" class="space-y-4">
-                        <div class="test-case bg-gray-50 rounded-lg p-4">
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div id="testCases" class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-900">Test Cases</h3>
+                        <span id="testCaseCount" class="text-sm text-gray-500">(0/30 test cases)</span>
+                    </div>
+                    {{if .Draft}}
+                        {{range $index, $case := .Draft.GetTestCases}}
+                        <div class="test-case space-y-3 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="text-sm font-medium text-gray-700">Test Case {{add $index 1}}</h4>
+                            <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Solution File (Go)</label>
-                                    <input type="file" name="solution" accept=".go" required
-                                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                                    <p class="mt-2 text-sm text-gray-500">Upload your Go solution file.</p>
+                                    <label class="block text-sm font-medium text-gray-700">Input</label>
+                                    <textarea name="test_input[]" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$case.Input}}</textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Expected Output</label>
-                                    <textarea name="testOutputs[]" rows="2" required
-                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                                    <label class="block text-sm font-medium text-gray-700">Output</label>
+                                    <textarea name="test_output[]" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$case.Output}}</textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        {{end}}
+                    {{end}}
+                </div>
 
-                    <button type="button" onclick="addTestCase()"
-                        class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        <svg class="-ml-0.5 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add Test Case
+                <button type="button" id="addTestCase"
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Add Test Case
+                </button>
+
+                <div class="flex justify-end space-x-3">
+                    <a href="/admin-dashboard"
+                        class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Create Question
                     </button>
                 </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="px-4 py-4 sm:px-6 flex justify-end space-x-3">
-                <button type="button" onclick="window.location.href='/admin-dashboard'"
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Cancel
-                </button>
-                <button type="submit"
-                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Create Question
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
 <script>
-function addTestCase() {
-    const container = document.getElementById('testCasesContainer');
-    const newTestCase = document.createElement('div');
-    newTestCase.className = 'test-case bg-gray-50 rounded-lg p-4';
-    newTestCase.innerHTML = `
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Solution File (Go)</label>
-                <input type="file" name="solution" accept=".go" required
-                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Expected Output</label>
-                <textarea name="testOutputs[]" rows="2" required
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+let testCaseCount = document.querySelectorAll('.test-case').length;
+const MAX_TEST_CASES = 30;
+
+function updateTestCaseCount() {
+    document.getElementById('testCaseCount').textContent = `(${testCaseCount}/30 test cases)`;
+    const addButton = document.getElementById('addTestCase');
+    addButton.disabled = testCaseCount >= MAX_TEST_CASES;
+    if (testCaseCount >= MAX_TEST_CASES) {
+        addButton.classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+        addButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+}
+
+document.getElementById('addTestCase').addEventListener('click', function() {
+    if (testCaseCount >= MAX_TEST_CASES) {
+        alert('Maximum number of test cases (30) reached.');
+        return;
+    }
+
+    testCaseCount++;
+    const template = `
+        <div class="test-case space-y-3 p-4 bg-gray-50 rounded-lg">
+            <h4 class="text-sm font-medium text-gray-700">Test Case ${testCaseCount}</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Input</label>
+                    <textarea name="test_input[]" rows="3" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Output</label>
+                    <textarea name="test_output[]" rows="3" required
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                </div>
             </div>
         </div>
-        <button type="button" onclick="this.parentElement.remove()"
-            class="mt-2 inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-            Remove Test Case
-        </button>
     `;
-    container.appendChild(newTestCase);
-}
+    document.getElementById('testCases').insertAdjacentHTML('beforeend', template);
+    updateTestCaseCount();
+});
+
+// Initialize the counter
+updateTestCaseCount();
 </script>
 {{end}} 

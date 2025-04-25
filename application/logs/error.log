@@ -13,3 +13,9 @@ ERROR: 2025/04/22 12:16:20 logger.go:44: [2025-04-22 12:16:20] Failed to create 
 ERROR: 2025/04/22 12:38:32 logger.go:44: [2025-04-22 12:38:32] Database error during login for user asghar: pq: column "password" does not exist
 ERROR: 2025/04/22 12:40:07 logger.go:44: [2025-04-22 12:40:07] Database error during login for user asghar: pq: column "password" does not exist
 ERROR: 2025/04/22 21:18:03 logger.go:44: [2025-04-22 21:18:03] Failed to create user akbari: pq: duplicate key value violates unique constraint "users_username_key"
+ERROR: 2025/04/23 12:45:23 logger.go:44: [2025-04-23 12:45:23] Failed to get draft: pq: column "test_input" does not exist
+ERROR: 2025/04/23 12:58:34 logger.go:44: [2025-04-23 12:58:34] Failed to get draft: pq: column "test_input" does not exist
+ERROR: 2025/04/23 13:01:30 logger.go:44: [2025-04-23 13:01:30] Failed to get draft: pq: column "test_input" does not exist
+ERROR: 2025/04/23 13:18:33 logger.go:44: [2025-04-23 13:18:33] Failed to get draft: pq: column "test_input" does not exist
+ERROR: 2025/04/23 18:14:15 logger.go:44: [2025-04-23 18:14:15] Failed to initialize database: error connecting to database: dial tcp 81.12.30.45:30226: connectex: No connection could be made because the target machine actively refused it.
+ERROR: 2025/04/23 18:14:35 logger.go:44: [2025-04-23 18:14:35] Failed to initialize database: error connecting to database: dial tcp 81.12.30.45:30226: connectex: No connection could be made because the target machine actively refused it.
