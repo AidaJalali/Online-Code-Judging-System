@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+//ye comment e alaki
+
 type QuestionRepository interface {
 	CreateQuestion(question *models.Question) error
 }
