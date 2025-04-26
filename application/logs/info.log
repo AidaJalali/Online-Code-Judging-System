@@ -56,3 +56,36 @@ INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Successful login f
 INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Admin dashboard access attempt by user mahdixak with role admin
 INFO: 2025/04/23 19:44:10 logger.go:39: [2025-04-23 19:44:10] Rendering admin dashboard for user mahdixak
 INFO: 2025/04/24 12:04:25 logger.go:39: [2025-04-24 12:04:25] Application started
+INFO: 2025/04/25 20:58:08 logger.go:39: [2025-04-25 20:58:08] Application started
+INFO: 2025/04/25 21:00:04 logger.go:39: [2025-04-25 21:00:04] Register page accessed
+INFO: 2025/04/25 21:00:16 logger.go:39: [2025-04-25 21:00:16] Registration attempt for user: mahdiakbari with role: admin
+INFO: 2025/04/25 21:00:17 logger.go:39: [2025-04-25 21:00:17] Registering user with role: admin
+INFO: 2025/04/25 21:00:17 logger.go:39: [2025-04-25 21:00:17] Successfully registered user: mahdiakbari with role: admin
+INFO: 2025/04/25 21:00:18 logger.go:39: [2025-04-25 21:00:18] Redirecting admin user mahdiakbari to admin dashboard
+INFO: 2025/04/25 21:00:18 logger.go:39: [2025-04-25 21:00:18] Admin dashboard access attempt by user mahdiakbari with role admin
+INFO: 2025/04/25 21:00:18 logger.go:39: [2025-04-25 21:00:18] Rendering admin dashboard for user mahdiakbari
+INFO: 2025/04/25 21:15:41 logger.go:39: [2025-04-25 21:15:41] Application started
+INFO: 2025/04/25 21:15:55 logger.go:39: [2025-04-25 21:15:55] Login page accessed
+INFO: 2025/04/25 21:15:59 logger.go:39: [2025-04-25 21:15:59] Login attempt for user: mahdiakbari
+INFO: 2025/04/25 21:15:59 logger.go:39: [2025-04-25 21:15:59] Successful login for user: mahdiakbari with role: admin
+INFO: 2025/04/25 21:16:00 logger.go:39: [2025-04-25 21:16:00] Admin dashboard access attempt by user mahdiakbari with role admin
+INFO: 2025/04/25 21:16:00 logger.go:39: [2025-04-25 21:16:00] Rendering admin dashboard for user mahdiakbari
+INFO: 2025/04/26 09:24:17 logger.go:39: [2025-04-26 09:24:17] Application started
+INFO: 2025/04/26 09:24:26 logger.go:39: [2025-04-26 09:24:26] Login page accessed
+INFO: 2025/04/26 09:24:31 logger.go:39: [2025-04-26 09:24:31] Login attempt for user: mahdiakbari
+INFO: 2025/04/26 09:24:31 logger.go:39: [2025-04-26 09:24:31] Successful login for user: mahdiakbari with role: admin
+INFO: 2025/04/26 09:24:31 logger.go:39: [2025-04-26 09:24:31] Admin dashboard access attempt by user mahdiakbari with role admin
+INFO: 2025/04/26 09:24:31 logger.go:39: [2025-04-26 09:24:31] Rendering admin dashboard for user mahdiakbari
+INFO: 2025/04/26 09:29:26 logger.go:39: [2025-04-26 09:29:26] Application started
+INFO: 2025/04/26 09:31:16 logger.go:39: [2025-04-26 09:31:16] Login page accessed
+INFO: 2025/04/26 09:31:28 logger.go:39: [2025-04-26 09:31:28] Login attempt for user: mahdiakbari
+INFO: 2025/04/26 09:31:28 logger.go:39: [2025-04-26 09:31:28] Successful login for user: mahdiakbari with role: admin
+INFO: 2025/04/26 09:31:28 logger.go:39: [2025-04-26 09:31:28] Admin dashboard access attempt by user mahdiakbari with role admin
+INFO: 2025/04/26 09:31:28 logger.go:39: [2025-04-26 09:31:28] Rendering admin dashboard for user mahdiakbari
+INFO: 2025/04/26 09:32:10 logger.go:39: [2025-04-26 09:32:10] Creating question: power 2 
+INFO: 2025/04/26 09:32:10 logger.go:39: [2025-04-26 09:32:10] Successfully created question with ID 2
+INFO: 2025/04/26 09:34:48 logger.go:39: [2025-04-26 09:34:48] Login page accessed
+INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Login attempt for user: mahdiakbari
+INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Successful login for user: mahdiakbari with role: admin
+INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Admin dashboard access attempt by user mahdiakbari with role admin
+INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Rendering admin dashboard for user mahdiakbari

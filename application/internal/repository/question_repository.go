@@ -47,3 +47,46 @@ func (r *QuestionRepository) CreateQuestion(question *models.Question) error {
 	logger.Info("Successfully created question with ID %d", question.ID)
 	return nil
 }
+
+func (r *QuestionRepository) GetAllQuestions() ([]models.Question, error) {
+	query := `
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	`
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var questions []models.Question
+	for rows.Next() {
+		var q models.Question
+		err := rows.Scan(
+			&q.ID,
+			&q.Title,
+			&q.Statement,
+			&q.TimeLimitMs,
+			&q.MemoryLimitMb,
+			&q.Status,
+			&q.OwnerID,
+			&q.CreatedAt,
+			&q.UpdatedAt,
+			&q.TestInput,
+			&q.TestOutput,
+		)
+		if err != nil {
+			return nil, err
+		}
+		questions = append(questions, q)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return questions, nil
+}

@@ -19,3 +19,9 @@ ERROR: 2025/04/23 13:01:30 logger.go:44: [2025-04-23 13:01:30] Failed to get dra
 ERROR: 2025/04/23 13:18:33 logger.go:44: [2025-04-23 13:18:33] Failed to get draft: pq: column "test_input" does not exist
 ERROR: 2025/04/23 18:14:15 logger.go:44: [2025-04-23 18:14:15] Failed to initialize database: error connecting to database: dial tcp 81.12.30.45:30226: connectex: No connection could be made because the target machine actively refused it.
 ERROR: 2025/04/23 18:14:35 logger.go:44: [2025-04-23 18:14:35] Failed to initialize database: error connecting to database: dial tcp 81.12.30.45:30226: connectex: No connection could be made because the target machine actively refused it.
+ERROR: 2025/04/25 21:01:50 logger.go:44: [2025-04-25 21:01:50] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/25 21:02:44 logger.go:44: [2025-04-25 21:02:44] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/25 21:17:06 logger.go:44: [2025-04-25 21:17:06] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/25 21:18:23 logger.go:44: [2025-04-25 21:18:23] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/25 21:36:49 logger.go:44: [2025-04-25 21:36:49] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/26 09:29:19 logger.go:44: [2025-04-26 09:29:19] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification

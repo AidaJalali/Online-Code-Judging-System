@@ -68,7 +68,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -104,6 +104,7 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create or update draft
+	now := time.Now().Format(time.RFC3339)
 	draft := &models.Question{
 		Title:         r.FormValue("title"),
 		Statement:     r.FormValue("statement"),
@@ -111,6 +112,8 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 		MemoryLimitMb: parseInt(r.FormValue("memoryLimit"), 128),
 		Status:        models.StatusDraft,
 		OwnerID:       user.ID,
+		CreatedAt:     now,
+		UpdatedAt:     now,
 	}
 
 	// Set test cases
@@ -126,10 +129,10 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	// If form is complete, publish the question
 	if draft.Title != "" && draft.Statement != "" && len(testCases) > 0 {
 		// Update the status to published
-		now := time.Now()
+		now = time.Now().Format(time.RFC3339)
 		draft.Status = models.StatusDraft // This will be updated to published by the repository
-		draft.CreatedAt = now.Format(time.RFC3339)
-		draft.UpdatedAt = now.Format(time.RFC3339)
+		draft.CreatedAt = now
+		draft.UpdatedAt = now
 
 		if err := h.questionRepo.CreateQuestion(draft); err != nil {
 			logger.Error("Failed to create question: %v", err)

@@ -35,6 +35,11 @@ type TestCase struct {
 	Output string
 }
 
+type QuestionRepository interface {
+	CreateQuestion(question *models.Question) error
+	GetAllQuestions() ([]models.Question, error)
+}
+
 type Handler struct {
 	userRepo     *repository.UserRepository
 	questionRepo QuestionRepository
@@ -719,4 +724,42 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) SetQuestionRepo(repo QuestionRepository) {
 	h.questionRepo = repo
+}
+
+func (h *Handler) ManageQuestions(w http.ResponseWriter, r *http.Request) {
+	// Check if user is authenticated and is admin
+	user, err := h.getAuthenticatedUser(r)
+	if err != nil || user == nil || user.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get all questions from the database
+	questions, err := h.questionRepo.GetAllQuestions()
+	if err != nil {
+		logger.Error("Failed to get questions: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:     "Manage Questions",
+		User:      user,
+		Questions: questions,
+	}
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/manage-questions.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse manage questions template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		logger.Error("Failed to execute manage questions template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 }

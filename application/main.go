@@ -86,6 +86,7 @@ func main() {
 	//mux.HandleFunc("/questions", handler.Questions)
 	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
 	mux.HandleFunc("/create-question", handler.HandleCreateQuestion)
+	mux.HandleFunc("/manage-questions", handler.ManageQuestions)
 	//mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
 	//mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
