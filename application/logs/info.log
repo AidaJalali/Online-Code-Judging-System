@@ -89,3 +89,4 @@ INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Login attempt for 
 INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Successful login for user: mahdiakbari with role: admin
 INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Admin dashboard access attempt by user mahdiakbari with role admin
 INFO: 2025/04/26 09:34:53 logger.go:39: [2025-04-26 09:34:53] Rendering admin dashboard for user mahdiakbari
+INFO: 2025/04/26 16:16:06 logger.go:39: [2025-04-26 16:16:06] Application started
