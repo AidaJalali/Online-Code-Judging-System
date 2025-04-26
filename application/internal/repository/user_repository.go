@@ -7,15 +7,15 @@ import (
 	"time"
 )
 
-type UserRepository struct {
+type UserRepositoryImpl struct {
 	db *sql.DB
 }
 
-func NewUserRepository(db *sql.DB) *UserRepository {
-	return &UserRepository{db: db}
+func NewUserRepository(db *sql.DB) UserRepository {
+	return &UserRepositoryImpl{db: db}
 }
 
-func (r *UserRepository) CreateUser(user *models.User) error {
+func (r *UserRepositoryImpl) CreateUser(user *models.User) error {
 	query := `
 		INSERT INTO users (username, password_hash, role)
 		VALUES ($1, $2, $3)
@@ -36,7 +36,7 @@ func (r *UserRepository) CreateUser(user *models.User) error {
 	return nil
 }
 
-func (r *UserRepository) GetUserByUsername(username string) (*models.User, error) {
+func (r *UserRepositoryImpl) GetUserByUsername(username string) (*models.User, error) {
 	query := `
 		SELECT id, username, password_hash, role
 		FROM users
@@ -61,37 +61,34 @@ func (r *UserRepository) GetUserByUsername(username string) (*models.User, error
 	return user, nil
 }
 
-func (r *UserRepository) UsernameExists(username string) (bool, error) {
+func (r *UserRepositoryImpl) GetUserByID(id int64) (*models.User, error) {
 	query := `
-		SELECT EXISTS(SELECT 1 FROM users WHERE username = $1)
+		SELECT id, username, password_hash, role
+		FROM users
+		WHERE id = $1
 	`
 
-	var exists bool
-	err := r.db.QueryRow(query, username).Scan(&exists)
+	user := &models.User{}
+	err := r.db.QueryRow(query, id).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Password,
+		&user.Role,
+	)
+
 	if err != nil {
-		return false, err
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
 	}
 
-	return exists, nil
+	return user, nil
 }
 
-func (r *UserRepository) EmailExists(email string) (bool, error) {
+func (r *UserRepositoryImpl) GetUserBySession(sessionID string) (*models.User, error) {
 	query := `
-		SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)
-	`
-
-	var exists bool
-	err := r.db.QueryRow(query, email).Scan(&exists)
-	if err != nil {
-		return false, err
-	}
-
-	return exists, nil
-}
-
-func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error) {
-	query := `
-		SELECT u.id, u.username, u.password, u.role
+		SELECT u.id, u.username, u.password_hash, u.role
 		FROM users u
 		JOIN sessions s ON u.id = s.user_id
 		WHERE s.id = $1 AND s.expires_at > $2
@@ -115,7 +112,35 @@ func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error
 	return user, nil
 }
 
-func (r *UserRepository) UpdateUser(user *models.User) error {
+func (r *UserRepositoryImpl) UsernameExists(username string) (bool, error) {
+	query := `
+		SELECT EXISTS(SELECT 1 FROM users WHERE username = $1)
+	`
+
+	var exists bool
+	err := r.db.QueryRow(query, username).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *UserRepositoryImpl) EmailExists(email string) (bool, error) {
+	query := `
+		SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)
+	`
+
+	var exists bool
+	err := r.db.QueryRow(query, email).Scan(&exists)
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *UserRepositoryImpl) UpdateUser(user *models.User) error {
 	query := `
 		UPDATE users 
 		SET password_hash = $1, updated_at = $2
@@ -136,7 +161,7 @@ func (r *UserRepository) UpdateUser(user *models.User) error {
 	return nil
 }
 
-func (r *UserRepository) GetAllUsers() ([]*models.User, error) {
+func (r *UserRepositoryImpl) GetAllUsers() ([]*models.User, error) {
 	query := `
 		SELECT id, username, role
 		FROM users
@@ -152,21 +177,21 @@ func (r *UserRepository) GetAllUsers() ([]*models.User, error) {
 	var users []*models.User
 	for rows.Next() {
 		user := &models.User{}
-		err := rows.Scan(&user.ID, &user.Username, &user.Role)
+		err := rows.Scan(
+			&user.ID,
+			&user.Username,
+			&user.Role,
+		)
 		if err != nil {
 			return nil, err
 		}
 		users = append(users, user)
 	}
 
-	if err = rows.Err(); err != nil {
-		return nil, err
-	}
-
 	return users, nil
 }
 
-func (r *UserRepository) UpdateUserRole(username string, newRole string) error {
+func (r *UserRepositoryImpl) UpdateUserRole(username string, newRole string) error {
 	query := `
 		UPDATE users 
 		SET role = $1, updated_at = $2
@@ -187,18 +212,18 @@ func (r *UserRepository) UpdateUserRole(username string, newRole string) error {
 	return nil
 }
 
-func (r *UserRepository) IsLastAdmin(username string) (bool, error) {
+func (r *UserRepositoryImpl) IsLastAdmin(username string) (bool, error) {
 	query := `
-		SELECT COUNT(*) 
-		FROM users 
-		WHERE role = 'admin' AND username != $1
+		SELECT COUNT(*) = 1
+		FROM users
+		WHERE role = 'admin' AND username = $1
 	`
 
-	var count int
-	err := r.db.QueryRow(query, username).Scan(&count)
+	var isLastAdmin bool
+	err := r.db.QueryRow(query, username).Scan(&isLastAdmin)
 	if err != nil {
 		return false, err
 	}
 
-	return count == 0, nil
+	return isLastAdmin, nil
 }

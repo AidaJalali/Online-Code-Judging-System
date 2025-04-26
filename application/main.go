@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"online-judge/internal/errors"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -54,13 +56,13 @@ func main() {
 	logger.Init()
 	logger.Info("Application started")
 
-	// Initialize database connection
+	// Initialize database connection pool
 	db, err := config.InitDB()
 	if err != nil {
 		logger.Error("Failed to initialize database: %v", err)
 		log.Fatal(err)
 	}
-	defer db.Close()
+	defer config.CloseDB()
 
 	// Create repositories
 	userRepo := repository.NewUserRepository(db)
@@ -133,12 +135,12 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 			"templates/login.html",
 		)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewInternalError("Failed to parse template", err))
 			return
 		}
 
 		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewInternalError("Failed to execute template", err))
 		}
 		return
 	}
@@ -147,22 +149,21 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
-		// Initialize database connection
-		db, err := config.InitDB()
-		if err != nil {
-			http.Error(w, "Database connection error", http.StatusInternalServerError)
+		// Get database connection from pool
+		db := config.GetDB()
+		if db == nil {
+			errors.HandleError(w, errors.NewDatabaseError("Database connection not available", nil))
 			return
 		}
-		defer db.Close()
 
 		userRepo := repository.NewUserRepository(db)
 		user, err := userRepo.GetUserByUsername(username)
 		if err != nil {
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewDatabaseError("Failed to get user", err))
 			return
 		}
 
-		if user == nil || user.Password != password {
+		if user == nil {
 			data := PageData{
 				Title: "Sign In",
 				Error: "Invalid username or password",
@@ -173,21 +174,48 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 				"templates/login.html",
 			)
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+				errors.HandleError(w, errors.NewInternalError("Failed to parse template", err))
 				return
 			}
 
 			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+				errors.HandleError(w, errors.NewInternalError("Failed to execute template", err))
 			}
 			return
 		}
 
-		// Set session cookie (simplified version)
+		// Verify password using bcrypt
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+		if err != nil {
+			data := PageData{
+				Title: "Sign In",
+				Error: "Invalid username or password",
+			}
+
+			tmpl, err := template.ParseFiles(
+				"templates/base.html",
+				"templates/login.html",
+			)
+			if err != nil {
+				errors.HandleError(w, errors.NewInternalError("Failed to parse template", err))
+				return
+			}
+
+			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+				errors.HandleError(w, errors.NewInternalError("Failed to execute template", err))
+			}
+			return
+		}
+
+		// Set session cookie with secure options
 		http.SetCookie(w, &http.Cookie{
-			Name:  "username",
-			Value: username,
-			Path:  "/",
+			Name:     "username",
+			Value:    username,
+			Path:     "/",
+			HttpOnly: true,
+			Secure:   true,
+			SameSite: http.SameSiteStrictMode,
+			MaxAge:   3600, // 1 hour
 		})
 
 		http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
@@ -204,11 +232,11 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			"templates/register.html",
 		)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewInternalError("Failed to parse template", err))
 			return
 		}
 		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewInternalError("Failed to execute template", err))
 		}
 		return
 	}
@@ -234,20 +262,19 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Initialize database connection
-		db, err := config.InitDB()
-		if err != nil {
-			http.Error(w, "Database connection error", http.StatusInternalServerError)
+		// Get database connection from pool
+		db := config.GetDB()
+		if db == nil {
+			errors.HandleError(w, errors.NewDatabaseError("Database connection not available", nil))
 			return
 		}
-		defer db.Close()
 
 		userRepo := repository.NewUserRepository(db)
 
 		// Check if username exists
 		exists, err := userRepo.UsernameExists(username)
 		if err != nil {
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewDatabaseError("Failed to check username existence", err))
 			return
 		}
 		if exists {
@@ -255,10 +282,10 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Hash password (you should use a proper password hashing library like bcrypt)
+		// Hash password using bcrypt
 		hashedPassword, err := hashPassword(password)
 		if err != nil {
-			http.Error(w, "Error processing password", http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewInternalError("Failed to hash password", err))
 			return
 		}
 
@@ -271,7 +298,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 
 		err = userRepo.CreateUser(user)
 		if err != nil {
-			http.Error(w, "Error creating user", http.StatusInternalServerError)
+			errors.HandleError(w, errors.NewDatabaseError("Failed to create user", err))
 			return
 		}
 
@@ -290,12 +317,12 @@ func renderError(w http.ResponseWriter, errorMessage string) {
 		"templates/register.html",
 	)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		errors.HandleError(w, errors.NewInternalError("Failed to parse template", err))
 		return
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		errors.HandleError(w, errors.NewInternalError("Failed to execute template", err))
 	}
 }
 
@@ -306,9 +333,11 @@ func isValidEmail(email string) bool {
 }
 
 func hashPassword(password string) (string, error) {
-	// You should use a proper password hashing library like bcrypt
-	// This is just a placeholder
-	return password, nil
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hashedPassword), nil
 }
 
 func dashboardHandler(w http.ResponseWriter, r *http.Request) {

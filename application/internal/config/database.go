@@ -3,31 +3,54 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	"sync"
+	"time"
 
 	_ "github.com/lib/pq"
 )
 
-const (
-	host     = "b7cc3bd2-3f82-461a-b79f-21b3dd0b7461.hadb.ir"
-	port     = 30226
-	user     = "postgres"
-	password = "feJ9hH6xiSBkT27G4PW5"
-	dbname   = "postgres"
+var (
+	db     *sql.DB
+	dbOnce sync.Once
 )
 
+// InitDB initializes the database connection pool
 func InitDB() (*sql.DB, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	var err error
+	dbOnce.Do(func() {
+		// Replace these with your actual database configuration
+		connStr := "user=postgres dbname=online_judge sslmode=disable password=postgres host=localhost port=5432"
 
-	db, err := sql.Open("postgres", psqlInfo)
-	if err != nil {
-		return nil, fmt.Errorf("error opening database: %v", err)
-	}
+		db, err = sql.Open("postgres", connStr)
+		if err != nil {
+			return
+		}
 
-	err = db.Ping()
+		// Set connection pool settings
+		db.SetMaxOpenConns(25)
+		db.SetMaxIdleConns(25)
+		db.SetConnMaxLifetime(5 * time.Minute)
+
+		// Test the connection
+		err = db.Ping()
+	})
+
 	if err != nil {
-		return nil, fmt.Errorf("error connecting to database: %v", err)
+		return nil, fmt.Errorf("failed to initialize database: %w", err)
 	}
 
 	return db, nil
+}
+
+// GetDB returns the database connection pool
+func GetDB() *sql.DB {
+	return db
+}
+
+// CloseDB closes the database connection pool
+func CloseDB() error {
+	if db != nil {
+		return db.Close()
+	}
+	return nil
 }

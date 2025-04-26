@@ -48,11 +48,11 @@ type TestCase struct {
 }
 
 type Handler struct {
-	userRepo     *repository.UserRepository
+	userRepo     repository.UserRepository
 	questionRepo QuestionRepository
 }
 
-func NewHandler(userRepo *repository.UserRepository) *Handler {
+func NewHandler(userRepo repository.UserRepository) *Handler {
 	return &Handler{
 		userRepo: userRepo,
 	}
