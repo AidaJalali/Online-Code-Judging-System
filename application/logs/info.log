@@ -547,3 +547,41 @@ INFO: 2025/04/27 11:58:17 logger.go:39: [2025-04-27 11:58:17] Registration faile
 INFO: 2025/04/27 11:58:24 logger.go:39: [2025-04-27 11:58:24] Login page accessed
 INFO: 2025/04/27 11:58:25 logger.go:39: [2025-04-27 11:58:25] Login attempt for user: meowm
 INFO: 2025/04/27 11:58:25 logger.go:39: [2025-04-27 11:58:25] Successful login for user: meowm with role: regular
+INFO: 2025/04/27 12:07:21 logger.go:39: [2025-04-27 12:07:21] Login page accessed
+INFO: 2025/04/27 12:08:43 logger.go:39: [2025-04-27 12:08:43] Application started
+INFO: 2025/04/27 12:08:57 logger.go:39: [2025-04-27 12:08:57] Login page accessed
+INFO: 2025/04/27 12:08:59 logger.go:39: [2025-04-27 12:08:59] Login attempt for user: meowm
+INFO: 2025/04/27 12:08:59 logger.go:39: [2025-04-27 12:08:59] Successful login for user: meowm with role: regular
+INFO: 2025/04/27 12:11:18 logger.go:39: [2025-04-27 12:11:18] Application started
+INFO: 2025/04/27 12:11:26 logger.go:39: [2025-04-27 12:11:26] Login page accessed
+INFO: 2025/04/27 12:11:28 logger.go:39: [2025-04-27 12:11:28] Login attempt for user: meowm
+INFO: 2025/04/27 12:11:28 logger.go:39: [2025-04-27 12:11:28] Successful login for user: meowm with role: regular
+INFO: 2025/04/27 12:11:34 logger.go:39: [2025-04-27 12:11:34] Login page accessed
+INFO: 2025/04/27 12:11:39 logger.go:39: [2025-04-27 12:11:39] Login attempt for user: adminAida
+INFO: 2025/04/27 12:11:39 logger.go:39: [2025-04-27 12:11:39] Failed login attempt for user adminAida: Invalid password
+INFO: 2025/04/27 12:11:43 logger.go:39: [2025-04-27 12:11:43] Register page accessed
+INFO: 2025/04/27 12:12:04 logger.go:39: [2025-04-27 12:12:04] Registration attempt for user: adminadmin with role: admin
+INFO: 2025/04/27 12:12:05 logger.go:39: [2025-04-27 12:12:05] Registering user with role: admin
+INFO: 2025/04/27 12:12:05 logger.go:39: [2025-04-27 12:12:05] Successfully registered user: adminadmin with role: admin
+INFO: 2025/04/27 12:12:05 logger.go:39: [2025-04-27 12:12:05] Redirecting admin user adminadmin to admin dashboard
+INFO: 2025/04/27 12:12:05 logger.go:39: [2025-04-27 12:12:05] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:12:05 logger.go:39: [2025-04-27 12:12:05] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:13:15 logger.go:39: [2025-04-27 12:13:15] Application started
+INFO: 2025/04/27 12:13:19 logger.go:39: [2025-04-27 12:13:19] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:13:19 logger.go:39: [2025-04-27 12:13:19] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:14:37 logger.go:39: [2025-04-27 12:14:37] Application started
+INFO: 2025/04/27 12:14:54 logger.go:39: [2025-04-27 12:14:54] Login page accessed
+INFO: 2025/04/27 12:14:56 logger.go:39: [2025-04-27 12:14:56] Login attempt for user: adminadmin
+INFO: 2025/04/27 12:14:56 logger.go:39: [2025-04-27 12:14:56] Successful login for user: adminadmin with role: admin
+INFO: 2025/04/27 12:14:56 logger.go:39: [2025-04-27 12:14:56] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:14:56 logger.go:39: [2025-04-27 12:14:56] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:15:02 logger.go:39: [2025-04-27 12:15:02] Login page accessed
+INFO: 2025/04/27 12:15:06 logger.go:39: [2025-04-27 12:15:06] Login attempt for user: meowm
+INFO: 2025/04/27 12:15:06 logger.go:39: [2025-04-27 12:15:06] Successful login for user: meowm with role: regular
+INFO: 2025/04/27 12:15:14 logger.go:39: [2025-04-27 12:15:14] Login page accessed
+INFO: 2025/04/27 12:15:22 logger.go:39: [2025-04-27 12:15:22] Login attempt for user: adminAida
+INFO: 2025/04/27 12:15:22 logger.go:39: [2025-04-27 12:15:22] Failed login attempt for user adminAida: Invalid password
+INFO: 2025/04/27 12:15:27 logger.go:39: [2025-04-27 12:15:27] Login attempt for user: adminadmin
+INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Successful login for user: adminadmin with role: admin
+INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Rendering admin dashboard for user adminadmin

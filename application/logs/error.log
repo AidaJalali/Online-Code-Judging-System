@@ -31,3 +31,7 @@ ERROR: 2025/04/27 02:29:39 logger.go:44: [2025-04-27 02:29:39] Failed to initial
 ERROR: 2025/04/27 11:26:47 logger.go:44: [2025-04-27 11:26:47] Failed to create session for user meow: pq: relation "sessions" does not exist
 ERROR: 2025/04/27 11:30:35 logger.go:44: [2025-04-27 11:30:35] Failed to create session for user meow: pq: relation "sessions" does not exist
 ERROR: 2025/04/27 11:33:10 logger.go:44: [2025-04-27 11:33:10] Failed to create session for user meow: pq: relation "sessions" does not exist
+ERROR: 2025/04/27 12:09:01 logger.go:44: [2025-04-27 12:09:01] Failed to execute profile template: template: profile.html:16:74: executing "content" at <.User.Email>: can't evaluate field Email in type *models.User
+ERROR: 2025/04/27 12:11:30 logger.go:44: [2025-04-27 12:11:30] Failed to execute profile template: template: profile.html:16:81: executing "content" at <.User.FullName>: can't evaluate field FullName in type *models.User
+ERROR: 2025/04/27 12:13:23 logger.go:44: [2025-04-27 12:13:23] Failed to execute profile template: template: profile.html:16:81: executing "content" at <.User.FullName>: can't evaluate field FullName in type *models.User
+ERROR: 2025/04/27 12:13:29 logger.go:44: [2025-04-27 12:13:29] Failed to execute profile template: template: profile.html:16:81: executing "content" at <.User.FullName>: can't evaluate field FullName in type *models.User
