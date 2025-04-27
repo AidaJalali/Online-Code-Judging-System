@@ -6,7 +6,7 @@
 
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-            <form action="/create-question" method="POST" class="space-y-6" enctype="multipart/form-data">
+            <form action="/create-question" method="POST" class="space-y-6">
                 <div>
                     <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                     <input type="text" name="title" id="title" value="{{if .Draft}}{{.Draft.Title}}{{end}}"
@@ -37,46 +37,18 @@
                         required>
                 </div>
 
-                <div>
-                    <label for="solutionFile" class="block text-sm font-medium text-gray-700">Solution File (Go)</label>
-                    <div class="mt-1 flex items-center">
-                        <input type="file" name="solutionFile" id="solutionFile" accept=".go"
-                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                            required>
+                <div class="space-y-4">
+                    <div>
+                        <label for="test_input" class="block text-sm font-medium text-gray-700">Test Input</label>
+                        <textarea name="test_input" id="test_input" rows="3" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{if .Draft}}{{index .Draft.GetTestCases 0 | .Input}}{{end}}</textarea>
                     </div>
-                    <p class="mt-2 text-sm text-gray-500">Upload your Go solution file. This will be used to validate test cases.</p>
-                </div>
-
-                <div id="testCases" class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-medium text-gray-900">Test Cases</h3>
-                        <span id="testCaseCount" class="text-sm text-gray-500">(0/30 test cases)</span>
+                    <div>
+                        <label for="test_output" class="block text-sm font-medium text-gray-700">Test Output</label>
+                        <textarea name="test_output" id="test_output" rows="3" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{if .Draft}}{{index .Draft.GetTestCases 0 | .Output}}{{end}}</textarea>
                     </div>
-                    {{if .Draft}}
-                        {{range $index, $case := .Draft.GetTestCases}}
-                        <div class="test-case space-y-3 p-4 bg-gray-50 rounded-lg">
-                            <h4 class="text-sm font-medium text-gray-700">Test Case {{add $index 1}}</h4>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Input</label>
-                                    <textarea name="test_input[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$case.Input}}</textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Output</label>
-                                    <textarea name="test_output[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$case.Output}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        {{end}}
-                    {{end}}
                 </div>
-
-                <button type="button" id="addTestCase"
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Add Test Case
-                </button>
 
                 <div class="flex justify-end space-x-3">
                     <a href="/admin-dashboard"
@@ -92,51 +64,4 @@
         </div>
     </div>
 </div>
-
-<script>
-let testCaseCount = document.querySelectorAll('.test-case').length;
-const MAX_TEST_CASES = 30;
-
-function updateTestCaseCount() {
-    document.getElementById('testCaseCount').textContent = `(${testCaseCount}/30 test cases)`;
-    const addButton = document.getElementById('addTestCase');
-    addButton.disabled = testCaseCount >= MAX_TEST_CASES;
-    if (testCaseCount >= MAX_TEST_CASES) {
-        addButton.classList.add('opacity-50', 'cursor-not-allowed');
-    } else {
-        addButton.classList.remove('opacity-50', 'cursor-not-allowed');
-    }
-}
-
-document.getElementById('addTestCase').addEventListener('click', function() {
-    if (testCaseCount >= MAX_TEST_CASES) {
-        alert('Maximum number of test cases (30) reached.');
-        return;
-    }
-
-    testCaseCount++;
-    const template = `
-        <div class="test-case space-y-3 p-4 bg-gray-50 rounded-lg">
-            <h4 class="text-sm font-medium text-gray-700">Test Case ${testCaseCount}</h4>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Input</label>
-                    <textarea name="test_input[]" rows="3" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Output</label>
-                    <textarea name="test_output[]" rows="3" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
-                </div>
-            </div>
-        </div>
-    `;
-    document.getElementById('testCases').insertAdjacentHTML('beforeend', template);
-    updateTestCaseCount();
-});
-
-// Initialize the counter
-updateTestCaseCount();
-</script>
 {{end}} 

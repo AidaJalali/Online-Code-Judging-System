@@ -10,7 +10,7 @@ import (
 )
 
 func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
+	if r.Method != "GET" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -48,16 +48,21 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Title string
-		User  *models.User
-		Draft *models.Question
+		Title   string
+		User    *models.User
+		Draft   *models.Question
+		Error   string
+		Success string
 	}{
-		Title: "Create Question",
-		User:  user,
-		Draft: draft,
+		Title:   "Create Question",
+		User:    user,
+		Draft:   draft,
+		Error:   "",
+		Success: "",
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
 		logger.Error("Failed to execute create question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
@@ -76,27 +81,11 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Parse multipart form
-	if err := r.ParseMultipartForm(10 << 20); err != nil { // 10 MB max
-		logger.Error("Failed to parse multipart form: %v", err)
+	// Parse form
+	if err := r.ParseForm(); err != nil {
+		logger.Error("Failed to parse form: %v", err)
 		http.Error(w, "Bad request", http.StatusBadRequest)
 		return
-	}
-
-	// Get test cases from form
-	var testCases []models.TestCase
-	testInputs := r.Form["test_input[]"]
-	testOutputs := r.Form["test_output[]"]
-
-	// Use the minimum length to avoid index out of range
-	numCases := min(len(testInputs), len(testOutputs))
-	for i := 0; i < numCases; i++ {
-		if testInputs[i] != "" && testOutputs[i] != "" {
-			testCases = append(testCases, models.TestCase{
-				Input:  testInputs[i],
-				Output: testOutputs[i],
-			})
-		}
 	}
 
 	// Create or update draft
@@ -110,10 +99,9 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 		OwnerID:       user.ID,
 		CreatedAt:     now,
 		UpdatedAt:     now,
+		TestInput:     r.FormValue("test_input"),
+		TestOutput:    r.FormValue("test_output"),
 	}
-
-	// Set test cases
-	draft.SetTestCases(testCases)
 
 	err = h.draftRepo.SaveDraft(draft)
 	if err != nil {
@@ -123,14 +111,15 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If form is complete, publish the question
-	if draft.Title != "" && draft.Statement != "" && len(testCases) > 0 {
+	if draft.Title != "" && draft.Statement != "" && draft.TestInput != "" && draft.TestOutput != "" {
 		// Update the status to published
 		now = time.Now().Format(time.RFC3339)
-		draft.Status = models.StatusDraft // This will be updated to published by the repository
+		draft.Status = models.StatusPublished
 		draft.CreatedAt = now
 		draft.UpdatedAt = now
 
-		if err := h.questionRepo.CreateQuestion(draft); err != nil {
+		err = h.questionRepo.CreateQuestion(draft)
+		if err != nil {
 			logger.Error("Failed to create question: %v", err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return

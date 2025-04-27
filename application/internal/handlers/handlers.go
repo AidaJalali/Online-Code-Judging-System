@@ -905,3 +905,4 @@ func (h *Handler) UpdateRole(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/manage-roles?success=Role updated successfully", http.StatusSeeOther)
 }
+

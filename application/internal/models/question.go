@@ -7,7 +7,8 @@ import (
 type QuestionStatus string
 
 const (
-	StatusDraft QuestionStatus = "draft"
+	StatusDraft     QuestionStatus = "draft"
+	StatusPublished QuestionStatus = "published"
 	// Add other status values as needed
 )
 
