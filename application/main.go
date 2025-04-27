@@ -90,6 +90,8 @@ func main() {
 	//mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
 	//mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
+	mux.HandleFunc("/manage-roles", handler.ManageRoles)
+	mux.HandleFunc("/update-role", handler.UpdateRole)
 
 	// Start the server
 	log.Println("Starting server on :8080")

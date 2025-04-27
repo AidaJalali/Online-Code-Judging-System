@@ -6,6 +6,7 @@ import (
 	"online-judge/internal/logger"
 	"online-judge/internal/models"
 	"online-judge/internal/repository"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -13,12 +14,20 @@ import (
 )
 
 type PageData struct {
-	Title     string
-	Error     string
-	Success   string
-	User      *models.User
-	Questions []models.Question
-	Question  *models.Question
+	Title       string
+	Error       string
+	Success     string
+	User        *models.User
+	Questions   []models.Question
+	Question    *models.Question
+	Users       []*models.User
+	CurrentUser *models.User
+	Pagination  struct {
+		CurrentPage int
+		TotalPages  int
+		PageSize    int
+		TotalItems  int
+	}
 }
 
 type Question struct {
@@ -79,99 +88,102 @@ func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		logger.Info("Login page accessed")
 		data := PageData{
-			Title: "Sign In",
+			Title: "Login",
 		}
-
-		tmpl, err := template.ParseFiles(
-			"templates/base.html",
-			"templates/login.html",
-		)
-		if err != nil {
-			logger.Error("Failed to parse login template: %v", err)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-			logger.Error("Failed to execute login template: %v", err)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		renderTemplate(w, "login", data)
 		return
 	}
 
-	if r.Method == "POST" {
-		username := r.FormValue("username")
-		password := r.FormValue("password")
-		logger.Info("Login attempt for user: %s", username)
+	username := r.FormValue("username")
+	password := r.FormValue("password")
 
-		// Get user from database
-		user, err := h.userRepo.GetUserByUsername(username)
-		if err != nil {
-			logger.Error("Database error during login for user %s: %v", username, err)
-			data := PageData{
-				Title: "Sign In",
-				Error: "An error occurred while processing your request. Please try again.",
-			}
-			renderLoginPage(w, data)
-			return
+	user, err := h.userRepo.GetUserByUsername(username)
+	if err != nil {
+		data := PageData{
+			Title: "Login",
+			Error: "Database error occurred",
 		}
+		renderTemplate(w, "login", data)
+		return
+	}
 
-		// Check if user exists
-		if user == nil {
-			logger.Info("Failed login attempt for user %s: User not found", username)
-			data := PageData{
-				Title: "Sign In",
-				Error: "Invalid username or password. Please check your credentials and try again.",
-			}
-			renderLoginPage(w, data)
-			return
+	if user == nil {
+		data := PageData{
+			Title: "Login",
+			Error: "Invalid credentials",
 		}
+		renderTemplate(w, "login", data)
+		return
+	}
 
-		// Verify password
-		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-		if err != nil {
-			logger.Info("Failed login attempt for user %s: Invalid password", username)
-			data := PageData{
-				Title: "Sign In",
-				Error: "Invalid username or password. Please check your credentials and try again.",
-			}
-			renderLoginPage(w, data)
-			return
+	if !h.userRepo.VerifyPassword(user.Password, password) {
+		data := PageData{
+			Title: "Login",
+			Error: "Invalid credentials",
 		}
+		renderTemplate(w, "login", data)
+		return
+	}
 
-		// Set session cookie with username and role
-		http.SetCookie(w, &http.Cookie{
-			Name:  "username",
-			Value: username,
-			Path:  "/",
-		})
+	// Set username cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:     "username",
+		Value:    username,
+		Path:     "/",
+		HttpOnly: true,
+	})
 
-		logger.Info("Successful login for user: %s with role: %s", username, user.Role)
-
-		// Redirect based on role
-		if user.Role == "admin" {
-			http.Redirect(w, r, "/admin-dashboard", http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
-		}
+	if user.Role == "admin" {
+		http.Redirect(w, r, "/admin-dashboard", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
 	}
 }
 
-func renderLoginPage(w http.ResponseWriter, data PageData) {
-	tmpl, err := template.ParseFiles(
+func renderTemplate(w http.ResponseWriter, templateName string, data PageData) {
+	var templatePath string
+	if templateName == "login" {
+		templatePath = "templates/login.html"
+	} else {
+		templatePath = "templates/user-dashboard/" + templateName + ".html"
+	}
+
+	// Create template functions
+	funcMap := template.FuncMap{
+		"add": func(a, b int) int {
+			return a + b
+		},
+		"sub": func(a, b int) int {
+			return a - b
+		},
+		"mul": func(a, b int) int {
+			return a * b
+		},
+		"min": func(a, b int) int {
+			if a < b {
+				return a
+			}
+			return b
+		},
+		"seq": func(start, end int) []int {
+			var result []int
+			for i := start; i <= end; i++ {
+				result = append(result, i)
+			}
+			return result
+		},
+	}
+
+	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
 		"templates/base.html",
-		"templates/login.html",
+		templatePath,
 	)
 	if err != nil {
-		logger.Error("Failed to parse login template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute login template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -319,11 +331,12 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 
 		logger.Info("Successfully registered user: %s with role: %s", username, role)
 
-		// Set session cookie with username and role
+		// Set username cookie
 		http.SetCookie(w, &http.Cookie{
-			Name:  "username",
-			Value: username,
-			Path:  "/",
+			Name:     "username",
+			Value:    username,
+			Path:     "/",
+			HttpOnly: true,
 		})
 
 		// Redirect based on role
@@ -399,20 +412,15 @@ func (h *Handler) Dashboard(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	// Clear session cookie
+	// Clear username cookie
 	http.SetCookie(w, &http.Cookie{
-		Name:   "session",
-		Value:  "",
-		Path:   "/",
-		MaxAge: -1,
+		Name:     "username",
+		Value:    "",
+		Path:     "/",
+		HttpOnly: true,
+		MaxAge:   -1,
 	})
-
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
@@ -770,4 +778,130 @@ func (h *Handler) ManageQuestions(w http.ResponseWriter, r *http.Request) {
 		logger.Error("Failed to execute manage questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+}
+
+func (h *Handler) ManageRoles(w http.ResponseWriter, r *http.Request) {
+	// Check if user is authenticated and is an admin
+	cookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	currentUser, err := h.userRepo.GetUserByUsername(cookie.Value)
+	if err != nil || currentUser == nil || currentUser.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get page number from query parameter, default to 1
+	page := 1
+	if pageStr := r.URL.Query().Get("page"); pageStr != "" {
+		if p, err := strconv.Atoi(pageStr); err == nil && p > 0 {
+			page = p
+		}
+	}
+
+	// Set page size
+	pageSize := 10
+
+	// Get paginated users
+	users, total, err := h.userRepo.GetAllUsers(page, pageSize)
+	if err != nil {
+		data := PageData{
+			Title: "Manage Roles",
+			Error: "Failed to fetch users: " + err.Error(),
+		}
+		renderTemplate(w, "manage-roles", data)
+		return
+	}
+
+	// Calculate total pages
+	totalPages := (total + pageSize - 1) / pageSize
+
+	data := PageData{
+		Title:       "Manage Roles",
+		User:        currentUser,
+		Users:       users,
+		CurrentUser: currentUser,
+		Pagination: struct {
+			CurrentPage int
+			TotalPages  int
+			PageSize    int
+			TotalItems  int
+		}{
+			CurrentPage: page,
+			TotalPages:  totalPages,
+			PageSize:    pageSize,
+			TotalItems:  total,
+		},
+	}
+
+	// Get any error or success messages from the URL
+	if errorMsg := r.URL.Query().Get("error"); errorMsg != "" {
+		data.Error = errorMsg
+	}
+	if successMsg := r.URL.Query().Get("success"); successMsg != "" {
+		data.Success = successMsg
+	}
+
+	renderTemplate(w, "manage-roles", data)
+}
+
+func (h *Handler) UpdateRole(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is an admin
+	cookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	currentUser, err := h.userRepo.GetUserByUsername(cookie.Value)
+	if err != nil || currentUser == nil || currentUser.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get form values
+	username := r.FormValue("username")
+	newRole := r.FormValue("new_role")
+
+	// Validate inputs
+	if username == "" || (newRole != "admin" && newRole != "user") {
+		http.Redirect(w, r, "/manage-roles?error=Invalid input", http.StatusSeeOther)
+		return
+	}
+
+	// Prevent changing own role
+	if username == currentUser.Username {
+		http.Redirect(w, r, "/manage-roles?error=Cannot change your own role", http.StatusSeeOther)
+		return
+	}
+
+	// Prevent changing the admin user's role
+	if username == "admin" {
+		http.Redirect(w, r, "/manage-roles?error=Cannot change the admin user's role", http.StatusSeeOther)
+		return
+	}
+
+	// Get the user to update
+	user, err := h.userRepo.GetUserByUsername(username)
+	if err != nil || user == nil {
+		http.Redirect(w, r, "/manage-roles?error=User not found", http.StatusSeeOther)
+		return
+	}
+
+	// Update the role
+	err = h.userRepo.UpdateUserRole(username, newRole)
+	if err != nil {
+		http.Redirect(w, r, "/manage-roles?error=Failed to update role: "+err.Error(), http.StatusSeeOther)
+		return
+	}
+
+	http.Redirect(w, r, "/manage-roles?success=Role updated successfully", http.StatusSeeOther)
 }

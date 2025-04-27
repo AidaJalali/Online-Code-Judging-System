@@ -585,3 +585,42 @@ INFO: 2025/04/27 12:15:27 logger.go:39: [2025-04-27 12:15:27] Login attempt for 
 INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Successful login for user: adminadmin with role: admin
 INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Admin dashboard access attempt by user adminadmin with role admin
 INFO: 2025/04/27 12:15:28 logger.go:39: [2025-04-27 12:15:28] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:19:16 logger.go:39: [2025-04-27 12:19:16] Application started
+INFO: 2025/04/27 12:19:27 logger.go:39: [2025-04-27 12:19:27] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:19:27 logger.go:39: [2025-04-27 12:19:27] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:19:43 logger.go:39: [2025-04-27 12:19:43] Login page accessed
+INFO: 2025/04/27 12:19:47 logger.go:39: [2025-04-27 12:19:47] Login attempt for user: adminadmin
+INFO: 2025/04/27 12:19:47 logger.go:39: [2025-04-27 12:19:47] Successful login for user: adminadmin with role: admin
+INFO: 2025/04/27 12:19:48 logger.go:39: [2025-04-27 12:19:48] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:19:48 logger.go:39: [2025-04-27 12:19:48] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:25:08 logger.go:39: [2025-04-27 12:25:08] Application started
+INFO: 2025/04/27 12:29:35 logger.go:39: [2025-04-27 12:29:35] Application started
+INFO: 2025/04/27 12:29:51 logger.go:39: [2025-04-27 12:29:51] Login page accessed
+INFO: 2025/04/27 12:29:53 logger.go:39: [2025-04-27 12:29:53] Login attempt for user: adminadmin
+INFO: 2025/04/27 12:29:53 logger.go:39: [2025-04-27 12:29:53] Successful login for user: adminadmin with role: admin
+INFO: 2025/04/27 12:29:53 logger.go:39: [2025-04-27 12:29:53] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:29:53 logger.go:39: [2025-04-27 12:29:53] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:29:57 logger.go:39: [2025-04-27 12:29:57] Login page accessed
+INFO: 2025/04/27 12:31:11 logger.go:39: [2025-04-27 12:31:11] Login page accessed
+INFO: 2025/04/27 12:31:23 logger.go:39: [2025-04-27 12:31:23] Application started
+INFO: 2025/04/27 12:32:14 logger.go:39: [2025-04-27 12:32:14] Login page accessed
+INFO: 2025/04/27 12:32:17 logger.go:39: [2025-04-27 12:32:17] Login attempt for user: adminadmin
+INFO: 2025/04/27 12:32:17 logger.go:39: [2025-04-27 12:32:17] Successful login for user: adminadmin with role: admin
+INFO: 2025/04/27 12:32:18 logger.go:39: [2025-04-27 12:32:18] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:32:18 logger.go:39: [2025-04-27 12:32:18] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:32:22 logger.go:39: [2025-04-27 12:32:22] Login page accessed
+INFO: 2025/04/27 12:37:56 logger.go:39: [2025-04-27 12:37:56] Application started
+INFO: 2025/04/27 12:39:11 logger.go:39: [2025-04-27 12:39:11] Application started
+INFO: 2025/04/27 12:39:19 logger.go:39: [2025-04-27 12:39:19] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:39:19 logger.go:39: [2025-04-27 12:39:19] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:40:55 logger.go:39: [2025-04-27 12:40:55] Application started
+INFO: 2025/04/27 12:45:29 logger.go:39: [2025-04-27 12:45:29] Application started
+INFO: 2025/04/27 12:47:20 logger.go:39: [2025-04-27 12:47:20] Application started
+INFO: 2025/04/27 12:47:49 logger.go:39: [2025-04-27 12:47:49] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:47:49 logger.go:39: [2025-04-27 12:47:49] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:48:37 logger.go:39: [2025-04-27 12:48:37] Application started
+INFO: 2025/04/27 12:48:46 logger.go:39: [2025-04-27 12:48:46] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/27 12:48:46 logger.go:39: [2025-04-27 12:48:46] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/27 12:49:37 logger.go:39: [2025-04-27 12:49:37] Application started
+INFO: 2025/04/27 13:07:32 logger.go:39: [2025-04-27 13:07:32] Application started
+INFO: 2025/04/27 13:08:30 logger.go:39: [2025-04-27 13:08:30] Application started
