@@ -259,3 +259,64 @@ func renderRegisterPage(w http.ResponseWriter, data PageData) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
+
+func (h *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		data := PageData{
+			Title: "Sign In",
+		}
+		tmpl, err := template.ParseFiles(
+			"templates/base.html",
+			"templates/login.html",
+		)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		return
+	}
+	// ... POST logic ...
+}
+
+func (h *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		data := PageData{
+			Title: "Create Account",
+		}
+		tmpl, err := template.ParseFiles(
+			"templates/base.html",
+			"templates/register.html",
+		)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		return
+	}
+	// ... POST logic ...
+}
+
+func renderError(w http.ResponseWriter, errorMessage string) {
+	data := PageData{
+		Title: "Create Account",
+		Error: errorMessage,
+	}
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/register.html",
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+

@@ -39,3 +39,44 @@ INFO: 2025/04/27 19:26:05 logger.go:39: [2025-04-27 19:26:05] Application starte
 INFO: 2025/04/27 19:27:41 logger.go:39: [2025-04-27 19:27:41] Application started
 INFO: 2025/04/27 19:33:11 logger.go:39: [2025-04-27 19:33:11] Application started
 INFO: 2025/04/27 19:39:48 logger.go:39: [2025-04-27 19:39:48] Application started
+INFO: 2025/04/27 19:57:22 logger.go:39: [2025-04-27 19:57:22] Application started
+INFO: 2025/04/27 20:00:20 logger.go:39: [2025-04-27 20:00:20] Fetching question with ID: 11
+INFO: 2025/04/27 20:00:20 logger.go:39: [2025-04-27 20:00:20] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:02:58 logger.go:39: [2025-04-27 20:02:58] Application started
+INFO: 2025/04/27 20:03:08 logger.go:39: [2025-04-27 20:03:08] Fetching question with ID: 11
+INFO: 2025/04/27 20:03:08 logger.go:39: [2025-04-27 20:03:08] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:03:39 logger.go:39: [2025-04-27 20:03:39] Fetching question with ID: 11
+INFO: 2025/04/27 20:03:39 logger.go:39: [2025-04-27 20:03:39] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:04:22 logger.go:39: [2025-04-27 20:04:22] Application started
+INFO: 2025/04/27 20:04:24 logger.go:39: [2025-04-27 20:04:24] Fetching question with ID: 11
+INFO: 2025/04/27 20:04:24 logger.go:39: [2025-04-27 20:04:24] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:05:49 logger.go:39: [2025-04-27 20:05:49] Application started
+INFO: 2025/04/27 20:06:19 logger.go:39: [2025-04-27 20:06:19] Fetching question with ID: 11
+INFO: 2025/04/27 20:06:19 logger.go:39: [2025-04-27 20:06:19] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:07:55 logger.go:39: [2025-04-27 20:07:55] Application started
+INFO: 2025/04/27 20:08:07 logger.go:39: [2025-04-27 20:08:07] Fetching question with ID: 11
+INFO: 2025/04/27 20:08:07 logger.go:39: [2025-04-27 20:08:07] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:10:55 logger.go:39: [2025-04-27 20:10:55] Application started
+INFO: 2025/04/27 20:34:26 logger.go:39: [2025-04-27 20:34:26] Fetching question with ID: 11
+INFO: 2025/04/27 20:34:26 logger.go:39: [2025-04-27 20:34:26] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:34:44 logger.go:39: [2025-04-27 20:34:44] Fetching question with ID: 11
+INFO: 2025/04/27 20:34:44 logger.go:39: [2025-04-27 20:34:44] Successfully fetched question with ID 11
+INFO: 2025/04/27 20:34:50 logger.go:39: [2025-04-27 20:34:50] Fetching question with ID: 9
+INFO: 2025/04/27 20:34:50 logger.go:39: [2025-04-27 20:34:50] Successfully fetched question with ID 9
+INFO: 2025/04/27 20:44:56 logger.go:39: [2025-04-27 20:44:56] Application started
+INFO: 2025/04/27 20:48:47 logger.go:39: [2025-04-27 20:48:47] Application started
+INFO: 2025/04/27 20:54:21 logger.go:39: [2025-04-27 20:54:21] Application started
+INFO: 2025/04/27 20:55:37 logger.go:39: [2025-04-27 20:55:37] Fetching question with ID: 9
+INFO: 2025/04/27 20:55:37 logger.go:39: [2025-04-27 20:55:37] Successfully fetched question with ID 9
+INFO: 2025/04/27 20:55:59 logger.go:39: [2025-04-27 20:55:59] Fetching question with ID: 9
+INFO: 2025/04/27 20:55:59 logger.go:39: [2025-04-27 20:55:59] Successfully fetched question with ID 9
+INFO: 2025/04/27 20:59:42 logger.go:39: [2025-04-27 20:59:42] Register page accessed
+INFO: 2025/04/27 20:59:50 logger.go:39: [2025-04-27 20:59:50] Registration attempt for user: behzad with role: admin
+INFO: 2025/04/27 20:59:50 logger.go:39: [2025-04-27 20:59:50] Registering user with role: admin
+INFO: 2025/04/27 20:59:50 logger.go:39: [2025-04-27 20:59:50] Registration failed for user behzad: Password missing digit
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Registration attempt for user: behzad with role: admin
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Registering user with role: admin
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Successfully registered user: behzad with role: admin
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Redirecting admin user behzad to admin dashboard
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Admin dashboard access attempt by user behzad with role admin
+INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Rendering admin dashboard for user behzad

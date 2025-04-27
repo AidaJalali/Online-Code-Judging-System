@@ -6,36 +6,31 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Language</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 {{range .Submissions}}
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.ID}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{.QuestionID}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.Language}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.QuestionID}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{.QuestionTitle}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.CreatedAt}}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                            {{if eq .Status "accepted"}}bg-green-100 text-green-800{{end}}
-                            {{if eq .Status "rejected"}}bg-red-100 text-red-800{{end}}
-                            {{if eq .Status "pending"}}bg-yellow-100 text-yellow-800{{end}}">
-                            {{.Status}}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.CreatedAt.Format "2006-01-02 15:04:05"}}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <a href="/submissions/view?id={{.ID}}" class="text-blue-600 hover:text-blue-900">View</a>
+                        {{if eq .Status "Ok"}}درست (OK){{end}}
+                        {{if eq .Status "Compile Error"}}خطای کامپایل (Compile Error){{end}}
+                        {{if eq .Status "Wrong Answer"}}غلط (Wrong Answer){{end}}
+                        {{if eq .Status "Memory Limit"}}محدودیت حافظه (Memory Limit){{end}}
+                        {{if eq .Status "Time Limit"}}محدودیت زمان اجرا (Time Limit){{end}}
+                        {{if eq .Status "Runtime Error"}}خطای زمان اجرا (Runtime Error){{end}}
+                        {{if and (ne .Status "Ok") (ne .Status "Compile Error") (ne .Status "Wrong Answer") (ne .Status "Memory Limit") (ne .Status "Time Limit") (ne .Status "Runtime Error")}}{{.Status}}{{end}}
                     </td>
                 </tr>
                 {{else}}
                 <tr>
-                    <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
+                    <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
                         No submissions found.
                     </td>
                 </tr>

@@ -2,53 +2,25 @@
 <div class="max-w-7xl mx-auto">
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{.Question.Title}}</h1>
-        <p class="text-gray-600 mt-2">{{.Question.Description}}</p>
-        <div class="mt-4">
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                {{if eq .Question.Difficulty "easy"}}bg-green-100 text-green-800{{end}}
-                {{if eq .Question.Difficulty "medium"}}bg-yellow-100 text-yellow-800{{end}}
-                {{if eq .Question.Difficulty "hard"}}bg-red-100 text-red-800{{end}}">
-                {{.Question.Difficulty}}
-            </span>
-        </div>
+        <p class="text-gray-600 mt-2">{{.Question.Statement}}</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Submit Solution</h2>
-            <form action="/questions/submit?id={{.Question.ID}}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                <div>
-                    <label for="file" class="block text-sm font-medium text-gray-700">Upload .go File</label>
-                    <input type="file" id="file" name="file" accept=".go" required
-                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                </div>
-
-                <div class="flex justify-end">
-                    <button type="submit"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Test Cases</h2>
-            <div class="space-y-4">
-                {{range .Question.TestCases}}
-                <div class="border rounded-md p-4">
-                    <div class="mb-2">
-                        <span class="text-sm font-medium text-gray-700">Input:</span>
-                        <pre class="mt-1 bg-gray-50 p-2 rounded text-sm">{{.Input}}</pre>
-                    </div>
-                    <div>
-                        <span class="text-sm font-medium text-gray-700">Expected Output:</span>
-                        <pre class="mt-1 bg-gray-50 p-2 rounded text-sm">{{.Output}}</pre>
-                    </div>
-                </div>
-                {{end}}
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Submit Solution</h2>
+        <form action="/questions/submit?id={{.Question.ID}}" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <div>
+                <label for="file" class="block text-sm font-medium text-gray-700">Upload .go File</label>
+                <input type="file" id="file" name="file" accept=".go" required
+                    class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
             </div>
-        </div>
+
+            <div class="flex justify-end">
+                <button type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Submit
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 {{end}} 

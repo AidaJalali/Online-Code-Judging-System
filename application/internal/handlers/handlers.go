@@ -16,7 +16,7 @@ type PageData struct {
 	Question    *models.Question
 	Users       []*models.User
 	CurrentUser *models.User
-	Submissions []models.Submission
+	Submissions []repository.SubmissionWithQuestion
 	Pagination  struct {
 		CurrentPage  int
 		TotalPages   int
