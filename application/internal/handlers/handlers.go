@@ -15,6 +15,7 @@ import (
 type PageData struct {
 	Title     string
 	Error     string
+	Success   string
 	User      *models.User
 	Questions []models.Question
 	Question  *models.Question
@@ -109,7 +110,11 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		user, err := h.userRepo.GetUserByUsername(username)
 		if err != nil {
 			logger.Error("Database error during login for user %s: %v", username, err)
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			data := PageData{
+				Title: "Sign In",
+				Error: "An error occurred while processing your request. Please try again.",
+			}
+			renderLoginPage(w, data)
 			return
 		}
 
@@ -118,23 +123,9 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			logger.Info("Failed login attempt for user %s: User not found", username)
 			data := PageData{
 				Title: "Sign In",
-				Error: "Invalid username or password",
+				Error: "Invalid username or password. Please check your credentials and try again.",
 			}
-
-			tmpl, err := template.ParseFiles(
-				"templates/base.html",
-				"templates/login.html",
-			)
-			if err != nil {
-				logger.Error("Failed to parse login template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				logger.Error("Failed to execute login template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			renderLoginPage(w, data)
 			return
 		}
 
@@ -144,23 +135,9 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 			logger.Info("Failed login attempt for user %s: Invalid password", username)
 			data := PageData{
 				Title: "Sign In",
-				Error: "Invalid username or password",
+				Error: "Invalid username or password. Please check your credentials and try again.",
 			}
-
-			tmpl, err := template.ParseFiles(
-				"templates/base.html",
-				"templates/login.html",
-			)
-			if err != nil {
-				logger.Error("Failed to parse login template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				logger.Error("Failed to execute login template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			renderLoginPage(w, data)
 			return
 		}
 
@@ -182,25 +159,30 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func renderLoginPage(w http.ResponseWriter, data PageData) {
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/login.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse login template: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		logger.Error("Failed to execute login template: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		logger.Info("Register page accessed")
 		data := PageData{
 			Title: "Create Account",
 		}
-		tmpl, err := template.ParseFiles(
-			"templates/base.html",
-			"templates/register.html",
-		)
-		if err != nil {
-			logger.Error("Failed to parse register template: %v", err)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-			logger.Error("Failed to execute register template: %v", err)
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
+		renderRegisterPage(w, data)
 		return
 	}
 
@@ -216,7 +198,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		existingUser, err := h.userRepo.GetUserByUsername(username)
 		if err != nil {
 			logger.Error("Database error while checking username existence: %v", err)
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			data := PageData{
+				Title: "Create Account",
+				Error: "An error occurred while processing your request. Please try again.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -224,23 +210,9 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 			logger.Info("Registration failed for user %s: Username already exists", username)
 			data := PageData{
 				Title: "Create Account",
-				Error: "This username is already registered in the application",
+				Error: "This username is already taken. Please choose another one.",
 			}
-
-			tmpl, err := template.ParseFiles(
-				"templates/base.html",
-				"templates/register.html",
-			)
-			if err != nil {
-				logger.Error("Failed to parse register template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-				logger.Error("Failed to execute register template: %v", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -253,7 +225,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 			role = "admin"
 		default:
 			logger.Error("Invalid role value: %s", roleStr)
-			renderError(w, "Invalid role selected")
+			data := PageData{
+				Title: "Create Account",
+				Error: "Please select a valid role.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -262,7 +238,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		// Password validation
 		if len(password) < 6 {
 			logger.Info("Registration failed for user %s: Password too short", username)
-			renderError(w, "Password must be at least 6 characters long")
+			data := PageData{
+				Title: "Create Account",
+				Error: "Password must be at least 6 characters long.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -279,19 +259,31 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 
 		if !hasDigit {
 			logger.Info("Registration failed for user %s: Password missing digit", username)
-			renderError(w, "Password must contain at least one digit")
+			data := PageData{
+				Title: "Create Account",
+				Error: "Password must contain at least one digit.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
 		if !hasLowercase {
 			logger.Info("Registration failed for user %s: Password missing lowercase", username)
-			renderError(w, "Password must contain at least one lowercase letter")
+			data := PageData{
+				Title: "Create Account",
+				Error: "Password must contain at least one lowercase letter.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
 		if password != confirmPassword {
 			logger.Info("Registration failed for user %s: Passwords do not match", username)
-			renderError(w, "Passwords do not match")
+			data := PageData{
+				Title: "Create Account",
+				Error: "Passwords do not match. Please make sure both passwords are identical.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -299,7 +291,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 		if err != nil {
 			logger.Error("Failed to hash password for user %s: %v", username, err)
-			http.Error(w, "Error hashing password", http.StatusInternalServerError)
+			data := PageData{
+				Title: "Create Account",
+				Error: "An error occurred while processing your password. Please try again.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -313,7 +309,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		err = h.userRepo.CreateUser(user)
 		if err != nil {
 			logger.Error("Failed to create user %s: %v", username, err)
-			http.Error(w, "Error creating user", http.StatusInternalServerError)
+			data := PageData{
+				Title: "Create Account",
+				Error: "An error occurred while creating your account. Please try again.",
+			}
+			renderRegisterPage(w, data)
 			return
 		}
 
@@ -337,22 +337,19 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func renderError(w http.ResponseWriter, errorMessage string) {
-	data := PageData{
-		Title: "Create Account",
-		Error: errorMessage,
-	}
-
+func renderRegisterPage(w http.ResponseWriter, data PageData) {
 	tmpl, err := template.ParseFiles(
 		"templates/base.html",
 		"templates/register.html",
 	)
 	if err != nil {
+		logger.Error("Failed to parse register template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		logger.Error("Failed to execute register template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

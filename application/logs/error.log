@@ -25,3 +25,9 @@ ERROR: 2025/04/25 21:17:06 logger.go:44: [2025-04-25 21:17:06] Failed to save dr
 ERROR: 2025/04/25 21:18:23 logger.go:44: [2025-04-25 21:18:23] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
 ERROR: 2025/04/25 21:36:49 logger.go:44: [2025-04-25 21:36:49] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
 ERROR: 2025/04/26 09:29:19 logger.go:44: [2025-04-26 09:29:19] Failed to save draft: pq: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ERROR: 2025/04/27 01:29:50 logger.go:44: [2025-04-27 01:29:50] Failed to initialize database: failed to ping database: pq: password authentication failed for user "postgres"
+ERROR: 2025/04/27 01:53:26 logger.go:44: [2025-04-27 01:53:26] Failed to initialize database: failed to ping database: pq: password authentication failed for user "postgres"
+ERROR: 2025/04/27 02:29:39 logger.go:44: [2025-04-27 02:29:39] Failed to initialize database: failed to run migrations: error executing migration: pq: relation "users" already exists
+ERROR: 2025/04/27 11:26:47 logger.go:44: [2025-04-27 11:26:47] Failed to create session for user meow: pq: relation "sessions" does not exist
+ERROR: 2025/04/27 11:30:35 logger.go:44: [2025-04-27 11:30:35] Failed to create session for user meow: pq: relation "sessions" does not exist
+ERROR: 2025/04/27 11:33:10 logger.go:44: [2025-04-27 11:33:10] Failed to create session for user meow: pq: relation "sessions" does not exist
