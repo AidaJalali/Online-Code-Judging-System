@@ -16,3 +16,26 @@ INFO: 2025/04/27 16:57:39 logger.go:39: [2025-04-27 16:57:39] Successfully creat
 INFO: 2025/04/27 16:59:25 logger.go:39: [2025-04-27 16:59:25] Creating question: power 2 
 INFO: 2025/04/27 16:59:25 logger.go:39: [2025-04-27 16:59:25] Successfully created question with ID 7
 INFO: 2025/04/27 17:03:33 logger.go:39: [2025-04-27 17:03:33] Application started
+INFO: 2025/04/27 17:04:56 logger.go:39: [2025-04-27 17:04:56] Creating question: power 2 
+INFO: 2025/04/27 17:04:56 logger.go:39: [2025-04-27 17:04:56] Successfully created question with ID 9
+INFO: 2025/04/27 17:07:23 logger.go:39: [2025-04-27 17:07:23] Creating question: 5 + 5 chand mishe
+INFO: 2025/04/27 17:07:23 logger.go:39: [2025-04-27 17:07:23] Successfully created question with ID 11
+INFO: 2025/04/27 17:09:54 logger.go:39: [2025-04-27 17:09:54] Admin dashboard access attempt by user matin with role admin
+INFO: 2025/04/27 17:09:54 logger.go:39: [2025-04-27 17:09:54] Rendering admin dashboard for user matin
+INFO: 2025/04/27 17:15:26 logger.go:39: [2025-04-27 17:15:26] Register page accessed
+INFO: 2025/04/27 17:15:35 logger.go:39: [2025-04-27 17:15:35] Registration attempt for user: amir with role: regular
+INFO: 2025/04/27 17:15:35 logger.go:39: [2025-04-27 17:15:35] Registering user with role: regular
+INFO: 2025/04/27 17:15:36 logger.go:39: [2025-04-27 17:15:36] Successfully registered user: amir with role: regular
+INFO: 2025/04/27 17:15:36 logger.go:39: [2025-04-27 17:15:36] Redirecting regular user amir to user dashboard
+INFO: 2025/04/27 19:12:57 logger.go:39: [2025-04-27 19:12:57] Application started
+INFO: 2025/04/27 19:16:03 logger.go:39: [2025-04-27 19:16:03] Register page accessed
+INFO: 2025/04/27 19:16:15 logger.go:39: [2025-04-27 19:16:15] Registration attempt for user: newnew with role: regular
+INFO: 2025/04/27 19:16:16 logger.go:39: [2025-04-27 19:16:16] Registering user with role: regular
+INFO: 2025/04/27 19:16:16 logger.go:39: [2025-04-27 19:16:16] Successfully registered user: newnew with role: regular
+INFO: 2025/04/27 19:16:16 logger.go:39: [2025-04-27 19:16:16] Redirecting regular user newnew to user dashboard
+INFO: 2025/04/27 19:18:04 logger.go:39: [2025-04-27 19:18:04] Application started
+INFO: 2025/04/27 19:18:11 logger.go:39: [2025-04-27 19:18:11] Register page accessed
+INFO: 2025/04/27 19:26:05 logger.go:39: [2025-04-27 19:26:05] Application started
+INFO: 2025/04/27 19:27:41 logger.go:39: [2025-04-27 19:27:41] Application started
+INFO: 2025/04/27 19:33:11 logger.go:39: [2025-04-27 19:33:11] Application started
+INFO: 2025/04/27 19:39:48 logger.go:39: [2025-04-27 19:39:48] Application started

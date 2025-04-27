@@ -90,3 +90,41 @@ func (r *QuestionRepository) GetAllQuestions() ([]models.Question, error) {
 
 	return questions, nil
 }
+
+func (r *QuestionRepository) GetQuestionByID(id string) (*models.Question, error) {
+	logger.Info("Fetching question with ID: %s", id)
+
+	query := `
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE id = $1
+	`
+
+	var question models.Question
+	err := r.db.QueryRow(query, id).Scan(
+		&question.ID,
+		&question.Title,
+		&question.Statement,
+		&question.TimeLimitMs,
+		&question.MemoryLimitMb,
+		&question.Status,
+		&question.OwnerID,
+		&question.CreatedAt,
+		&question.UpdatedAt,
+		&question.TestInput,
+		&question.TestOutput,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			logger.Info("Question with ID %s not found", id)
+			return nil, nil
+		}
+		logger.Error("Failed to fetch question from database: %v", err)
+		return nil, err
+	}
+
+	logger.Info("Successfully fetched question with ID %s", id)
+	return &question, nil
+}

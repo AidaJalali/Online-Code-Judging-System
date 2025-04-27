@@ -78,20 +78,6 @@ func (r *UserRepository) UsernameExists(username string) (bool, error) {
 	return exists, nil
 }
 
-func (r *UserRepository) EmailExists(email string) (bool, error) {
-	query := `
-		SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)
-	`
-
-	var exists bool
-	err := r.db.QueryRow(query, email).Scan(&exists)
-	if err != nil {
-		return false, err
-	}
-
-	return exists, nil
-}
-
 func (r *UserRepository) GetUserBySession(sessionID string) (*models.User, error) {
 	query := `
 		SELECT u.id, u.username, u.password, u.role

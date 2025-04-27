@@ -39,7 +39,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
 		"templates/base.html",
-		"templates/create-question-form.html",
+		"templates/admin-dashboard/create-question-form.html",
 	)
 	if err != nil {
 		logger.Error("Failed to parse create question template: %v", err)

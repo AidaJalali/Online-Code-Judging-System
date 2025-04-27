@@ -9,7 +9,6 @@ import (
 	"online-judge/internal/logger"
 	"online-judge/internal/models"
 	"online-judge/internal/repository"
-	"strings"
 	"time"
 )
 
@@ -63,9 +62,10 @@ func main() {
 	userRepo := repository.NewUserRepository(db)
 	draftRepo := repository.NewDraftRepository(db)
 	questionRepo := repository.NewQuestionRepository(db)
+	submissionRepo := repository.NewSubmissionRepository(db)
 
 	// Create handlers
-	handler := handlers.NewHandler(userRepo, draftRepo)
+	handler := handlers.NewHandler(userRepo, draftRepo, submissionRepo)
 	handler.SetQuestionRepo(questionRepo)
 
 	// Create a new ServeMux
@@ -83,11 +83,11 @@ func main() {
 	mux.HandleFunc("/user-dashboard", handler.UserDashboard)
 	mux.HandleFunc("/admin-dashboard", handler.AdminDashboard)
 	//mux.HandleFunc("/logout", handler.Logout)
-	//mux.HandleFunc("/questions", handler.Questions)
+	mux.HandleFunc("/questions", handler.Questions)
 	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
 	mux.HandleFunc("/create-question", handler.HandleCreateQuestion)
 	mux.HandleFunc("/manage-questions", handler.ManageQuestions)
-	//mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
+	mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
 	//mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
 	mux.HandleFunc("/manage-roles", handler.ManageRoles)
@@ -300,12 +300,6 @@ func renderError(w http.ResponseWriter, errorMessage string) {
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-}
-
-func isValidEmail(email string) bool {
-	// Simple email validation
-	// You might want to use a more robust validation library
-	return strings.Contains(email, "@") && strings.Contains(email, ".")
 }
 
 func hashPassword(password string) (string, error) {
