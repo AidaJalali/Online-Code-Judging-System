@@ -1317,3 +1317,118 @@ INFO: 2025/04/28 19:55:58 logger.go:39: [2025-04-28 19:55:58] Executing query:
 		ORDER BY created_at DESC
 	
 INFO: 2025/04/28 19:55:58 logger.go:39: [2025-04-28 19:55:58] Successfully retrieved 3 questions
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Application started
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Initializing database connection...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Opening database connection...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Pinging database...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Database connection successful
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Testing database access...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Database access test successful
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Creating tables if they don't exist...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Creating users table...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Users table created successfully
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Creating questions table...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Questions table created successfully
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Tables created successfully
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Inserting test data...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Checking for existing test data...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Test data inserted successfully
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Verifying test data...
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Found 3 questions in database
+INFO: 2025/04/28 19:59:37 logger.go:39: [2025-04-28 19:59:37] Found 17 users in database
+INFO: 2025/04/28 19:59:45 logger.go:39: [2025-04-28 19:59:45] Database connection successful
+INFO: 2025/04/28 19:59:45 logger.go:39: [2025-04-28 19:59:45] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 19:59:45 logger.go:39: [2025-04-28 19:59:45] Successfully retrieved 3 questions
+INFO: 2025/04/28 19:59:50 logger.go:39: [2025-04-28 19:59:50] Register page accessed
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] MyQuestions handler called
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] Getting draft questions for user ID: 12
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] Database connection successful
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] Found draft question: ID=23, Title=dff, Status=draft
+INFO: 2025/04/28 19:59:54 logger.go:39: [2025-04-28 19:59:54] Successfully retrieved 1 draft questions for user 12
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] PublishedQuestions handler called
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Getting all published questions
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Database connection successful
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Successfully retrieved 2 published questions
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Found 2 published questions
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Processed 2 questions with owner information
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 19:59:58 logger.go:39: [2025-04-28 19:59:58] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] MyQuestions handler called
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] Getting draft questions for user ID: 12
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] Database connection successful
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] Found draft question: ID=23, Title=dff, Status=draft
+INFO: 2025/04/28 20:00:05 logger.go:39: [2025-04-28 20:00:05] Successfully retrieved 1 draft questions for user 12
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] PublishedQuestions handler called
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Getting all published questions
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Database connection successful
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Successfully retrieved 2 published questions
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Found 2 published questions
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Processed 2 questions with owner information
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 20:00:11 logger.go:39: [2025-04-28 20:00:11] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 20:00:13 logger.go:39: [2025-04-28 20:00:13] Fetching question with ID: 21
+INFO: 2025/04/28 20:00:13 logger.go:39: [2025-04-28 20:00:13] Successfully fetched question with ID 21
+INFO: 2025/04/28 20:00:20 logger.go:39: [2025-04-28 20:00:20] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 20:00:20 logger.go:39: [2025-04-28 20:00:20] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 20:00:23 logger.go:39: [2025-04-28 20:00:23] Database connection successful
+INFO: 2025/04/28 20:00:23 logger.go:39: [2025-04-28 20:00:23] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 20:00:23 logger.go:39: [2025-04-28 20:00:23] Successfully retrieved 3 questions
+INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Fetching question with ID: 23
+INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Successfully fetched question with ID 23
+INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Database connection successful
+INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Successfully retrieved 3 questions
