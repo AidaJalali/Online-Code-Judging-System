@@ -230,7 +230,7 @@ func min(a, b int) int {
 }
 
 func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != "GET" && r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -241,6 +241,75 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.Method == "POST" {
+		if err := r.ParseForm(); err != nil {
+			logger.Error("Failed to parse form: %v", err)
+			http.Error(w, "Bad request", http.StatusBadRequest)
+			return
+		}
+
+		var testCases []models.TestCase
+		testInputs := r.Form["test_input[]"]
+		testOutputs := r.Form["test_output[]"]
+		numCases := min(len(testInputs), len(testOutputs))
+		for i := 0; i < numCases; i++ {
+			if testInputs[i] != "" && testOutputs[i] != "" {
+				testCases = append(testCases, models.TestCase{
+					Input:  testInputs[i],
+					Output: testOutputs[i],
+				})
+			}
+		}
+
+		now := time.Now().Format(time.RFC3339)
+		draft := &models.Question{
+			Title:         r.FormValue("title"),
+			Statement:     r.FormValue("statement"),
+			TimeLimitMs:   parseInt(r.FormValue("timeLimit"), 1000),
+			MemoryLimitMb: parseInt(r.FormValue("memoryLimit"), 128),
+			Status:        models.StatusDraft,
+			OwnerID:       user.ID,
+			CreatedAt:     now,
+			UpdatedAt:     now,
+		}
+
+		draft.SetTestCases(testCases)
+		err = h.draftRepo.SaveDraft(draft)
+		if err != nil {
+			logger.Error("Failed to save draft: %v", err)
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		// Only admins can publish questions
+		if user.Role == "admin" && draft.Title != "" && draft.Statement != "" && len(testCases) > 0 {
+			now = time.Now().Format(time.RFC3339)
+			draft.Status = models.StatusPublished
+			draft.CreatedAt = now
+			draft.UpdatedAt = now
+
+			err = h.questionRepo.CreateQuestion(draft)
+			if err != nil {
+				logger.Error("Failed to create question: %v", err)
+				http.Error(w, "Internal server error", http.StatusInternalServerError)
+				return
+			}
+
+			err = h.draftRepo.DeleteDraft(user.ID)
+			if err != nil {
+				logger.Error("Failed to delete draft: %v", err)
+			}
+
+			http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
+			return
+		}
+
+		// For regular users, just save as draft
+		http.Redirect(w, r, "/my-questions", http.StatusSeeOther)
+		return
+	}
+
+	// GET request - show the form
 	draft, err := h.draftRepo.GetDraftByUserID(user.ID)
 	if err != nil {
 		logger.Error("Failed to get draft: %v", err)
@@ -278,83 +347,6 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 		logger.Error("Failed to execute create question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
-}
-
-func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	user, err := h.getAuthenticatedUser(r)
-	if err != nil || user == nil {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-		return
-	}
-
-	if err := r.ParseForm(); err != nil {
-		logger.Error("Failed to parse form: %v", err)
-		http.Error(w, "Bad request", http.StatusBadRequest)
-		return
-	}
-
-	var testCases []models.TestCase
-	testInputs := r.Form["test_input[]"]
-	testOutputs := r.Form["test_output[]"]
-	numCases := min(len(testInputs), len(testOutputs))
-	for i := 0; i < numCases; i++ {
-		if testInputs[i] != "" && testOutputs[i] != "" {
-			testCases = append(testCases, models.TestCase{
-				Input:  testInputs[i],
-				Output: testOutputs[i],
-			})
-		}
-	}
-
-	now := time.Now().Format(time.RFC3339)
-	draft := &models.Question{
-		Title:         r.FormValue("title"),
-		Statement:     r.FormValue("statement"),
-		TimeLimitMs:   parseInt(r.FormValue("timeLimit"), 1000),
-		MemoryLimitMb: parseInt(r.FormValue("memoryLimit"), 128),
-		Status:        models.StatusDraft,
-		OwnerID:       user.ID,
-		CreatedAt:     now,
-		UpdatedAt:     now,
-	}
-
-	draft.SetTestCases(testCases)
-	err = h.draftRepo.SaveDraft(draft)
-	if err != nil {
-		logger.Error("Failed to save draft: %v", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
-
-	// Only admins can publish questions
-	if user.Role == "admin" && draft.Title != "" && draft.Statement != "" && len(testCases) > 0 {
-		now = time.Now().Format(time.RFC3339)
-		draft.Status = models.StatusPublished
-		draft.CreatedAt = now
-		draft.UpdatedAt = now
-
-		err = h.questionRepo.CreateQuestion(draft)
-		if err != nil {
-			logger.Error("Failed to create question: %v", err)
-			http.Error(w, "Internal server error", http.StatusInternalServerError)
-			return
-		}
-
-		err = h.draftRepo.DeleteDraft(user.ID)
-		if err != nil {
-			logger.Error("Failed to delete draft: %v", err)
-		}
-
-		http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
-		return
-	}
-
-	http.Redirect(w, r, "/create-question-form", http.StatusSeeOther)
 }
 
 func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
@@ -644,7 +636,7 @@ func (h *Handler) Drafts(w http.ResponseWriter, r *http.Request) {
 
 // PublishQuestion handles publishing a draft question
 func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != "GET" && r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -675,6 +667,28 @@ func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Validate question before publishing
+	if question.Title == "" {
+		http.Error(w, "Question title is required", http.StatusBadRequest)
+		return
+	}
+	if question.Statement == "" {
+		http.Error(w, "Problem statement is required", http.StatusBadRequest)
+		return
+	}
+	if question.TimeLimitMs <= 0 {
+		http.Error(w, "Time limit must be greater than 0", http.StatusBadRequest)
+		return
+	}
+	if question.MemoryLimitMb <= 0 {
+		http.Error(w, "Memory limit must be greater than 0", http.StatusBadRequest)
+		return
+	}
+	if question.TestInput == "" || question.TestOutput == "" {
+		http.Error(w, "Test cases are required", http.StatusBadRequest)
+		return
+	}
+
 	// Update question status to published
 	question.Status = models.StatusPublished
 	question.UpdatedAt = time.Now().Format(time.RFC3339)
@@ -689,4 +703,59 @@ func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
 
 	// Redirect back to manage questions page
 	http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
+}
+
+// DeleteQuestion handles deleting a question
+func (h *Handler) DeleteQuestion(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated
+	user, err := h.getAuthenticatedUser(r)
+	if err != nil || user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	questionID := r.URL.Query().Get("id")
+	if questionID == "" {
+		http.Error(w, "Question ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Get the question to check ownership
+	question, err := h.questionRepo.GetQuestionByID(questionID)
+	if err != nil {
+		logger.Error("Failed to fetch question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if question == nil {
+		http.Error(w, "Question not found", http.StatusNotFound)
+		return
+	}
+
+	// Check if user is admin or the owner of the question
+	if user.Role != "admin" && question.OwnerID != user.ID {
+		http.Error(w, "Unauthorized: You can only delete your own questions", http.StatusUnauthorized)
+		return
+	}
+
+	// Delete the question
+	err = h.questionRepo.DeleteQuestion(questionID)
+	if err != nil {
+		logger.Error("Failed to delete question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect back to appropriate page
+	if user.Role == "admin" {
+		http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/my-questions", http.StatusSeeOther)
+	}
 }

@@ -242,3 +242,20 @@ INFO: 2025/04/28 13:17:38 logger.go:39: [2025-04-28 13:17:38] Application starte
 INFO: 2025/04/28 13:23:08 logger.go:39: [2025-04-28 13:23:08] Application started
 INFO: 2025/04/28 13:23:19 logger.go:39: [2025-04-28 13:23:19] Admin dashboard access attempt by user adminadmin with role admin
 INFO: 2025/04/28 13:23:19 logger.go:39: [2025-04-28 13:23:19] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 13:25:14 logger.go:39: [2025-04-28 13:25:14] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 13:25:14 logger.go:39: [2025-04-28 13:25:14] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 13:39:33 logger.go:39: [2025-04-28 13:39:33] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 13:39:33 logger.go:39: [2025-04-28 13:39:33] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 13:39:50 logger.go:39: [2025-04-28 13:39:50] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 13:39:50 logger.go:39: [2025-04-28 13:39:50] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 16:38:47 logger.go:39: [2025-04-28 16:38:47] Application started
+INFO: 2025/04/28 16:39:20 logger.go:39: [2025-04-28 16:39:20] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 16:39:20 logger.go:39: [2025-04-28 16:39:20] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 16:40:19 logger.go:39: [2025-04-28 16:40:19] Application started
+INFO: 2025/04/28 16:45:44 logger.go:39: [2025-04-28 16:45:44] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 16:45:44 logger.go:39: [2025-04-28 16:45:44] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 16:48:05 logger.go:39: [2025-04-28 16:48:05] Application started
+INFO: 2025/04/28 16:48:25 logger.go:39: [2025-04-28 16:48:25] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 16:48:25 logger.go:39: [2025-04-28 16:48:25] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 16:48:41 logger.go:39: [2025-04-28 16:48:41] Creating question: d
+INFO: 2025/04/28 16:48:41 logger.go:39: [2025-04-28 16:48:41] Successfully created question with ID 17

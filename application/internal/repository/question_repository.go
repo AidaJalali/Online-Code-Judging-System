@@ -221,12 +221,36 @@ func (r *QuestionRepository) GetDraftQuestionsByUser(userID int64) ([]models.Que
 func (r *QuestionRepository) UpdateQuestion(question *models.Question) error {
 	query := `
 		UPDATE questions 
-		SET title = ?, statement = ?, status = ?, updated_at = CURRENT_TIMESTAMP
-		WHERE id = ?
+		SET title = $1, 
+		    statement = $2, 
+		    time_limit_ms = $3,
+		    memory_limit_mb = $4,
+		    status = $5, 
+		    test_input = $6,
+		    test_output = $7,
+		    updated_at = CURRENT_TIMESTAMP
+		WHERE id = $8
 	`
-	_, err := r.db.Exec(query, question.Title, question.Statement, question.Status, question.ID)
+	_, err := r.db.Exec(query,
+		question.Title,
+		question.Statement,
+		question.TimeLimitMs,
+		question.MemoryLimitMb,
+		question.Status,
+		question.TestInput,
+		question.TestOutput,
+		question.ID)
 	if err != nil {
 		return fmt.Errorf("failed to update question: %w", err)
+	}
+	return nil
+}
+
+func (r *QuestionRepository) DeleteQuestion(id string) error {
+	query := `DELETE FROM questions WHERE id = $1`
+	_, err := r.db.Exec(query, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete question: %w", err)
 	}
 	return nil
 }

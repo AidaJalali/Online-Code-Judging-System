@@ -51,6 +51,7 @@ type QuestionRepository interface {
 	GetPublishedQuestions() ([]models.Question, error)
 	GetDraftQuestionsByUser(userID int64) ([]models.Question, error)
 	UpdateQuestion(question *models.Question) error
+	DeleteQuestion(id string) error
 }
 
 type Handler struct {

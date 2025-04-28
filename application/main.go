@@ -62,6 +62,7 @@ func main() {
 	mux.HandleFunc("/profile", handler.Profile)
 	mux.HandleFunc("/manage-roles", handler.ManageRoles)
 	mux.HandleFunc("/update-role", handler.UpdateRole)
+	mux.HandleFunc("/delete-question", handler.DeleteQuestion)
 	mux.HandleFunc("/logout", handler.Logout)
 
 	// Start the server
