@@ -748,3 +748,49 @@ INFO: 2025/04/28 17:43:09 logger.go:39: [2025-04-28 17:43:09] Executing query:
 	 with userID=12
 INFO: 2025/04/28 17:43:09 logger.go:39: [2025-04-28 17:43:09] Found draft question: ID=22, Title=dikfdkij, Status=draft
 INFO: 2025/04/28 17:43:09 logger.go:39: [2025-04-28 17:43:09] Successfully retrieved 1 draft questions for user 12
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Application started
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Initializing database connection...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Opening database connection...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Pinging database...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Database connection successful
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Testing database access...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Database access test successful
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Creating tables if they don't exist...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Creating users table...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Users table created successfully
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Creating questions table...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Questions table created successfully
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Tables created successfully
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Inserting test data...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Checking for existing test data...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Test data inserted successfully
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Verifying test data...
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Found 3 questions in database
+INFO: 2025/04/28 17:46:01 logger.go:39: [2025-04-28 17:46:01] Found 17 users in database
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] MyQuestions handler called
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Getting draft questions for user ID: 12
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Database connection successful
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Found draft question: ID=22, Title=dikfdkij, Status=draft
+INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Successfully retrieved 1 draft questions for user 12
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] MyQuestions handler called
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Getting draft questions for user ID: 12
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Database connection successful
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Found draft question: ID=22, Title=dikfdkij, Status=draft
+INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Successfully retrieved 1 draft questions for user 12
