@@ -1,0 +1,46 @@
+{{define "content"}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">My Questions</h1>
+        <a href="/create-question-form" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Create New Question
+        </a>
+    </div>
+
+    {{if .Questions}}
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <ul class="divide-y divide-gray-200">
+            {{range .Questions}}
+            <li class="px-4 py-4 sm:px-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-lg font-medium text-gray-900 truncate">{{.Title}}</h2>
+                        <p class="mt-1 text-sm text-gray-500">Created on {{.CreatedAt}}</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="/edit-question-form?id={{.ID}}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                        {{if eq $.User.Role "admin"}}
+                        <form action="/publish-question" method="POST" class="inline">
+                            <input type="hidden" name="id" value="{{.ID}}">
+                            <button type="submit" class="text-green-600 hover:text-green-900">Publish</button>
+                        </form>
+                        {{end}}
+                    </div>
+                </div>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+    {{else}}
+    <div class="text-center py-12">
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No questions</h3>
+        <p class="mt-1 text-sm text-gray-500">Get started by creating a new question.</p>
+        <div class="mt-6">
+            <a href="/create-question-form" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Create New Question
+            </a>
+        </div>
+    </div>
+    {{end}}
+</div>
+{{end}} 

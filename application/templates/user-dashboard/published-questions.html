@@ -1,0 +1,37 @@
+{{define "content"}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Published Questions</h1>
+    </div>
+
+    {{if .QuestionsWithOwners}}
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <ul class="divide-y divide-gray-200">
+            {{range .QuestionsWithOwners}}
+            <li class="px-4 py-4 sm:px-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-lg font-medium text-gray-900 truncate">{{.Question.Title}}</h2>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Created by {{.Owner.Username}} on {{.Question.CreatedAt}}
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="/submit-question?id={{.Question.ID}}" class="text-blue-600 hover:text-blue-900">Submit Solution</a>
+                        {{if eq $.User.Role "admin"}}
+                        <a href="/edit-question-form?id={{.Question.ID}}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                        {{end}}
+                    </div>
+                </div>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+    {{else}}
+    <div class="text-center py-12">
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No published questions</h3>
+        <p class="mt-1 text-sm text-gray-500">There are no published questions yet.</p>
+    </div>
+    {{end}}
+</div>
+{{end}} 

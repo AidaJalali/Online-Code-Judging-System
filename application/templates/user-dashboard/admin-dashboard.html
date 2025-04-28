@@ -1,7 +1,7 @@
 {{define "content"}}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="py-6">
-        <h1 class="text-3xl font-bold text-gray-900">Administrator Dashboard</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
         
         <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <!-- Profile Section -->
@@ -24,14 +24,29 @@
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Questions Management</h3>
                     <div class="mt-2">
-                        <p class="text-sm text-gray-500">Create and manage coding questions</p>
+                        <p class="text-sm text-gray-500">Create, edit, and publish questions</p>
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-5 space-x-2">
                         <a href="/manage-questions" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
                             Manage Questions
                         </a>
-                        <a href="/create-question-form" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 ml-2">
+                        <a href="/create-question-form" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
                             Create Question
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Published Questions Section -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Published Questions</h3>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">View and manage published questions</p>
+                    </div>
+                    <div class="mt-5">
+                        <a href="/published-questions" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            View Published Questions
                         </a>
                     </div>
                 </div>

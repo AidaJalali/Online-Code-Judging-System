@@ -239,7 +239,7 @@ func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		MaxAge:   -1,
 	})
-	http.Redirect(w, r, "/login", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 // Helper function to render the register page
@@ -319,4 +319,3 @@ func renderError(w http.ResponseWriter, errorMessage string) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-

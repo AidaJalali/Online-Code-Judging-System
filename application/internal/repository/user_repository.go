@@ -183,3 +183,28 @@ func (r *UserRepository) VerifyPassword(hashedPassword, password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	return err == nil
 }
+
+func (r *UserRepository) GetUserByID(id int64) (*models.User, error) {
+	query := `
+		SELECT id, username, password_hash, role
+		FROM users
+		WHERE id = $1
+	`
+
+	var user models.User
+	err := r.db.QueryRow(query, id).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Password,
+		&user.Role,
+	)
+
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}

@@ -7,7 +7,7 @@
     <title>{{.Title}}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen flex flex-col">
     <nav class="bg-white shadow-lg">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between">
@@ -17,16 +17,28 @@
                             <span class="font-semibold text-gray-500 text-lg">Online Judge</span>
                         </a>
                     </div>
+                    {{if .User}}
+                    <div class="flex items-center space-x-4">
+                        <a href="/my-questions" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">My Questions</a>
+                        <a href="/published-questions" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Published Questions</a>
+                        <a href="/publish-question" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Publish Question</a>
+                    </div>
+                    {{end}}
                 </div>
                 <div class="flex items-center space-x-4">
+                    {{if .User}}
+                    <span class="text-gray-600 px-3 py-2 rounded-md text-sm font-medium">Welcome, {{.User.Username}}</span>
+                    <a href="/logout" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                    {{else}}
                     <a href="/login" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Sign In</a>
                     <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-600">Sign Up</a>
+                    {{end}}
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 flex-grow">
         {{if .Error}}
         <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded relative" role="alert">
             <span class="block sm:inline">{{.Error}}</span>
@@ -40,7 +52,7 @@
         {{template "content" .}}
     </main>
 
-    <footer class="bg-white shadow-lg mt-8">
+    <footer class="bg-white shadow-lg mt-auto">
         <div class="max-w-6xl mx-auto px-4 py-4">
             <p class="text-center text-gray-500">© 2024 Online Judge. All rights reserved.</p>
         </div>

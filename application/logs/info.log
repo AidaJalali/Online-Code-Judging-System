@@ -88,3 +88,75 @@ INFO: 2025/04/28 09:59:42 logger.go:39: [2025-04-28 09:59:42] Rendering admin da
 INFO: 2025/04/28 10:01:19 logger.go:39: [2025-04-28 10:01:19] Application started
 INFO: 2025/04/28 10:03:04 logger.go:39: [2025-04-28 10:03:04] Application started
 INFO: 2025/04/28 10:08:03 logger.go:39: [2025-04-28 10:08:03] Application started
+INFO: 2025/04/28 10:09:34 logger.go:39: [2025-04-28 10:09:34] Fetching question with ID: 11
+INFO: 2025/04/28 10:09:34 logger.go:39: [2025-04-28 10:09:34] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:12:46 logger.go:39: [2025-04-28 10:12:46] Application started
+INFO: 2025/04/28 10:15:17 logger.go:39: [2025-04-28 10:15:17] Application started
+INFO: 2025/04/28 10:15:30 logger.go:39: [2025-04-28 10:15:30] Fetching question with ID: 11
+INFO: 2025/04/28 10:15:30 logger.go:39: [2025-04-28 10:15:30] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:15:33 logger.go:39: [2025-04-28 10:15:33] Fetching question with ID: 11
+INFO: 2025/04/28 10:15:33 logger.go:39: [2025-04-28 10:15:33] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:15:36 logger.go:39: [2025-04-28 10:15:36] Fetching question with ID: 9
+INFO: 2025/04/28 10:15:36 logger.go:39: [2025-04-28 10:15:36] Successfully fetched question with ID 9
+INFO: 2025/04/28 10:19:21 logger.go:39: [2025-04-28 10:19:21] Application started
+INFO: 2025/04/28 10:19:32 logger.go:39: [2025-04-28 10:19:32] Admin dashboard access attempt by user meowm with role admin
+INFO: 2025/04/28 10:19:32 logger.go:39: [2025-04-28 10:19:32] Rendering admin dashboard for user meowm
+INFO: 2025/04/28 10:19:38 logger.go:39: [2025-04-28 10:19:38] Admin dashboard access attempt by user meowm with role admin
+INFO: 2025/04/28 10:19:38 logger.go:39: [2025-04-28 10:19:38] Rendering admin dashboard for user meowm
+INFO: 2025/04/28 10:20:13 logger.go:39: [2025-04-28 10:20:13] Admin dashboard access attempt by user meowm with role admin
+INFO: 2025/04/28 10:20:13 logger.go:39: [2025-04-28 10:20:13] Rendering admin dashboard for user meowm
+INFO: 2025/04/28 10:20:17 logger.go:39: [2025-04-28 10:20:17] Fetching question with ID: 11
+INFO: 2025/04/28 10:20:17 logger.go:39: [2025-04-28 10:20:17] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:20:20 logger.go:39: [2025-04-28 10:20:20] Fetching question with ID: 11
+INFO: 2025/04/28 10:20:20 logger.go:39: [2025-04-28 10:20:20] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:42:43 logger.go:39: [2025-04-28 10:42:43] Application started
+INFO: 2025/04/28 10:47:00 logger.go:39: [2025-04-28 10:47:00] Fetching question with ID: 11
+INFO: 2025/04/28 10:47:00 logger.go:39: [2025-04-28 10:47:00] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:48:59 logger.go:39: [2025-04-28 10:48:59] Application started
+INFO: 2025/04/28 10:49:09 logger.go:39: [2025-04-28 10:49:09] Fetching question with ID: 11
+INFO: 2025/04/28 10:49:09 logger.go:39: [2025-04-28 10:49:09] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:49:14 logger.go:39: [2025-04-28 10:49:14] Fetching question with ID: 11
+INFO: 2025/04/28 10:49:14 logger.go:39: [2025-04-28 10:49:14] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:50:13 logger.go:39: [2025-04-28 10:50:13] Application started
+INFO: 2025/04/28 10:51:52 logger.go:39: [2025-04-28 10:51:52] Application started
+INFO: 2025/04/28 10:52:04 logger.go:39: [2025-04-28 10:52:04] Fetching question with ID: 11
+INFO: 2025/04/28 10:52:04 logger.go:39: [2025-04-28 10:52:04] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:52:14 logger.go:39: [2025-04-28 10:52:14] Fetching question with ID: 11
+INFO: 2025/04/28 10:52:14 logger.go:39: [2025-04-28 10:52:14] Successfully fetched question with ID 11
+INFO: 2025/04/28 10:59:56 logger.go:39: [2025-04-28 10:59:56] Application started
+INFO: 2025/04/28 11:00:04 logger.go:39: [2025-04-28 11:00:04] Fetching question with ID: 11
+INFO: 2025/04/28 11:00:04 logger.go:39: [2025-04-28 11:00:04] Successfully fetched question with ID 11
+INFO: 2025/04/28 11:00:17 logger.go:39: [2025-04-28 11:00:17] Fetching question with ID: 11
+INFO: 2025/04/28 11:00:17 logger.go:39: [2025-04-28 11:00:17] Successfully fetched question with ID 11
+INFO: 2025/04/28 11:00:31 logger.go:39: [2025-04-28 11:00:31] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:00:31 logger.go:39: [2025-04-28 11:00:31] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:01:17 logger.go:39: [2025-04-28 11:01:17] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:01:17 logger.go:39: [2025-04-28 11:01:17] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:06:17 logger.go:39: [2025-04-28 11:06:17] Application started
+INFO: 2025/04/28 11:06:44 logger.go:39: [2025-04-28 11:06:44] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:06:44 logger.go:39: [2025-04-28 11:06:44] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:07:21 logger.go:39: [2025-04-28 11:07:21] Creating question: new question
+INFO: 2025/04/28 11:07:21 logger.go:39: [2025-04-28 11:07:21] Successfully created question with ID 13
+INFO: 2025/04/28 11:09:12 logger.go:39: [2025-04-28 11:09:12] Application started
+INFO: 2025/04/28 11:09:43 logger.go:39: [2025-04-28 11:09:43] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:09:43 logger.go:39: [2025-04-28 11:09:43] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:16:17 logger.go:39: [2025-04-28 11:16:17] Application started
+INFO: 2025/04/28 11:16:23 logger.go:39: [2025-04-28 11:16:23] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:16:23 logger.go:39: [2025-04-28 11:16:23] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:17:50 logger.go:39: [2025-04-28 11:17:50] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:17:50 logger.go:39: [2025-04-28 11:17:50] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:22:40 logger.go:39: [2025-04-28 11:22:40] Application started
+INFO: 2025/04/28 11:22:52 logger.go:39: [2025-04-28 11:22:52] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:22:52 logger.go:39: [2025-04-28 11:22:52] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:24:26 logger.go:39: [2025-04-28 11:24:26] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:24:26 logger.go:39: [2025-04-28 11:24:26] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:25:51 logger.go:39: [2025-04-28 11:25:51] Application started
+INFO: 2025/04/28 11:25:54 logger.go:39: [2025-04-28 11:25:54] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:25:54 logger.go:39: [2025-04-28 11:25:54] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:27:01 logger.go:39: [2025-04-28 11:27:01] Application started
+INFO: 2025/04/28 11:27:29 logger.go:39: [2025-04-28 11:27:29] Register page accessed
+INFO: 2025/04/28 11:27:47 logger.go:39: [2025-04-28 11:27:47] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:27:47 logger.go:39: [2025-04-28 11:27:47] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 11:29:47 logger.go:39: [2025-04-28 11:29:47] Application started
+INFO: 2025/04/28 11:30:08 logger.go:39: [2025-04-28 11:30:08] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 11:30:08 logger.go:39: [2025-04-28 11:30:08] Rendering admin dashboard for user adminadmin

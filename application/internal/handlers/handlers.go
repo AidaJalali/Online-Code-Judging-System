@@ -48,6 +48,7 @@ type QuestionRepository interface {
 	CreateQuestion(question *models.Question) error
 	GetAllQuestions() ([]models.Question, error)
 	GetQuestionByID(id string) (*models.Question, error)
+	GetPublishedQuestions() ([]models.Question, error)
 }
 
 type Handler struct {

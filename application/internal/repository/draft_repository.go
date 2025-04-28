@@ -108,3 +108,47 @@ func (r *DraftRepository) DeleteDraft(userID int64) error {
 	_, err := r.db.Exec(query, userID)
 	return err
 }
+
+func (r *DraftRepository) GetDraftsByUserID(userID int64) ([]models.Question, error) {
+	query := `
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE owner_id = $1 AND status = 'draft'
+		ORDER BY created_at DESC
+	`
+
+	rows, err := r.db.Query(query, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var drafts []models.Question
+	for rows.Next() {
+		var q models.Question
+		err := rows.Scan(
+			&q.ID,
+			&q.Title,
+			&q.Statement,
+			&q.TimeLimitMs,
+			&q.MemoryLimitMb,
+			&q.Status,
+			&q.OwnerID,
+			&q.CreatedAt,
+			&q.UpdatedAt,
+			&q.TestInput,
+			&q.TestOutput,
+		)
+		if err != nil {
+			return nil, err
+		}
+		drafts = append(drafts, q)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return drafts, nil
+}
