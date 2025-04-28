@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 	"online-judge/internal/logger"
 	"online-judge/internal/models"
 )
@@ -173,5 +174,59 @@ func (r *QuestionRepository) GetPublishedQuestions() ([]models.Question, error) 
 	return questions, nil
 }
 
+func (r *QuestionRepository) GetDraftQuestionsByUser(userID int64) ([]models.Question, error) {
+	query := `
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	`
 
+	rows, err := r.db.Query(query, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
+	var questions []models.Question
+	for rows.Next() {
+		var q models.Question
+		err := rows.Scan(
+			&q.ID,
+			&q.Title,
+			&q.Statement,
+			&q.TimeLimitMs,
+			&q.MemoryLimitMb,
+			&q.Status,
+			&q.OwnerID,
+			&q.CreatedAt,
+			&q.UpdatedAt,
+			&q.TestInput,
+			&q.TestOutput,
+		)
+		if err != nil {
+			return nil, err
+		}
+		questions = append(questions, q)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return questions, nil
+}
+
+func (r *QuestionRepository) UpdateQuestion(question *models.Question) error {
+	query := `
+		UPDATE questions 
+		SET title = ?, statement = ?, status = ?, updated_at = CURRENT_TIMESTAMP
+		WHERE id = ?
+	`
+	_, err := r.db.Exec(query, question.Title, question.Statement, question.Status, question.ID)
+	if err != nil {
+		return fmt.Errorf("failed to update question: %w", err)
+	}
+	return nil
+}

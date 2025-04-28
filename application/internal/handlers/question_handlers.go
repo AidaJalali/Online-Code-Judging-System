@@ -492,10 +492,16 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := PageData{
+	data := struct {
+		Title     string
+		User      *models.User
+		Questions []models.Question
+		IsAdmin   bool
+	}{
 		Title:     "My Questions",
 		User:      user,
 		Questions: drafts,
+		IsAdmin:   user.Role == "admin",
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -580,4 +586,107 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 		logger.Error("Failed to execute published questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+}
+
+// Drafts handles the drafts page that shows unpublished questions
+func (h *Handler) Drafts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated
+	cookie, err := r.Cookie("username")
+	if err != nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get user data
+	user, err := h.userRepo.GetUserByUsername(cookie.Value)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	if user == nil {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get user's draft questions
+	questions, err := h.questionRepo.GetDraftQuestionsByUser(user.ID)
+	if err != nil {
+		http.Error(w, "Database error", http.StatusInternalServerError)
+		return
+	}
+
+	// Render drafts template
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/drafts.html",
+	)
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:     "My Drafts",
+		User:      user,
+		Questions: questions,
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+}
+
+// PublishQuestion handles publishing a draft question
+func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is admin
+	user, err := h.getAuthenticatedUser(r)
+	if err != nil || user == nil || user.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	questionID := r.URL.Query().Get("id")
+	if questionID == "" {
+		http.Error(w, "Question ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Get the question
+	question, err := h.questionRepo.GetQuestionByID(questionID)
+	if err != nil {
+		logger.Error("Failed to fetch question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if question == nil {
+		http.Error(w, "Question not found", http.StatusNotFound)
+		return
+	}
+
+	// Update question status to published
+	question.Status = models.StatusPublished
+	question.UpdatedAt = time.Now().Format(time.RFC3339)
+
+	// Save the updated question
+	err = h.questionRepo.UpdateQuestion(question)
+	if err != nil {
+		logger.Error("Failed to update question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Redirect back to manage questions page
+	http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
 }
