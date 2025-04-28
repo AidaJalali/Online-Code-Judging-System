@@ -6,7 +6,7 @@
 
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-            <form action="/edit-question" method="POST" class="space-y-6">
+            <form action="/edit-question?id={{.Question.ID}}" method="POST" class="space-y-6">
                 <input type="hidden" name="id" value="{{.Question.ID}}">
                 
                 <div>
@@ -38,26 +38,38 @@
                 </div>
 
                 <div>
-                    <label for="testInput" class="block text-sm font-medium text-gray-700">Test Input</label>
-                    <textarea name="testInput" id="testInput" rows="4"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                        required>{{.Question.TestInput}}</textarea>
+                    <label class="block text-sm font-medium text-gray-700">Test Cases</label>
+                    <div id="testCases" class="space-y-4">
+                        {{range .Question.TestCases}}
+                        <div class="flex space-x-4">
+                            <div class="flex-1">
+                                <label class="block text-sm font-medium text-gray-700">Input</label>
+                                <textarea name="test_input[]" rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    required>{{.Input}}</textarea>
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-sm font-medium text-gray-700">Output</label>
+                                <textarea name="test_output[]" rows="2"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                    required>{{.Output}}</textarea>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+                    <button type="button" onclick="addTestCase()"
+                        class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Add Test Case
+                    </button>
                 </div>
 
-                <div>
-                    <label for="testOutput" class="block text-sm font-medium text-gray-700">Test Output</label>
-                    <textarea name="testOutput" id="testOutput" rows="4"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                        required>{{.Question.TestOutput}}</textarea>
-                </div>
-
-                <div class="flex justify-end space-x-3">
-                    <a href="/published-questions"
-                        class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <div class="flex justify-end space-x-4">
+                    <a href="/my-questions"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Cancel
                     </a>
                     <button type="submit"
-                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Save Changes
                     </button>
                 </div>
@@ -65,4 +77,27 @@
         </div>
     </div>
 </div>
+
+<script>
+function addTestCase() {
+    const testCases = document.getElementById('testCases');
+    const newTestCase = document.createElement('div');
+    newTestCase.className = 'flex space-x-4';
+    newTestCase.innerHTML = `
+        <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700">Input</label>
+            <textarea name="test_input[]" rows="2"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                required></textarea>
+        </div>
+        <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-700">Output</label>
+            <textarea name="test_output[]" rows="2"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                required></textarea>
+        </div>
+    `;
+    testCases.appendChild(newTestCase);
+}
+</script>
 {{end}} 

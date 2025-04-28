@@ -50,15 +50,25 @@ func (r *QuestionRepository) CreateQuestion(question *models.Question) error {
 }
 
 func (r *QuestionRepository) GetAllQuestions() ([]models.Question, error) {
+	// First check if we can connect to the database
+	err := r.db.Ping()
+	if err != nil {
+		logger.Error("Database connection failed: %v", err)
+		return nil, err
+	}
+	logger.Info("Database connection successful")
+
 	query := `
 		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
 		       status, owner_id, created_at, updated_at, test_input, test_output
 		FROM questions
 		ORDER BY created_at DESC
 	`
+	logger.Info("Executing query: %s", query)
 
 	rows, err := r.db.Query(query)
 	if err != nil {
+		logger.Error("Failed to query all questions: %v", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -80,15 +90,18 @@ func (r *QuestionRepository) GetAllQuestions() ([]models.Question, error) {
 			&q.TestOutput,
 		)
 		if err != nil {
+			logger.Error("Failed to scan question: %v", err)
 			return nil, err
 		}
 		questions = append(questions, q)
 	}
 
 	if err = rows.Err(); err != nil {
+		logger.Error("Error iterating questions: %v", err)
 		return nil, err
 	}
 
+	logger.Info("Successfully retrieved %d questions", len(questions))
 	return questions, nil
 }
 
@@ -273,6 +286,14 @@ func (r *QuestionRepository) DeleteQuestion(id string) error {
 
 // GetDraftQuestions returns all draft questions
 func (r *QuestionRepository) GetDraftQuestions() ([]models.Question, error) {
+	// First check if we can connect to the database
+	err := r.db.Ping()
+	if err != nil {
+		logger.Error("Database connection failed: %v", err)
+		return nil, err
+	}
+	logger.Info("Database connection successful")
+
 	query := `
 		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
 			   status, owner_id, created_at, updated_at, test_input, test_output
@@ -280,9 +301,11 @@ func (r *QuestionRepository) GetDraftQuestions() ([]models.Question, error) {
 		WHERE status = 'draft'
 		ORDER BY created_at DESC
 	`
+	logger.Info("Executing query: %s", query)
 
 	rows, err := r.db.Query(query)
 	if err != nil {
+		logger.Error("Failed to query draft questions: %v", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -304,15 +327,18 @@ func (r *QuestionRepository) GetDraftQuestions() ([]models.Question, error) {
 			&q.TestOutput,
 		)
 		if err != nil {
+			logger.Error("Failed to scan draft question: %v", err)
 			return nil, err
 		}
 		questions = append(questions, q)
 	}
 
 	if err = rows.Err(); err != nil {
+		logger.Error("Error iterating draft questions: %v", err)
 		return nil, err
 	}
 
+	logger.Info("Successfully retrieved %d draft questions", len(questions))
 	return questions, nil
 }
 

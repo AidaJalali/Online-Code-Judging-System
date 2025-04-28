@@ -56,3 +56,20 @@ ERROR: 2025/04/28 17:43:08 logger.go:44: [2025-04-28 17:43:08] Failed to execute
 ERROR: 2025/04/28 17:43:09 logger.go:44: [2025-04-28 17:43:09] Failed to execute my questions template: template: my-questions.html:25:30: executing "content" at <$.IsAdmin>: can't evaluate field IsAdmin in type handlers.PageData
 ERROR: 2025/04/28 17:46:12 logger.go:44: [2025-04-28 17:46:12] Failed to execute my questions template: template: my-questions.html:25:30: executing "content" at <$.IsAdmin>: can't evaluate field IsAdmin in type handlers.PageData
 ERROR: 2025/04/28 17:46:14 logger.go:44: [2025-04-28 17:46:14] Failed to execute my questions template: template: my-questions.html:25:30: executing "content" at <$.IsAdmin>: can't evaluate field IsAdmin in type handlers.PageData
+ERROR: 2025/04/28 17:48:59 logger.go:44: [2025-04-28 17:48:59] Failed to execute my questions template: template: my-questions.html:25:30: executing "content" at <$.IsAdmin>: can't evaluate field IsAdmin in type handlers.PageData
+ERROR: 2025/04/28 18:05:54 logger.go:44: [2025-04-28 18:05:54] Failed to parse manage questions template: open templates/admin-dashboard/manage-questions.html: The system cannot find the file specified.
+ERROR: 2025/04/28 18:05:55 logger.go:44: [2025-04-28 18:05:55] Failed to parse manage questions template: open templates/admin-dashboard/manage-questions.html: The system cannot find the file specified.
+ERROR: 2025/04/28 18:05:58 logger.go:44: [2025-04-28 18:05:58] Failed to parse manage questions template: open templates/admin-dashboard/manage-questions.html: The system cannot find the file specified.
+ERROR: 2025/04/28 18:08:49 logger.go:44: [2025-04-28 18:08:49] Failed to parse manage questions template: open templates/admin-dashboard/manage-questions.html: The system cannot find the file specified.
+ERROR: 2025/04/28 18:08:53 logger.go:44: [2025-04-28 18:08:53] Failed to parse published questions template: open templates/public/published-questions.html: The system cannot find the file specified.
+ERROR: 2025/04/28 18:14:33 logger.go:44: [2025-04-28 18:14:33] Failed to parse manage questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:14:36 logger.go:44: [2025-04-28 18:14:36] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:14:48 logger.go:44: [2025-04-28 18:14:48] Failed to parse my questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:14:51 logger.go:44: [2025-04-28 18:14:51] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:16:58 logger.go:44: [2025-04-28 18:16:58] Failed to parse my questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:17:01 logger.go:44: [2025-04-28 18:17:01] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:18:33 logger.go:44: [2025-04-28 18:18:33] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:18:34 logger.go:44: [2025-04-28 18:18:34] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:18:35 logger.go:44: [2025-04-28 18:18:35] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:20:04 logger.go:44: [2025-04-28 18:20:04] Failed to parse my questions template: open application/templates/base.html: The system cannot find the path specified.
+ERROR: 2025/04/28 18:26:53 logger.go:44: [2025-04-28 18:26:53] Failed to execute edit question template: template: edit-question-form.html:43:41: executing "content" at <.Question.TestCases>: can't evaluate field TestCases in type *models.Question

@@ -34,8 +34,7 @@ func main() {
 	submissionRepo := repository.NewSubmissionRepository(db)
 
 	// Create handlers
-	handler := handlers.NewHandler(userRepo, draftRepo, submissionRepo)
-	handler.SetQuestionRepo(questionRepo)
+	handler := handlers.NewHandler(userRepo, questionRepo, draftRepo, submissionRepo)
 
 	// Create a new ServeMux
 	mux := http.NewServeMux()
@@ -54,17 +53,17 @@ func main() {
 	mux.HandleFunc("/my-questions", handler.MyQuestions)
 	mux.HandleFunc("/published-questions", handler.PublishedQuestions)
 	mux.HandleFunc("/all-drafts", handler.AllDrafts)
-	mux.HandleFunc("/create-question", handler.CreateQuestionForm)
 	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
 	mux.HandleFunc("/manage-questions", handler.ManageQuestions)
-	mux.HandleFunc("/edit-question", handler.EditQuestionForm)
+	mux.HandleFunc("/edit-question", handler.EditQuestion)
 	mux.HandleFunc("/view-question", handler.ViewQuestion)
-	mux.HandleFunc("/questions/submit", handler.SubmitQuestion)
+	mux.HandleFunc("/submit-question", handler.SubmitQuestion)
 	mux.HandleFunc("/submissions", handler.Submissions)
 	mux.HandleFunc("/profile", handler.Profile)
 	mux.HandleFunc("/manage-roles", handler.ManageRoles)
 	mux.HandleFunc("/update-role", handler.UpdateRole)
 	mux.HandleFunc("/delete-question", handler.DeleteQuestion)
+	mux.HandleFunc("/publish-question", handler.PublishQuestion)
 	mux.HandleFunc("/logout", handler.Logout)
 
 	// Start the server

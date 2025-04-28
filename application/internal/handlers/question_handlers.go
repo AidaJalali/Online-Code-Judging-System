@@ -66,7 +66,7 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 
 	tmpl, err := template.ParseFiles(
 		"templates/base.html",
-		"templates/user-dashboard/published-questions.html",
+		"templates/public/questions.html",
 	)
 	if err != nil {
 		logger.Error("Failed to parse questions template: %v", err)
@@ -346,7 +346,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 	funcMap := template.FuncMap{"add": func(a, b int) int { return a + b }}
 	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
 		"templates/base.html",
-		"templates/admin-dashboard/create-question-form.html",
+		"templates/user-dashboard/create-question-form.html",
 	)
 	if err != nil {
 		logger.Error("Failed to parse create question template: %v", err)
@@ -375,14 +375,16 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+// EditQuestion handles editing a question
+func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" && r.Method != "POST" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
+	// Check if user is authenticated
 	user, err := h.getAuthenticatedUser(r)
-	if err != nil || user == nil || user.Role != "admin" {
+	if err != nil || user == nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -393,6 +395,7 @@ func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Get the question
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
 		logger.Error("Failed to fetch question: %v", err)
@@ -405,6 +408,59 @@ func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Check if user is admin or the owner of the question
+	if user.Role != "admin" && question.OwnerID != user.ID {
+		http.Error(w, "Unauthorized: You can only edit your own questions", http.StatusUnauthorized)
+		return
+	}
+
+	if r.Method == "POST" {
+		if err := r.ParseForm(); err != nil {
+			logger.Error("Failed to parse form: %v", err)
+			http.Error(w, "Bad request", http.StatusBadRequest)
+			return
+		}
+
+		// Update question fields
+		question.Title = r.FormValue("title")
+		question.Statement = r.FormValue("statement")
+		question.TimeLimitMs = parseInt(r.FormValue("timeLimit"), 1000)
+		question.MemoryLimitMb = parseInt(r.FormValue("memoryLimit"), 128)
+		question.UpdatedAt = time.Now().Format(time.RFC3339)
+
+		// Update test cases
+		var testCases []models.TestCase
+		testInputs := r.Form["test_input[]"]
+		testOutputs := r.Form["test_output[]"]
+		numCases := min(len(testInputs), len(testOutputs))
+		for i := 0; i < numCases; i++ {
+			if testInputs[i] != "" && testOutputs[i] != "" {
+				testCases = append(testCases, models.TestCase{
+					Input:  testInputs[i],
+					Output: testOutputs[i],
+				})
+			}
+		}
+		question.SetTestCases(testCases)
+
+		// Save the updated question
+		err = h.questionRepo.UpdateQuestion(question)
+		if err != nil {
+			logger.Error("Failed to update question: %v", err)
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		// Redirect back to appropriate page
+		if user.Role == "admin" {
+			http.Redirect(w, r, "/all-drafts", http.StatusSeeOther)
+		} else {
+			http.Redirect(w, r, "/my-questions", http.StatusSeeOther)
+		}
+		return
+	}
+
+	// GET request - show the edit form
 	funcMap := template.FuncMap{"add": func(a, b int) int { return a + b }}
 	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
 		"templates/base.html",
@@ -511,7 +567,13 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 	}
 	logger.Info("User authenticated: %s (ID: %d)", user.Username, user.ID)
 
-	// Get user's draft questions
+	// If user is admin, redirect to all-drafts page
+	if user.Role == "admin" {
+		http.Redirect(w, r, "/all-drafts", http.StatusSeeOther)
+		return
+	}
+
+	// Get user's draft questions only
 	questions, err := h.questionRepo.GetDraftsByUserID(user.ID)
 	if err != nil {
 		logger.Error("Failed to fetch user's draft questions: %v", err)
@@ -519,10 +581,18 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Filter out published questions
+	var draftQuestions []models.Question
+	for _, q := range questions {
+		if q.Status == models.StatusDraft {
+			draftQuestions = append(draftQuestions, q)
+		}
+	}
+
 	data := PageData{
 		Title:     "My Draft Questions",
 		User:      user,
-		Questions: questions,
+		Questions: draftQuestions,
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -605,7 +675,7 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 	logger.Info("Attempting to parse templates for PublishedQuestions")
 	tmpl, err := template.ParseFiles(
 		"templates/base.html",
-		"templates/user-dashboard/published-questions.html",
+		"templates/public/published-questions.html",
 	)
 	if err != nil {
 		logger.Error("Failed to parse published questions template: %v", err)
@@ -802,7 +872,7 @@ func (h *Handler) DeleteQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// AllDrafts handles the page that shows all draft questions for admins
+// AllDrafts handles the page that shows all draft questions (admin only)
 func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -816,12 +886,20 @@ func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get all draft questions
+	// Get all draft questions only
 	questions, err := h.questionRepo.GetDraftQuestions()
 	if err != nil {
 		logger.Error("Failed to fetch draft questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
+	}
+
+	// Filter out published questions
+	var draftQuestions []models.Question
+	for _, q := range questions {
+		if q.Status == models.StatusDraft {
+			draftQuestions = append(draftQuestions, q)
+		}
 	}
 
 	// Get owners for all questions
@@ -831,7 +909,7 @@ func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 	}
 	var questionsWithOwners []QuestionWithOwner
 
-	for _, q := range questions {
+	for _, q := range draftQuestions {
 		owner, err := h.userRepo.GetUserByID(q.OwnerID)
 		if err != nil {
 			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
