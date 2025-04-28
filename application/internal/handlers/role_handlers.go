@@ -57,6 +57,8 @@ func (h *Handler) ManageRoles(w http.ResponseWriter, r *http.Request) {
 			HasNext      bool
 			PreviousPage int
 			NextPage     int
+			PageSize     int
+			TotalItems   int
 		}{
 			CurrentPage:  page,
 			TotalPages:   totalPages,
@@ -64,6 +66,8 @@ func (h *Handler) ManageRoles(w http.ResponseWriter, r *http.Request) {
 			HasNext:      page < totalPages,
 			PreviousPage: page - 1,
 			NextPage:     page + 1,
+			PageSize:     pageSize,
+			TotalItems:   total,
 		},
 	}
 

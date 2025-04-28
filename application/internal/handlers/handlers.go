@@ -24,6 +24,8 @@ type PageData struct {
 		HasNext      bool
 		PreviousPage int
 		NextPage     int
+		PageSize     int
+		TotalItems   int
 	}
 }
 

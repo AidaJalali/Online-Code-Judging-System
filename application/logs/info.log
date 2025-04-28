@@ -80,3 +80,10 @@ INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Successfully regis
 INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Redirecting admin user behzad to admin dashboard
 INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Admin dashboard access attempt by user behzad with role admin
 INFO: 2025/04/27 21:00:03 logger.go:39: [2025-04-27 21:00:03] Rendering admin dashboard for user behzad
+INFO: 2025/04/28 09:58:31 logger.go:39: [2025-04-28 09:58:31] Application started
+INFO: 2025/04/28 09:58:48 logger.go:39: [2025-04-28 09:58:48] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 09:58:48 logger.go:39: [2025-04-28 09:58:48] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 09:59:42 logger.go:39: [2025-04-28 09:59:42] Admin dashboard access attempt by user meowm with role admin
+INFO: 2025/04/28 09:59:42 logger.go:39: [2025-04-28 09:59:42] Rendering admin dashboard for user meowm
+INFO: 2025/04/28 10:01:19 logger.go:39: [2025-04-28 10:01:19] Application started
+INFO: 2025/04/28 10:03:04 logger.go:39: [2025-04-28 10:03:04] Application started

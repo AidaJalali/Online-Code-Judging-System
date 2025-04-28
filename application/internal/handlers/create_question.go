@@ -88,6 +88,22 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Get test cases from form
+	var testCases []models.TestCase
+	testInputs := r.Form["test_input[]"]
+	testOutputs := r.Form["test_output[]"]
+
+	// Use the minimum length to avoid index out of range
+	numCases := min(len(testInputs), len(testOutputs))
+	for i := 0; i < numCases; i++ {
+		if testInputs[i] != "" && testOutputs[i] != "" {
+			testCases = append(testCases, models.TestCase{
+				Input:  testInputs[i],
+				Output: testOutputs[i],
+			})
+		}
+	}
+
 	// Create or update draft
 	now := time.Now().Format(time.RFC3339)
 	draft := &models.Question{
@@ -99,9 +115,10 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 		OwnerID:       user.ID,
 		CreatedAt:     now,
 		UpdatedAt:     now,
-		TestInput:     r.FormValue("test_input"),
-		TestOutput:    r.FormValue("test_output"),
 	}
+
+	// Set test cases
+	draft.SetTestCases(testCases)
 
 	err = h.draftRepo.SaveDraft(draft)
 	if err != nil {
@@ -111,7 +128,7 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If form is complete, publish the question
-	if draft.Title != "" && draft.Statement != "" && draft.TestInput != "" && draft.TestOutput != "" {
+	if draft.Title != "" && draft.Statement != "" && len(testCases) > 0 {
 		// Update the status to published
 		now = time.Now().Format(time.RFC3339)
 		draft.Status = models.StatusPublished
