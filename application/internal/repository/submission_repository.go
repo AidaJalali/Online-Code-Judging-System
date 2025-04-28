@@ -53,11 +53,11 @@ func (r *SubmissionRepository) GetAllSubmissions() ([]models.Submission, error) 
 
 func (r *SubmissionRepository) CreateSubmission(sub *models.Submission) error {
 	query := `
-		INSERT INTO submissions (question_id, user_id, code, status, created_at)
-		VALUES ($1, $2, $3, $4, NOW())
+		INSERT INTO submissions (question_id, user_id, code, language, status, created_at)
+		VALUES ($1, $2, $3, $4, $5, NOW())
 		RETURNING id, created_at
 	`
-	return r.db.QueryRow(query, sub.QuestionID, sub.UserID, sub.Code, sub.Status).Scan(&sub.ID, &sub.CreatedAt)
+	return r.db.QueryRow(query, sub.QuestionID, sub.UserID, sub.Code, sub.Language, sub.Status).Scan(&sub.ID, &sub.CreatedAt)
 }
 
 type SubmissionWithQuestion struct {
