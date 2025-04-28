@@ -156,6 +156,72 @@ func (h *Handler) HandleCreateQuestion(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/create-question-form", http.StatusSeeOther)
 }
 
+func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is admin
+	user, err := h.getAuthenticatedUser(r)
+	if err != nil || user == nil || user.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get question ID from query parameter
+	questionID := r.URL.Query().Get("id")
+	if questionID == "" {
+		http.Error(w, "Question ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Fetch question from the repository
+	question, err := h.questionRepo.GetQuestionByID(questionID)
+	if err != nil {
+		logger.Error("Failed to fetch question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Create template with functions
+	funcMap := template.FuncMap{
+		"add": func(a, b int) int {
+			return a + b
+		},
+	}
+
+	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
+		"templates/base.html",
+		"templates/admin-dashboard/create-question-form.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse edit question template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := struct {
+		Title   string
+		User    *models.User
+		Draft   *models.Question
+		Error   string
+		Success string
+	}{
+		Title:   "Edit Question",
+		User:    user,
+		Draft:   question,
+		Error:   "",
+		Success: "",
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		logger.Error("Failed to execute edit question template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
+}
+
 func (h *Handler) getAuthenticatedUser(r *http.Request) (*models.User, error) {
 	cookie, err := r.Cookie("username")
 	if err != nil {
