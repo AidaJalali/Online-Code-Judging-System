@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"online-judge/internal/logger"
 	"online-judge/internal/models"
+	"online-judge/internal/types"
 	"strconv"
 	"time"
 )
@@ -83,105 +84,44 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) SubmitQuestion(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodGet {
-		// Get question ID from query parameter
-		questionID := r.URL.Query().Get("id")
-		if questionID == "" {
-			http.Error(w, "Question ID is required", http.StatusBadRequest)
-			return
-		}
-
-		// Fetch question details from the repository
-		question, err := h.questionRepo.GetQuestionByID(questionID)
-		if err != nil {
-			logger.Error("Failed to fetch question: %v", err)
-			http.Error(w, "Internal server error", http.StatusInternalServerError)
-			return
-		}
-
-		// Render submit_question template
-		tmpl, err := template.ParseFiles("templates/base.html", "templates/user-dashboard/submit_question.html")
-		if err != nil {
-			logger.Error("Failed to parse submit question template: %v", err)
-			http.Error(w, "Internal server error", http.StatusInternalServerError)
-			return
-		}
-
-		data := PageData{
-			Title:    "Submit Question",
-			Question: question,
-		}
-
-		err = tmpl.ExecuteTemplate(w, "base", data)
-		if err != nil {
-			logger.Error("Failed to execute submit question template: %v", err)
-			http.Error(w, "Internal server error", http.StatusInternalServerError)
-			return
-		}
-	}
-
-	if r.Method == http.MethodPost {
-		// Get username from cookie
-		cookie, err := r.Cookie("username")
-		if err != nil {
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
-			return
-		}
-		user, err := h.userRepo.GetUserByUsername(cookie.Value)
-		if err != nil || user == nil {
-			http.Redirect(w, r, "/login", http.StatusSeeOther)
-			return
-		}
-
-		questionID := r.URL.Query().Get("id")
-		if questionID == "" {
-			http.Error(w, "Question ID is required", http.StatusBadRequest)
-			return
-		}
-
-		// Parse uploaded file
-		file, _, err := r.FormFile("file")
-		if err != nil {
-			http.Error(w, "Failed to read uploaded file", http.StatusBadRequest)
-			return
-		}
-		defer file.Close()
-		code := make([]byte, 0)
-		buf := make([]byte, 4096)
-		for {
-			n, err := file.Read(buf)
-			if n > 0 {
-				code = append(code, buf[:n]...)
-			}
-			if err != nil {
-				break
-			}
-		}
-
-		// Save submission (status is 'pending')
-		qid, err := strconv.ParseInt(questionID, 10, 64)
-		if err != nil {
-			http.Error(w, "Invalid question ID", http.StatusBadRequest)
-			return
-		}
-		sub := &models.Submission{
-			QuestionID: qid,
-			UserID:     user.ID,
-			Code:       string(code),
-			Status:     "pending",
-			CreatedAt:  time.Now().Format("2006-01-02 15:04:05"),
-		}
-		err = h.submissionRepo.CreateSubmission(sub)
-		if err != nil {
-			http.Error(w, "Failed to save submission", http.StatusInternalServerError)
-			return
-		}
-
-		http.Redirect(w, r, "/submissions", http.StatusSeeOther)
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	// Get question ID from query parameter
+	questionID := r.URL.Query().Get("id")
+	if questionID == "" {
+		http.Error(w, "Question ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Fetch question details from the repository
+	question, err := h.questionRepo.GetQuestionByID(questionID)
+	if err != nil {
+		logger.Error("Failed to fetch question: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Render submit_question template
+	tmpl, err := template.ParseFiles("templates/base.html", "templates/user-dashboard/submit_question.html")
+	if err != nil {
+		logger.Error("Failed to parse submit question template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	data := PageData{
+		Title:    "Submit Question",
+		Question: question,
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		logger.Error("Failed to execute submit question template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 }
 
 // ManageQuestions handles the question management page for admins
@@ -274,13 +214,13 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var testCases []models.TestCase
+		var testCases []types.TestCase
 		testInputs := r.Form["test_input[]"]
 		testOutputs := r.Form["test_output[]"]
 		numCases := min(len(testInputs), len(testOutputs))
 		for i := 0; i < numCases; i++ {
 			if testInputs[i] != "" && testOutputs[i] != "" {
-				testCases = append(testCases, models.TestCase{
+				testCases = append(testCases, types.TestCase{
 					Input:  testInputs[i],
 					Output: testOutputs[i],
 				})
@@ -429,13 +369,13 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 		question.UpdatedAt = time.Now().Format(time.RFC3339)
 
 		// Update test cases
-		var testCases []models.TestCase
+		var testCases []types.TestCase
 		testInputs := r.Form["test_input[]"]
 		testOutputs := r.Form["test_output[]"]
 		numCases := min(len(testInputs), len(testOutputs))
 		for i := 0; i < numCases; i++ {
 			if testInputs[i] != "" && testOutputs[i] != "" {
-				testCases = append(testCases, models.TestCase{
+				testCases = append(testCases, types.TestCase{
 					Input:  testInputs[i],
 					Output: testOutputs[i],
 				})

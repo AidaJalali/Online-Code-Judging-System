@@ -128,6 +128,43 @@ func createTables(db *sql.DB) error {
 	}
 	logger.Info("Questions table created successfully")
 
+	// Create submissions table
+	logger.Info("Creating submissions table...")
+	_, err = db.Exec(`
+		DROP TABLE IF EXISTS submissions;
+		DROP TYPE IF EXISTS submission_status;
+
+		CREATE TYPE submission_status AS ENUM (
+			'Accepted',
+			'Wrong Answer',
+			'Compilation Error',
+			'Runtime Error',
+			'Time Limit Exceeded',
+			'Memory Limit Exceeded',
+			'Pending'
+		);
+
+		CREATE TABLE submissions (
+			id SERIAL PRIMARY KEY,
+			question_id INTEGER NOT NULL,
+			user_id INTEGER NOT NULL,
+			code TEXT NOT NULL,
+			language VARCHAR(50) NOT NULL,
+			status submission_status NOT NULL DEFAULT 'Pending',
+			message TEXT,
+			time_taken BIGINT,
+			memory_used BIGINT,
+			created_at TIMESTAMP NOT NULL,
+			FOREIGN KEY (question_id) REFERENCES questions(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		)
+	`)
+	if err != nil {
+		logger.Error("Failed to create submissions table: %v", err)
+		return err
+	}
+	logger.Info("Submissions table created successfully")
+
 	return nil
 }
 

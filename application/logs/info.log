@@ -779,10 +779,6 @@ INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Executing query:
 		WHERE status = 'draft' AND owner_id = $1
 		ORDER BY created_at DESC
 	 with userID=12
-INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Found draft question: ID=22, Title=dikfdkij, Status=draft
-INFO: 2025/04/28 17:46:12 logger.go:39: [2025-04-28 17:46:12] Successfully retrieved 1 draft questions for user 12
-INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] MyQuestions handler called
-INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] User authenticated: meowm (ID: 12)
 INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Getting draft questions for user ID: 12
 INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Database connection successful
 INFO: 2025/04/28 17:46:14 logger.go:39: [2025-04-28 17:46:14] Executing query: 
@@ -1460,3 +1456,1231 @@ INFO: 2025/04/28 20:02:13 logger.go:39: [2025-04-28 20:02:13] Executing query:
 		ORDER BY created_at DESC
 	
 INFO: 2025/04/28 20:02:13 logger.go:39: [2025-04-28 20:02:13] Successfully retrieved 3 questions
+INFO: 2025/04/28 21:04:44 logger.go:39: [2025-04-28 21:04:44] Database connection successful
+INFO: 2025/04/28 21:04:44 logger.go:39: [2025-04-28 21:04:44] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:04:44 logger.go:39: [2025-04-28 21:04:44] Successfully retrieved 3 questions
+INFO: 2025/04/28 21:04:55 logger.go:39: [2025-04-28 21:04:55] Database connection successful
+INFO: 2025/04/28 21:04:55 logger.go:39: [2025-04-28 21:04:55] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:04:55 logger.go:39: [2025-04-28 21:04:55] Successfully retrieved 3 questions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] PublishedQuestions handler called
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Getting all published questions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Database connection successful
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Found question: ID=23, Title=dff, Status=published
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Successfully retrieved 3 published questions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Found 3 published questions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Processed 3 questions with owner information
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 21:05:01 logger.go:39: [2025-04-28 21:05:01] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 21:05:07 logger.go:39: [2025-04-28 21:05:07] Fetching question with ID: 21
+INFO: 2025/04/28 21:05:07 logger.go:39: [2025-04-28 21:05:07] Successfully fetched question with ID 21
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Application started
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Initializing database connection...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Opening database connection...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Pinging database...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Database connection successful
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Testing database access...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Database access test successful
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Creating tables if they don't exist...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Creating users table...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Users table created successfully
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Creating questions table...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Questions table created successfully
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Creating submissions table...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Submissions table created successfully
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Tables created successfully
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Inserting test data...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Checking for existing test data...
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Test data inserted successfully
+INFO: 2025/04/28 21:15:12 logger.go:39: [2025-04-28 21:15:12] Verifying test data...
+INFO: 2025/04/28 21:15:13 logger.go:39: [2025-04-28 21:15:13] Found 3 questions in database
+INFO: 2025/04/28 21:15:13 logger.go:39: [2025-04-28 21:15:13] Found 17 users in database
+INFO: 2025/04/28 21:15:21 logger.go:39: [2025-04-28 21:15:21] PublishedQuestions handler called
+INFO: 2025/04/28 21:15:21 logger.go:39: [2025-04-28 21:15:21] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:15:21 logger.go:39: [2025-04-28 21:15:21] Getting all published questions
+INFO: 2025/04/28 21:15:21 logger.go:39: [2025-04-28 21:15:21] Database connection successful
+INFO: 2025/04/28 21:15:21 logger.go:39: [2025-04-28 21:15:21] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:15:26 logger.go:39: [2025-04-28 21:15:26] MyQuestions handler called
+INFO: 2025/04/28 21:15:26 logger.go:39: [2025-04-28 21:15:26] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:15:26 logger.go:39: [2025-04-28 21:15:26] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:15:26 logger.go:39: [2025-04-28 21:15:26] Database connection successful
+INFO: 2025/04/28 21:15:26 logger.go:39: [2025-04-28 21:15:26] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:15:29 logger.go:39: [2025-04-28 21:15:29] PublishedQuestions handler called
+INFO: 2025/04/28 21:15:30 logger.go:39: [2025-04-28 21:15:30] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:15:30 logger.go:39: [2025-04-28 21:15:30] Getting all published questions
+INFO: 2025/04/28 21:15:30 logger.go:39: [2025-04-28 21:15:30] Database connection successful
+INFO: 2025/04/28 21:15:30 logger.go:39: [2025-04-28 21:15:30] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:15:39 logger.go:39: [2025-04-28 21:15:39] Database connection successful
+INFO: 2025/04/28 21:15:39 logger.go:39: [2025-04-28 21:15:39] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:15:45 logger.go:39: [2025-04-28 21:15:45] Database connection successful
+INFO: 2025/04/28 21:15:45 logger.go:39: [2025-04-28 21:15:45] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:16:28 logger.go:39: [2025-04-28 21:16:28] PublishedQuestions handler called
+INFO: 2025/04/28 21:16:29 logger.go:39: [2025-04-28 21:16:29] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:16:29 logger.go:39: [2025-04-28 21:16:29] Getting all published questions
+INFO: 2025/04/28 21:16:29 logger.go:39: [2025-04-28 21:16:29] Database connection successful
+INFO: 2025/04/28 21:16:29 logger.go:39: [2025-04-28 21:16:29] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:18:24 logger.go:39: [2025-04-28 21:18:24] MyQuestions handler called
+INFO: 2025/04/28 21:18:24 logger.go:39: [2025-04-28 21:18:24] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:18:24 logger.go:39: [2025-04-28 21:18:24] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:18:24 logger.go:39: [2025-04-28 21:18:24] Database connection successful
+INFO: 2025/04/28 21:18:24 logger.go:39: [2025-04-28 21:18:24] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:18:28 logger.go:39: [2025-04-28 21:18:28] PublishedQuestions handler called
+INFO: 2025/04/28 21:18:28 logger.go:39: [2025-04-28 21:18:28] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:18:28 logger.go:39: [2025-04-28 21:18:28] Getting all published questions
+INFO: 2025/04/28 21:18:28 logger.go:39: [2025-04-28 21:18:28] Database connection successful
+INFO: 2025/04/28 21:18:28 logger.go:39: [2025-04-28 21:18:28] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:21:21 logger.go:39: [2025-04-28 21:21:21] Application started
+INFO: 2025/04/28 21:21:21 logger.go:39: [2025-04-28 21:21:21] Initializing database connection...
+INFO: 2025/04/28 21:21:21 logger.go:39: [2025-04-28 21:21:21] Opening database connection...
+INFO: 2025/04/28 21:21:21 logger.go:39: [2025-04-28 21:21:21] Pinging database...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Database connection successful
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Testing database access...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Database access test successful
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Creating tables if they don't exist...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Creating users table...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Users table created successfully
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Creating questions table...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Questions table created successfully
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Creating submissions table...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Submissions table created successfully
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Tables created successfully
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Inserting test data...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Checking for existing test data...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Test data inserted successfully
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Verifying test data...
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Found 3 questions in database
+INFO: 2025/04/28 21:21:22 logger.go:39: [2025-04-28 21:21:22] Found 17 users in database
+INFO: 2025/04/28 21:21:28 logger.go:39: [2025-04-28 21:21:28] PublishedQuestions handler called
+INFO: 2025/04/28 21:21:28 logger.go:39: [2025-04-28 21:21:28] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:21:28 logger.go:39: [2025-04-28 21:21:28] Getting all published questions
+INFO: 2025/04/28 21:21:28 logger.go:39: [2025-04-28 21:21:28] Database connection successful
+INFO: 2025/04/28 21:21:28 logger.go:39: [2025-04-28 21:21:28] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:21:33 logger.go:39: [2025-04-28 21:21:33] Database connection successful
+INFO: 2025/04/28 21:21:33 logger.go:39: [2025-04-28 21:21:33] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:21:39 logger.go:39: [2025-04-28 21:21:39] Database connection successful
+INFO: 2025/04/28 21:21:39 logger.go:39: [2025-04-28 21:21:39] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Application started
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Initializing database connection...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Opening database connection...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Pinging database...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Database connection successful
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Testing database access...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Database access test successful
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Creating tables if they don't exist...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Creating users table...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Users table created successfully
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Creating questions table...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Questions table created successfully
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Creating submissions table...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Submissions table created successfully
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Tables created successfully
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Inserting test data...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Checking for existing test data...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Test data inserted successfully
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Verifying test data...
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Found 3 questions in database
+INFO: 2025/04/28 21:26:28 logger.go:39: [2025-04-28 21:26:28] Found 17 users in database
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Logout handler called
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Username cookie cleared
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Redirecting to home page ('/')...
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Home handler called for path: /
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Fetching all questions for home page...
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Database connection successful
+INFO: 2025/04/28 21:26:42 logger.go:39: [2025-04-28 21:26:42] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:26:46 logger.go:39: [2025-04-28 21:26:46] MyQuestions handler called
+INFO: 2025/04/28 21:26:46 logger.go:39: [2025-04-28 21:26:46] Attempting to get authenticated user...
+INFO: 2025/04/28 21:26:46 logger.go:39: [2025-04-28 21:26:46] Failed to get 'username' cookie: http: named cookie not present
+INFO: 2025/04/28 21:26:49 logger.go:39: [2025-04-28 21:26:49] PublishedQuestions handler called
+INFO: 2025/04/28 21:26:49 logger.go:39: [2025-04-28 21:26:49] Attempting to get authenticated user...
+INFO: 2025/04/28 21:26:49 logger.go:39: [2025-04-28 21:26:49] Failed to get 'username' cookie: http: named cookie not present
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Logout handler called
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Username cookie cleared
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Redirecting to home page ('/')...
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Home handler called for path: /
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Fetching all questions for home page...
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Database connection successful
+INFO: 2025/04/28 21:29:49 logger.go:39: [2025-04-28 21:29:49] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:32:39 logger.go:39: [2025-04-28 21:32:39] Application started
+INFO: 2025/04/28 21:32:39 logger.go:39: [2025-04-28 21:32:39] Initializing database connection...
+INFO: 2025/04/28 21:32:39 logger.go:39: [2025-04-28 21:32:39] Opening database connection...
+INFO: 2025/04/28 21:32:39 logger.go:39: [2025-04-28 21:32:39] Pinging database...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Database connection successful
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Testing database access...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Database access test successful
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Creating tables if they don't exist...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Creating users table...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Users table created successfully
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Creating questions table...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Questions table created successfully
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Creating submissions table...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Submissions table created successfully
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Tables created successfully
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Inserting test data...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Checking for existing test data...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Test data inserted successfully
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Verifying test data...
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Found 3 questions in database
+INFO: 2025/04/28 21:32:40 logger.go:39: [2025-04-28 21:32:40] Found 17 users in database
+INFO: 2025/04/28 21:32:47 logger.go:39: [2025-04-28 21:32:47] Home handler called for path: /
+INFO: 2025/04/28 21:32:47 logger.go:39: [2025-04-28 21:32:47] Fetching all questions for home page...
+INFO: 2025/04/28 21:32:47 logger.go:39: [2025-04-28 21:32:47] Database connection successful
+INFO: 2025/04/28 21:32:47 logger.go:39: [2025-04-28 21:32:47] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:32:48 logger.go:39: [2025-04-28 21:32:48] Home handler called for path: /
+INFO: 2025/04/28 21:32:48 logger.go:39: [2025-04-28 21:32:48] Fetching all questions for home page...
+INFO: 2025/04/28 21:32:48 logger.go:39: [2025-04-28 21:32:48] Database connection successful
+INFO: 2025/04/28 21:32:48 logger.go:39: [2025-04-28 21:32:48] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:32:52 logger.go:39: [2025-04-28 21:32:52] Home handler called for path: /
+INFO: 2025/04/28 21:32:52 logger.go:39: [2025-04-28 21:32:52] Fetching all questions for home page...
+INFO: 2025/04/28 21:32:53 logger.go:39: [2025-04-28 21:32:53] Database connection successful
+INFO: 2025/04/28 21:32:53 logger.go:39: [2025-04-28 21:32:53] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Application started
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Initializing database connection...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Opening database connection...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Pinging database...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Database connection successful
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Testing database access...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Database access test successful
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Creating tables if they don't exist...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Creating users table...
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Users table created successfully
+INFO: 2025/04/28 21:34:13 logger.go:39: [2025-04-28 21:34:13] Creating questions table...
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Questions table created successfully
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Creating submissions table...
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Submissions table created successfully
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Tables created successfully
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Inserting test data...
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Checking for existing test data...
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Test data inserted successfully
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Verifying test data...
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Found 3 questions in database
+INFO: 2025/04/28 21:34:14 logger.go:39: [2025-04-28 21:34:14] Found 17 users in database
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Application started
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Initializing database connection...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Opening database connection...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Pinging database...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Database connection successful
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Testing database access...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Database access test successful
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Creating tables if they don't exist...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Creating users table...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Users table created successfully
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Creating questions table...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Questions table created successfully
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Creating submissions table...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Submissions table created successfully
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Tables created successfully
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Inserting test data...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Checking for existing test data...
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Test data inserted successfully
+INFO: 2025/04/28 21:35:18 logger.go:39: [2025-04-28 21:35:18] Verifying test data...
+INFO: 2025/04/28 21:35:19 logger.go:39: [2025-04-28 21:35:19] Found 3 questions in database
+INFO: 2025/04/28 21:35:19 logger.go:39: [2025-04-28 21:35:19] Found 17 users in database
+INFO: 2025/04/28 21:35:22 logger.go:39: [2025-04-28 21:35:22] Home handler called for path: /
+INFO: 2025/04/28 21:35:22 logger.go:39: [2025-04-28 21:35:22] Fetching all questions for home page...
+INFO: 2025/04/28 21:35:22 logger.go:39: [2025-04-28 21:35:22] Database connection successful
+INFO: 2025/04/28 21:35:22 logger.go:39: [2025-04-28 21:35:22] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:37:15 logger.go:39: [2025-04-28 21:37:15] Home handler called for path: /
+INFO: 2025/04/28 21:37:15 logger.go:39: [2025-04-28 21:37:15] Fetching all questions for home page...
+INFO: 2025/04/28 21:37:15 logger.go:39: [2025-04-28 21:37:15] Database connection successful
+INFO: 2025/04/28 21:37:15 logger.go:39: [2025-04-28 21:37:15] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:37:28 logger.go:39: [2025-04-28 21:37:28] MyQuestions handler called
+INFO: 2025/04/28 21:37:28 logger.go:39: [2025-04-28 21:37:28] Attempting to get authenticated user...
+INFO: 2025/04/28 21:37:28 logger.go:39: [2025-04-28 21:37:28] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] Database connection successful
+INFO: 2025/04/28 21:37:29 logger.go:39: [2025-04-28 21:37:29] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] PublishedQuestions handler called
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Attempting to get authenticated user...
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Fetching all published questions...
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Getting all published questions
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Database connection successful
+INFO: 2025/04/28 21:37:32 logger.go:39: [2025-04-28 21:37:32] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:37:59 logger.go:39: [2025-04-28 21:37:59] MyQuestions handler called
+INFO: 2025/04/28 21:37:59 logger.go:39: [2025-04-28 21:37:59] Attempting to get authenticated user...
+INFO: 2025/04/28 21:37:59 logger.go:39: [2025-04-28 21:37:59] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] Database connection successful
+INFO: 2025/04/28 21:38:00 logger.go:39: [2025-04-28 21:38:00] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] PublishedQuestions handler called
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Attempting to get authenticated user...
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Fetching all published questions...
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Getting all published questions
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Database connection successful
+INFO: 2025/04/28 21:38:03 logger.go:39: [2025-04-28 21:38:03] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] PublishedQuestions handler called
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Attempting to get authenticated user...
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Fetching all published questions...
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Getting all published questions
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Database connection successful
+INFO: 2025/04/28 21:39:25 logger.go:39: [2025-04-28 21:39:25] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] MyQuestions handler called
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Attempting to get authenticated user...
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Database connection successful
+INFO: 2025/04/28 21:39:29 logger.go:39: [2025-04-28 21:39:29] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] PublishedQuestions handler called
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Attempting to get authenticated user...
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Fetching all published questions...
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Getting all published questions
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Database connection successful
+INFO: 2025/04/28 21:39:36 logger.go:39: [2025-04-28 21:39:36] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] MyQuestions handler called
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Attempting to get authenticated user...
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Database connection successful
+INFO: 2025/04/28 21:39:39 logger.go:39: [2025-04-28 21:39:39] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Logout handler called
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Username cookie cleared
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Redirecting to home page ('/')...
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Home handler called for path: /
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Fetching all questions for home page...
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Database connection successful
+INFO: 2025/04/28 21:39:42 logger.go:39: [2025-04-28 21:39:42] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:39:46 logger.go:39: [2025-04-28 21:39:46] Home handler called for path: /
+INFO: 2025/04/28 21:39:46 logger.go:39: [2025-04-28 21:39:46] Fetching all questions for home page...
+INFO: 2025/04/28 21:39:46 logger.go:39: [2025-04-28 21:39:46] Database connection successful
+INFO: 2025/04/28 21:39:46 logger.go:39: [2025-04-28 21:39:46] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:42:32 logger.go:39: [2025-04-28 21:42:32] Home handler called for path: /
+INFO: 2025/04/28 21:42:32 logger.go:39: [2025-04-28 21:42:32] Fetching all questions for home page...
+INFO: 2025/04/28 21:42:32 logger.go:39: [2025-04-28 21:42:32] Database connection successful
+INFO: 2025/04/28 21:42:32 logger.go:39: [2025-04-28 21:42:32] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:42:53 logger.go:39: [2025-04-28 21:42:53] Home handler called for path: /
+INFO: 2025/04/28 21:42:53 logger.go:39: [2025-04-28 21:42:53] Fetching all questions for home page...
+INFO: 2025/04/28 21:42:54 logger.go:39: [2025-04-28 21:42:54] Database connection successful
+INFO: 2025/04/28 21:42:54 logger.go:39: [2025-04-28 21:42:54] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Application started
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Initializing database connection...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Opening database connection...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Pinging database...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Database connection successful
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Testing database access...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Database access test successful
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Creating tables if they don't exist...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Creating users table...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Users table created successfully
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Creating questions table...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Questions table created successfully
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Creating submissions table...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Submissions table created successfully
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Tables created successfully
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Inserting test data...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Checking for existing test data...
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Test data inserted successfully
+INFO: 2025/04/28 21:47:38 logger.go:39: [2025-04-28 21:47:38] Verifying test data...
+INFO: 2025/04/28 21:47:39 logger.go:39: [2025-04-28 21:47:39] Found 3 questions in database
+INFO: 2025/04/28 21:47:39 logger.go:39: [2025-04-28 21:47:39] Found 17 users in database
+INFO: 2025/04/28 21:47:45 logger.go:39: [2025-04-28 21:47:45] Home handler called for path: /
+INFO: 2025/04/28 21:47:45 logger.go:39: [2025-04-28 21:47:45] Fetching all questions for home page...
+INFO: 2025/04/28 21:47:45 logger.go:39: [2025-04-28 21:47:45] Database connection successful
+INFO: 2025/04/28 21:47:45 logger.go:39: [2025-04-28 21:47:45] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:47:46 logger.go:39: [2025-04-28 21:47:46] Home handler called for path: /
+INFO: 2025/04/28 21:47:46 logger.go:39: [2025-04-28 21:47:46] Fetching all questions for home page...
+INFO: 2025/04/28 21:47:46 logger.go:39: [2025-04-28 21:47:46] Database connection successful
+INFO: 2025/04/28 21:47:46 logger.go:39: [2025-04-28 21:47:46] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] MyQuestions handler called
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Attempting to get authenticated user...
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Database connection successful
+INFO: 2025/04/28 21:47:49 logger.go:39: [2025-04-28 21:47:49] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Application started
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Initializing database connection...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Opening database connection...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Pinging database...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Database connection successful
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Testing database access...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Database access test successful
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Creating tables if they don't exist...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Creating users table...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Users table created successfully
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Creating questions table...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Questions table created successfully
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Creating submissions table...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Submissions table created successfully
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Tables created successfully
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Inserting test data...
+INFO: 2025/04/28 21:49:17 logger.go:39: [2025-04-28 21:49:17] Checking for existing test data...
+INFO: 2025/04/28 21:49:18 logger.go:39: [2025-04-28 21:49:18] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:49:18 logger.go:39: [2025-04-28 21:49:18] Test data inserted successfully
+INFO: 2025/04/28 21:49:18 logger.go:39: [2025-04-28 21:49:18] Verifying test data...
+INFO: 2025/04/28 21:49:18 logger.go:39: [2025-04-28 21:49:18] Found 3 questions in database
+INFO: 2025/04/28 21:49:18 logger.go:39: [2025-04-28 21:49:18] Found 17 users in database
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] MyQuestions handler called
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Attempting to get authenticated user...
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Database connection successful
+INFO: 2025/04/28 21:49:24 logger.go:39: [2025-04-28 21:49:24] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] PublishedQuestions handler called
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] Attempting to get authenticated user...
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] Fetching all published questions...
+INFO: 2025/04/28 21:49:30 logger.go:39: [2025-04-28 21:49:30] Getting all published questions
+INFO: 2025/04/28 21:49:31 logger.go:39: [2025-04-28 21:49:31] Database connection successful
+INFO: 2025/04/28 21:49:31 logger.go:39: [2025-04-28 21:49:31] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Home handler called for path: /
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Fetching all questions for home page...
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Database connection successful
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Home handler called for path: /
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Fetching all questions for home page...
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Database connection successful
+INFO: 2025/04/28 21:52:26 logger.go:39: [2025-04-28 21:52:26] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:52:30 logger.go:39: [2025-04-28 21:52:30] Home handler called for path: /
+INFO: 2025/04/28 21:52:30 logger.go:39: [2025-04-28 21:52:30] Fetching all questions for home page...
+INFO: 2025/04/28 21:52:30 logger.go:39: [2025-04-28 21:52:30] Database connection successful
+INFO: 2025/04/28 21:52:30 logger.go:39: [2025-04-28 21:52:30] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:53:43 logger.go:39: [2025-04-28 21:53:43] Application started
+INFO: 2025/04/28 21:53:43 logger.go:39: [2025-04-28 21:53:43] Initializing database connection...
+INFO: 2025/04/28 21:53:43 logger.go:39: [2025-04-28 21:53:43] Opening database connection...
+INFO: 2025/04/28 21:53:43 logger.go:39: [2025-04-28 21:53:43] Pinging database...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Database connection successful
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Testing database access...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Database access test successful
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Creating tables if they don't exist...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Creating users table...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Users table created successfully
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Creating questions table...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Questions table created successfully
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Creating submissions table...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Submissions table created successfully
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Tables created successfully
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Inserting test data...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Checking for existing test data...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Test data inserted successfully
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Verifying test data...
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Found 3 questions in database
+INFO: 2025/04/28 21:53:44 logger.go:39: [2025-04-28 21:53:44] Found 17 users in database
+INFO: 2025/04/28 21:53:51 logger.go:39: [2025-04-28 21:53:51] Home handler called for path: /
+INFO: 2025/04/28 21:53:51 logger.go:39: [2025-04-28 21:53:51] Fetching all questions for home page...
+INFO: 2025/04/28 21:53:51 logger.go:39: [2025-04-28 21:53:51] Database connection successful
+INFO: 2025/04/28 21:53:51 logger.go:39: [2025-04-28 21:53:51] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:53:52 logger.go:39: [2025-04-28 21:53:52] Home handler called for path: /
+INFO: 2025/04/28 21:53:52 logger.go:39: [2025-04-28 21:53:52] Fetching all questions for home page...
+INFO: 2025/04/28 21:53:52 logger.go:39: [2025-04-28 21:53:52] Database connection successful
+INFO: 2025/04/28 21:53:52 logger.go:39: [2025-04-28 21:53:52] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] MyQuestions handler called
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Attempting to get authenticated user...
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Database connection successful
+INFO: 2025/04/28 21:54:02 logger.go:39: [2025-04-28 21:54:02] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] MyQuestions handler called
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Attempting to get authenticated user...
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Found 'username' cookie: meowm
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Successfully authenticated user: meowm (ID: 12, Role: regular)
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Fetching draft questions for user ID: 12
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Database connection successful
+INFO: 2025/04/28 21:55:32 logger.go:39: [2025-04-28 21:55:32] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   language, status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:56:33 logger.go:39: [2025-04-28 21:56:33] Application started
+INFO: 2025/04/28 21:56:33 logger.go:39: [2025-04-28 21:56:33] Initializing database connection...
+INFO: 2025/04/28 21:56:33 logger.go:39: [2025-04-28 21:56:33] Opening database connection...
+INFO: 2025/04/28 21:56:33 logger.go:39: [2025-04-28 21:56:33] Pinging database...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Database connection successful
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Testing database access...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Database access test successful
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Creating tables if they don't exist...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Creating users table...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Users table created successfully
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Creating questions table...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Questions table created successfully
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Tables created successfully
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Inserting test data...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Checking for existing test data...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Test data inserted successfully
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Verifying test data...
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Found 3 questions in database
+INFO: 2025/04/28 21:56:34 logger.go:39: [2025-04-28 21:56:34] Found 17 users in database
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] MyQuestions handler called
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] Getting draft questions for user ID: 12
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] Database connection successful
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=12
+INFO: 2025/04/28 21:56:45 logger.go:39: [2025-04-28 21:56:45] Successfully retrieved 0 draft questions for user 12
+INFO: 2025/04/28 21:56:51 logger.go:39: [2025-04-28 21:56:51] Database connection successful
+INFO: 2025/04/28 21:56:51 logger.go:39: [2025-04-28 21:56:51] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 21:56:51 logger.go:39: [2025-04-28 21:56:51] Successfully retrieved 3 questions
+INFO: 2025/04/28 22:05:43 logger.go:39: [2025-04-28 22:05:43] Application started
+INFO: 2025/04/28 22:05:43 logger.go:39: [2025-04-28 22:05:43] Initializing database connection...
+INFO: 2025/04/28 22:05:43 logger.go:39: [2025-04-28 22:05:43] Opening database connection...
+INFO: 2025/04/28 22:05:43 logger.go:39: [2025-04-28 22:05:43] Pinging database...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Database connection successful
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Testing database access...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Database access test successful
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Creating tables if they don't exist...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Creating users table...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Users table created successfully
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Creating questions table...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Questions table created successfully
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Tables created successfully
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Inserting test data...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Checking for existing test data...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Test data inserted successfully
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Verifying test data...
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Found 3 questions in database
+INFO: 2025/04/28 22:05:44 logger.go:39: [2025-04-28 22:05:44] Found 17 users in database
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] PublishedQuestions handler called
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] User authenticated: meowm (ID: 12)
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Getting all published questions
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Database connection successful
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Found question: ID=23, Title=dff, Status=published
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Successfully retrieved 3 published questions
+INFO: 2025/04/28 22:05:54 logger.go:39: [2025-04-28 22:05:54] Found 3 published questions
+INFO: 2025/04/28 22:05:55 logger.go:39: [2025-04-28 22:05:55] Processed 3 questions with owner information
+INFO: 2025/04/28 22:05:55 logger.go:39: [2025-04-28 22:05:55] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 22:05:55 logger.go:39: [2025-04-28 22:05:55] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 22:05:55 logger.go:39: [2025-04-28 22:05:55] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 22:05:57 logger.go:39: [2025-04-28 22:05:57] Fetching question with ID: 21
+INFO: 2025/04/28 22:05:57 logger.go:39: [2025-04-28 22:05:57] Successfully fetched question with ID 21
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Application started
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Initializing database connection...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Opening database connection...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Pinging database...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Database connection successful
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Testing database access...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Database access test successful
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Creating tables if they don't exist...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Creating users table...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Users table created successfully
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Creating questions table...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Questions table created successfully
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Tables created successfully
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Inserting test data...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Checking for existing test data...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Test data inserted successfully
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Verifying test data...
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Found 3 questions in database
+INFO: 2025/04/28 22:07:53 logger.go:39: [2025-04-28 22:07:53] Found 17 users in database
+INFO: 2025/04/28 22:11:14 logger.go:39: [2025-04-28 22:11:14] Fetching question with ID: 21
+INFO: 2025/04/28 22:11:14 logger.go:39: [2025-04-28 22:11:14] Successfully fetched question with ID 21
+INFO: 2025/04/28 22:12:09 logger.go:39: [2025-04-28 22:12:09] Application started
+INFO: 2025/04/28 22:12:09 logger.go:39: [2025-04-28 22:12:09] Initializing database connection...
+INFO: 2025/04/28 22:12:09 logger.go:39: [2025-04-28 22:12:09] Opening database connection...
+INFO: 2025/04/28 22:12:09 logger.go:39: [2025-04-28 22:12:09] Pinging database...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Database connection successful
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Testing database access...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Database access test successful
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Creating tables if they don't exist...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Creating users table...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Users table created successfully
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Creating questions table...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Questions table created successfully
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Tables created successfully
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Inserting test data...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Checking for existing test data...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Test data inserted successfully
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Verifying test data...
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Found 3 questions in database
+INFO: 2025/04/28 22:12:10 logger.go:39: [2025-04-28 22:12:10] Found 17 users in database
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Application started
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Initializing database connection...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Opening database connection...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Pinging database...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Database connection successful
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Testing database access...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Database access test successful
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Creating tables if they don't exist...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Creating users table...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Users table created successfully
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Creating questions table...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Questions table created successfully
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Tables created successfully
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Inserting test data...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Checking for existing test data...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Test data inserted successfully
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Verifying test data...
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Found 3 questions in database
+INFO: 2025/04/28 22:13:27 logger.go:39: [2025-04-28 22:13:27] Found 17 users in database
+INFO: 2025/04/28 22:13:34 logger.go:39: [2025-04-28 22:13:34] Fetching question with ID: 21
+INFO: 2025/04/28 22:13:34 logger.go:39: [2025-04-28 22:13:34] Successfully fetched question with ID 21
+INFO: 2025/04/28 22:13:44 logger.go:39: [2025-04-28 22:13:44] Fetching question with ID: 23
+INFO: 2025/04/28 22:13:44 logger.go:39: [2025-04-28 22:13:44] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:24:49 logger.go:39: [2025-04-28 22:24:49] Application started
+INFO: 2025/04/28 22:24:49 logger.go:39: [2025-04-28 22:24:49] Initializing database connection...
+INFO: 2025/04/28 22:24:49 logger.go:39: [2025-04-28 22:24:49] Opening database connection...
+INFO: 2025/04/28 22:24:49 logger.go:39: [2025-04-28 22:24:49] Pinging database...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Database connection successful
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Testing database access...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Database access test successful
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Creating tables if they don't exist...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Creating users table...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Users table created successfully
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Creating questions table...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Questions table created successfully
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Tables created successfully
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Inserting test data...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Checking for existing test data...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Test data inserted successfully
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Verifying test data...
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Found 3 questions in database
+INFO: 2025/04/28 22:24:50 logger.go:39: [2025-04-28 22:24:50] Found 17 users in database
+INFO: 2025/04/28 22:24:56 logger.go:39: [2025-04-28 22:24:56] Fetching question with ID: 23
+INFO: 2025/04/28 22:24:56 logger.go:39: [2025-04-28 22:24:56] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Application started
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Initializing database connection...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Opening database connection...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Pinging database...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Database connection successful
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Testing database access...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Database access test successful
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Creating tables if they don't exist...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Creating users table...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Users table created successfully
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Creating questions table...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Questions table created successfully
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Tables created successfully
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Inserting test data...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Checking for existing test data...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Test data inserted successfully
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Verifying test data...
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Found 3 questions in database
+INFO: 2025/04/28 22:25:50 logger.go:39: [2025-04-28 22:25:50] Found 17 users in database
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Application started
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Initializing database connection...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Opening database connection...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Pinging database...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Database connection successful
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Testing database access...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Database access test successful
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Creating tables if they don't exist...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Creating users table...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Users table created successfully
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Creating questions table...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Questions table created successfully
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Tables created successfully
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Inserting test data...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Checking for existing test data...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Test data inserted successfully
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Verifying test data...
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Found 3 questions in database
+INFO: 2025/04/28 22:27:20 logger.go:39: [2025-04-28 22:27:20] Found 17 users in database
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Application started
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Initializing database connection...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Opening database connection...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Pinging database...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Database connection successful
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Testing database access...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Database access test successful
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Creating tables if they don't exist...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Creating users table...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Users table created successfully
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Creating questions table...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Questions table created successfully
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Tables created successfully
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Inserting test data...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Checking for existing test data...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Test data inserted successfully
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Verifying test data...
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Found 3 questions in database
+INFO: 2025/04/28 22:28:33 logger.go:39: [2025-04-28 22:28:33] Found 17 users in database
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Application started
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Initializing database connection...
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Opening database connection...
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Pinging database...
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Database connection successful
+INFO: 2025/04/28 22:29:43 logger.go:39: [2025-04-28 22:29:43] Testing database access...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Database access test successful
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Creating tables if they don't exist...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Creating users table...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Users table created successfully
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Creating questions table...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Questions table created successfully
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Tables created successfully
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Inserting test data...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Checking for existing test data...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Test data inserted successfully
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Verifying test data...
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Found 3 questions in database
+INFO: 2025/04/28 22:29:44 logger.go:39: [2025-04-28 22:29:44] Found 17 users in database
+INFO: 2025/04/28 22:31:54 logger.go:39: [2025-04-28 22:31:54] Application started
+INFO: 2025/04/28 22:31:54 logger.go:39: [2025-04-28 22:31:54] Initializing database connection...
+INFO: 2025/04/28 22:31:54 logger.go:39: [2025-04-28 22:31:54] Opening database connection...
+INFO: 2025/04/28 22:31:54 logger.go:39: [2025-04-28 22:31:54] Pinging database...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Database connection successful
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Testing database access...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Database access test successful
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Creating tables if they don't exist...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Creating users table...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Users table created successfully
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Creating questions table...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Questions table created successfully
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Tables created successfully
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Inserting test data...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Checking for existing test data...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Test data inserted successfully
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Verifying test data...
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Found 3 questions in database
+INFO: 2025/04/28 22:31:55 logger.go:39: [2025-04-28 22:31:55] Found 17 users in database
+INFO: 2025/04/28 22:35:36 logger.go:39: [2025-04-28 22:35:36] Fetching question with ID: 23
+INFO: 2025/04/28 22:35:36 logger.go:39: [2025-04-28 22:35:36] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Application started
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Initializing database connection...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Opening database connection...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Pinging database...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Database connection successful
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Testing database access...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Database access test successful
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Creating tables if they don't exist...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Creating users table...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Users table created successfully
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Creating questions table...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Questions table created successfully
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Creating submissions table...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Submissions table created successfully
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Tables created successfully
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Inserting test data...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Checking for existing test data...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Test data inserted successfully
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Verifying test data...
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Found 3 questions in database
+INFO: 2025/04/28 22:37:32 logger.go:39: [2025-04-28 22:37:32] Found 17 users in database
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Application started
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Initializing database connection...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Opening database connection...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Pinging database...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Database connection successful
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Testing database access...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Database access test successful
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Creating tables if they don't exist...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Creating users table...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Users table created successfully
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Creating questions table...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Questions table created successfully
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Creating submissions table...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Submissions table created successfully
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Tables created successfully
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Inserting test data...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Checking for existing test data...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Test data inserted successfully
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Verifying test data...
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Found 3 questions in database
+INFO: 2025/04/28 22:47:32 logger.go:39: [2025-04-28 22:47:32] Found 17 users in database
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Application started
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Initializing database connection...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Opening database connection...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Pinging database...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Database connection successful
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Testing database access...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Database access test successful
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Creating tables if they don't exist...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Creating users table...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Users table created successfully
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Creating questions table...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Questions table created successfully
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Creating submissions table...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Submissions table created successfully
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Tables created successfully
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Inserting test data...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Checking for existing test data...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Test data inserted successfully
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Verifying test data...
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Found 3 questions in database
+INFO: 2025/04/28 22:48:31 logger.go:39: [2025-04-28 22:48:31] Found 17 users in database
+INFO: 2025/04/28 22:48:41 logger.go:39: [2025-04-28 22:48:41] Fetching question with ID: 23
+INFO: 2025/04/28 22:48:41 logger.go:39: [2025-04-28 22:48:41] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Application started
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Initializing database connection...
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Opening database connection...
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Pinging database...
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Database connection successful
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Testing database access...
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Database access test successful
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Creating tables if they don't exist...
+INFO: 2025/04/28 22:49:42 logger.go:39: [2025-04-28 22:49:42] Creating users table...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Users table created successfully
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Creating questions table...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Questions table created successfully
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Creating submissions table...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Submissions table created successfully
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Tables created successfully
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Inserting test data...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Checking for existing test data...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Test data inserted successfully
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Verifying test data...
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Found 3 questions in database
+INFO: 2025/04/28 22:49:43 logger.go:39: [2025-04-28 22:49:43] Found 17 users in database
+INFO: 2025/04/28 22:49:52 logger.go:39: [2025-04-28 22:49:52] Fetching question with ID: 23
+INFO: 2025/04/28 22:49:52 logger.go:39: [2025-04-28 22:49:52] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Application started
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Initializing database connection...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Opening database connection...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Pinging database...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Database connection successful
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Testing database access...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Database access test successful
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Creating tables if they don't exist...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Creating users table...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Users table created successfully
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Creating questions table...
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Questions table created successfully
+INFO: 2025/04/28 22:50:40 logger.go:39: [2025-04-28 22:50:40] Creating submissions table...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Application started
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Initializing database connection...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Opening database connection...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Pinging database...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Database connection successful
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Testing database access...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Database access test successful
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Creating tables if they don't exist...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Creating users table...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Users table created successfully
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Creating questions table...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Questions table created successfully
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Creating submissions table...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Submissions table created successfully
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Tables created successfully
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Inserting test data...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Checking for existing test data...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Test data inserted successfully
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Verifying test data...
+INFO: 2025/04/28 22:51:09 logger.go:39: [2025-04-28 22:51:09] Found 3 questions in database
+INFO: 2025/04/28 22:51:10 logger.go:39: [2025-04-28 22:51:10] Found 17 users in database
+INFO: 2025/04/28 22:51:20 logger.go:39: [2025-04-28 22:51:20] Fetching question with ID: 23
+INFO: 2025/04/28 22:51:20 logger.go:39: [2025-04-28 22:51:20] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:51:27 logger.go:39: [2025-04-28 22:51:27] Fetching question with ID: 23
+INFO: 2025/04/28 22:51:27 logger.go:39: [2025-04-28 22:51:27] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Application started
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Initializing database connection...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Opening database connection...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Pinging database...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Database connection successful
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Testing database access...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Database access test successful
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Creating tables if they don't exist...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Creating users table...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Users table created successfully
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Creating questions table...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Questions table created successfully
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Creating submissions table...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Submissions table created successfully
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Tables created successfully
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Inserting test data...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Checking for existing test data...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Test data inserted successfully
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Verifying test data...
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Found 3 questions in database
+INFO: 2025/04/28 22:52:23 logger.go:39: [2025-04-28 22:52:23] Found 17 users in database
+INFO: 2025/04/28 22:52:53 logger.go:39: [2025-04-28 22:52:53] Fetching question with ID: 23
+INFO: 2025/04/28 22:52:53 logger.go:39: [2025-04-28 22:52:53] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:53:45 logger.go:39: [2025-04-28 22:53:45] Application started
+INFO: 2025/04/28 22:53:45 logger.go:39: [2025-04-28 22:53:45] Initializing database connection...
+INFO: 2025/04/28 22:53:45 logger.go:39: [2025-04-28 22:53:45] Opening database connection...
+INFO: 2025/04/28 22:53:45 logger.go:39: [2025-04-28 22:53:45] Pinging database...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Database connection successful
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Testing database access...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Database access test successful
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Creating tables if they don't exist...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Creating users table...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Users table created successfully
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Creating questions table...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Questions table created successfully
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Creating submissions table...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Submissions table created successfully
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Tables created successfully
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Inserting test data...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Checking for existing test data...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Test data inserted successfully
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Verifying test data...
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Found 3 questions in database
+INFO: 2025/04/28 22:53:46 logger.go:39: [2025-04-28 22:53:46] Found 17 users in database
+INFO: 2025/04/28 22:53:54 logger.go:39: [2025-04-28 22:53:54] Fetching question with ID: 23
+INFO: 2025/04/28 22:53:54 logger.go:39: [2025-04-28 22:53:54] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:56:48 logger.go:39: [2025-04-28 22:56:48] Application started
+INFO: 2025/04/28 22:56:48 logger.go:39: [2025-04-28 22:56:48] Initializing database connection...
+INFO: 2025/04/28 22:56:48 logger.go:39: [2025-04-28 22:56:48] Opening database connection...
+INFO: 2025/04/28 22:56:48 logger.go:39: [2025-04-28 22:56:48] Pinging database...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Database connection successful
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Testing database access...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Database access test successful
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Creating tables if they don't exist...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Creating users table...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Users table created successfully
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Creating questions table...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Questions table created successfully
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Creating submissions table...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Submissions table created successfully
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Tables created successfully
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Inserting test data...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Checking for existing test data...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Test data already exists (3 questions found), skipping insertion
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Test data inserted successfully
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Verifying test data...
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Found 3 questions in database
+INFO: 2025/04/28 22:56:49 logger.go:39: [2025-04-28 22:56:49] Found 17 users in database
+INFO: 2025/04/28 22:57:16 logger.go:39: [2025-04-28 22:57:16] Database connection successful
+INFO: 2025/04/28 22:57:16 logger.go:39: [2025-04-28 22:57:16] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 22:57:16 logger.go:39: [2025-04-28 22:57:16] Successfully retrieved 3 questions
+INFO: 2025/04/28 22:57:23 logger.go:39: [2025-04-28 22:57:23] Admin dashboard access attempt by user adminadmin with role admin
+INFO: 2025/04/28 22:57:23 logger.go:39: [2025-04-28 22:57:23] Rendering admin dashboard for user adminadmin
+INFO: 2025/04/28 22:57:24 logger.go:39: [2025-04-28 22:57:24] Database connection successful
+INFO: 2025/04/28 22:57:24 logger.go:39: [2025-04-28 22:57:24] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 22:57:24 logger.go:39: [2025-04-28 22:57:24] Successfully retrieved 3 questions
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] PublishedQuestions handler called
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] User authenticated: adminadmin (ID: 13)
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Getting all published questions
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Database connection successful
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Found question: ID=23, Title=dff, Status=published
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Successfully retrieved 3 published questions
+INFO: 2025/04/28 22:57:28 logger.go:39: [2025-04-28 22:57:28] Found 3 published questions
+INFO: 2025/04/28 22:57:29 logger.go:39: [2025-04-28 22:57:29] Processed 3 questions with owner information
+INFO: 2025/04/28 22:57:29 logger.go:39: [2025-04-28 22:57:29] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 22:57:29 logger.go:39: [2025-04-28 22:57:29] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 22:57:29 logger.go:39: [2025-04-28 22:57:29] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 22:57:30 logger.go:39: [2025-04-28 22:57:30] Fetching question with ID: 23
+INFO: 2025/04/28 22:57:31 logger.go:39: [2025-04-28 22:57:31] Successfully fetched question with ID 23
+INFO: 2025/04/28 22:57:46 logger.go:39: [2025-04-28 22:57:46] Fetching question with ID: 23
+INFO: 2025/04/28 22:57:46 logger.go:39: [2025-04-28 22:57:46] Successfully fetched question with ID 23

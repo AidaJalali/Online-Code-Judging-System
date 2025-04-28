@@ -73,3 +73,89 @@ ERROR: 2025/04/28 18:18:34 logger.go:44: [2025-04-28 18:18:34] Failed to parse p
 ERROR: 2025/04/28 18:18:35 logger.go:44: [2025-04-28 18:18:35] Failed to parse published questions template: open application/templates/base.html: The system cannot find the path specified.
 ERROR: 2025/04/28 18:20:04 logger.go:44: [2025-04-28 18:20:04] Failed to parse my questions template: open application/templates/base.html: The system cannot find the path specified.
 ERROR: 2025/04/28 18:26:53 logger.go:44: [2025-04-28 18:26:53] Failed to execute edit question template: template: edit-question-form.html:43:41: executing "content" at <.Question.TestCases>: can't evaluate field TestCases in type *models.Question
+ERROR: 2025/04/28 21:04:41 logger.go:44: [2025-04-28 21:04:41] Database connection failed: driver: bad connection
+ERROR: 2025/04/28 21:15:21 logger.go:44: [2025-04-28 21:15:21] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:21 logger.go:44: [2025-04-28 21:15:21] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:26 logger.go:44: [2025-04-28 21:15:26] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:26 logger.go:44: [2025-04-28 21:15:26] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:30 logger.go:44: [2025-04-28 21:15:30] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:30 logger.go:44: [2025-04-28 21:15:30] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:39 logger.go:44: [2025-04-28 21:15:39] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:15:45 logger.go:44: [2025-04-28 21:15:45] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:16:29 logger.go:44: [2025-04-28 21:16:29] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:16:29 logger.go:44: [2025-04-28 21:16:29] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:18:24 logger.go:44: [2025-04-28 21:18:24] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:18:24 logger.go:44: [2025-04-28 21:18:24] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:18:28 logger.go:44: [2025-04-28 21:18:28] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:18:28 logger.go:44: [2025-04-28 21:18:28] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:21:28 logger.go:44: [2025-04-28 21:21:28] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:21:28 logger.go:44: [2025-04-28 21:21:28] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:21:33 logger.go:44: [2025-04-28 21:21:33] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:21:40 logger.go:44: [2025-04-28 21:21:40] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:26:42 logger.go:44: [2025-04-28 21:26:42] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:26:42 logger.go:44: [2025-04-28 21:26:42] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:26:46 logger.go:44: [2025-04-28 21:26:46] Failed to get authenticated user: http: named cookie not present
+ERROR: 2025/04/28 21:26:49 logger.go:44: [2025-04-28 21:26:49] Failed to get authenticated user: http: named cookie not present
+ERROR: 2025/04/28 21:29:49 logger.go:44: [2025-04-28 21:29:49] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:29:49 logger.go:44: [2025-04-28 21:29:49] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:47 logger.go:44: [2025-04-28 21:32:47] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:47 logger.go:44: [2025-04-28 21:32:47] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:48 logger.go:44: [2025-04-28 21:32:48] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:48 logger.go:44: [2025-04-28 21:32:48] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:53 logger.go:44: [2025-04-28 21:32:53] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:32:53 logger.go:44: [2025-04-28 21:32:53] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:35:22 logger.go:44: [2025-04-28 21:35:22] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:35:22 logger.go:44: [2025-04-28 21:35:22] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:16 logger.go:44: [2025-04-28 21:37:16] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:16 logger.go:44: [2025-04-28 21:37:16] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:29 logger.go:44: [2025-04-28 21:37:29] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:29 logger.go:44: [2025-04-28 21:37:29] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:32 logger.go:44: [2025-04-28 21:37:32] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:37:32 logger.go:44: [2025-04-28 21:37:32] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:38:00 logger.go:44: [2025-04-28 21:38:00] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:38:00 logger.go:44: [2025-04-28 21:38:00] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:38:03 logger.go:44: [2025-04-28 21:38:03] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:38:03 logger.go:44: [2025-04-28 21:38:03] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:25 logger.go:44: [2025-04-28 21:39:25] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:25 logger.go:44: [2025-04-28 21:39:25] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:29 logger.go:44: [2025-04-28 21:39:29] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:29 logger.go:44: [2025-04-28 21:39:29] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:36 logger.go:44: [2025-04-28 21:39:36] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:36 logger.go:44: [2025-04-28 21:39:36] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:40 logger.go:44: [2025-04-28 21:39:40] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:40 logger.go:44: [2025-04-28 21:39:40] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:42 logger.go:44: [2025-04-28 21:39:42] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:42 logger.go:44: [2025-04-28 21:39:42] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:46 logger.go:44: [2025-04-28 21:39:46] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:39:46 logger.go:44: [2025-04-28 21:39:46] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:42:33 logger.go:44: [2025-04-28 21:42:33] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:42:33 logger.go:44: [2025-04-28 21:42:33] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:42:54 logger.go:44: [2025-04-28 21:42:54] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:42:54 logger.go:44: [2025-04-28 21:42:54] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:45 logger.go:44: [2025-04-28 21:47:45] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:45 logger.go:44: [2025-04-28 21:47:45] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:46 logger.go:44: [2025-04-28 21:47:46] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:46 logger.go:44: [2025-04-28 21:47:46] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:49 logger.go:44: [2025-04-28 21:47:49] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:47:49 logger.go:44: [2025-04-28 21:47:49] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:49:24 logger.go:44: [2025-04-28 21:49:24] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:49:24 logger.go:44: [2025-04-28 21:49:24] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:49:31 logger.go:44: [2025-04-28 21:49:31] Failed to query published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:49:31 logger.go:44: [2025-04-28 21:49:31] Failed to fetch published questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:26 logger.go:44: [2025-04-28 21:52:26] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:26 logger.go:44: [2025-04-28 21:52:26] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:26 logger.go:44: [2025-04-28 21:52:26] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:26 logger.go:44: [2025-04-28 21:52:26] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:30 logger.go:44: [2025-04-28 21:52:30] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:52:30 logger.go:44: [2025-04-28 21:52:30] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:53:51 logger.go:44: [2025-04-28 21:53:51] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:53:51 logger.go:44: [2025-04-28 21:53:51] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:53:53 logger.go:44: [2025-04-28 21:53:53] Failed to query all questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:53:53 logger.go:44: [2025-04-28 21:53:53] Failed to fetch questions for home page: pq: column "language" does not exist
+ERROR: 2025/04/28 21:54:03 logger.go:44: [2025-04-28 21:54:03] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:54:03 logger.go:44: [2025-04-28 21:54:03] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 21:55:32 logger.go:44: [2025-04-28 21:55:32] Failed to query draft questions for user 12: pq: column "language" does not exist
+ERROR: 2025/04/28 21:55:32 logger.go:44: [2025-04-28 21:55:32] Failed to fetch user's draft questions: pq: column "language" does not exist
+ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to create submissions table: pq: invalid input value for enum submission_status: "Pending"
+ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to create tables: pq: invalid input value for enum submission_status: "Pending"
+ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to initialize database: error creating tables: pq: invalid input value for enum submission_status: "Pending"

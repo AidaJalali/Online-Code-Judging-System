@@ -1,11 +1,14 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 	"online-judge/internal/handlers"
 )
 
 func SetupRoutes(h *handlers.Handler) {
+	log.Println("Setting up routes...")
+
 	// Public routes
 	http.HandleFunc("/", h.Home)
 	http.HandleFunc("/login", h.Login)
@@ -20,6 +23,8 @@ func SetupRoutes(h *handlers.Handler) {
 	http.HandleFunc("/edit-question", h.EditQuestion)
 	http.HandleFunc("/delete-question", h.DeleteQuestion)
 	http.HandleFunc("/submit-question", h.SubmitQuestion)
+	http.HandleFunc("/submissions", h.Submissions)
+	http.HandleFunc("/submissions/submit", h.HandleCodeSubmission)
 
 	// Admin dashboard routes (requires admin role)
 	http.HandleFunc("/admin-dashboard", h.AdminDashboard)
@@ -27,4 +32,6 @@ func SetupRoutes(h *handlers.Handler) {
 	http.HandleFunc("/manage-questions", h.ManageQuestions)
 	http.HandleFunc("/view-question", h.ViewQuestion)
 	http.HandleFunc("/publish-question", h.PublishQuestion)
+
+	log.Println("Routes setup completed")
 }

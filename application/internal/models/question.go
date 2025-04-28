@@ -1,6 +1,7 @@
 package models
 
 import (
+	"online-judge/internal/types"
 	"strings"
 )
 
@@ -11,11 +12,6 @@ const (
 	StatusPublished QuestionStatus = "published"
 	// Add other status values as needed
 )
-
-type TestCase struct {
-	Input  string `json:"input"`
-	Output string `json:"output"`
-}
 
 type Question struct {
 	ID            int64          `json:"id"`
@@ -31,21 +27,10 @@ type Question struct {
 	TestOutput    string         `json:"test_output"`
 }
 
-type SubmissionResult string
-
-const (
-	ResultOK           SubmissionResult = "Ok"
-	ResultCompileError SubmissionResult = "Compile Error"
-	ResultWrongAnswer  SubmissionResult = "Wrong Answer"
-	ResultMemoryLimit  SubmissionResult = "Memory Limit"
-	ResultTimeLimit    SubmissionResult = "Time Limit"
-	ResultRuntime      SubmissionResult = "Runtime Error"
-)
-
 // GetTestCases returns all test cases as pairs of input and output
-func (q *Question) GetTestCases() []TestCase {
+func (q *Question) GetTestCases() []types.TestCase {
 	if q.TestInput == "" || q.TestOutput == "" {
-		return []TestCase{}
+		return []types.TestCase{}
 	}
 
 	inputs := splitCSV(q.TestInput)
@@ -53,10 +38,10 @@ func (q *Question) GetTestCases() []TestCase {
 
 	// Use the minimum length to avoid index out of range
 	numCases := min(len(inputs), len(outputs))
-	cases := make([]TestCase, numCases)
+	cases := make([]types.TestCase, numCases)
 
 	for i := 0; i < numCases; i++ {
-		cases[i] = TestCase{
+		cases[i] = types.TestCase{
 			Input:  inputs[i],
 			Output: outputs[i],
 		}
@@ -66,7 +51,7 @@ func (q *Question) GetTestCases() []TestCase {
 }
 
 // SetTestCases sets the test cases from a slice of TestCase
-func (q *Question) SetTestCases(cases []TestCase) {
+func (q *Question) SetTestCases(cases []types.TestCase) {
 	if len(cases) == 0 {
 		q.TestInput = ""
 		q.TestOutput = ""
@@ -88,7 +73,7 @@ func (q *Question) SetTestCases(cases []TestCase) {
 // AddTestCase adds a single test case to the existing ones
 func (q *Question) AddTestCase(input, output string) {
 	cases := q.GetTestCases()
-	cases = append(cases, TestCase{Input: input, Output: output})
+	cases = append(cases, types.TestCase{Input: input, Output: output})
 	q.SetTestCases(cases)
 }
 

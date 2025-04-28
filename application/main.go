@@ -59,6 +59,7 @@ func main() {
 	mux.HandleFunc("/view-question", handler.ViewQuestion)
 	mux.HandleFunc("/submit-question", handler.SubmitQuestion)
 	mux.HandleFunc("/submissions", handler.Submissions)
+	mux.HandleFunc("/submissions/submit", handler.HandleCodeSubmission)
 	mux.HandleFunc("/profile", handler.Profile)
 	mux.HandleFunc("/manage-roles", handler.ManageRoles)
 	mux.HandleFunc("/update-role", handler.UpdateRole)
