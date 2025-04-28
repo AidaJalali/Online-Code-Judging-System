@@ -90,8 +90,8 @@ func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl, err := template.ParseFiles(
-		"application/templates/base.html",
-		"application/templates/home.html",
+		"templates/base.html",
+		"templates/home.html",
 	)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -105,11 +105,11 @@ func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 func renderTemplate(w http.ResponseWriter, templateName string, data PageData) {
 	var templatePath string
 	if templateName == "login" {
-		templatePath = "application/templates/signup/login.html"
+		templatePath = "templates/signup/login.html"
 	} else if templateName == "register" {
-		templatePath = "application/templates/signup/register.html"
+		templatePath = "templates/signup/register.html"
 	} else {
-		templatePath = "application/templates/user-dashboard/" + templateName + ".html"
+		templatePath = "templates/user-dashboard/" + templateName + ".html"
 	}
 
 	// Create template functions
@@ -139,7 +139,7 @@ func renderTemplate(w http.ResponseWriter, templateName string, data PageData) {
 	}
 
 	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
-		"application/templates/base.html",
+		"templates/base.html",
 		templatePath,
 	)
 	if err != nil {
