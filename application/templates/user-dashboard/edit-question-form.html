@@ -1,0 +1,68 @@
+{{define "content"}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Edit Question</h1>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <form action="/edit-question" method="POST" class="space-y-6">
+                <input type="hidden" name="id" value="{{.Question.ID}}">
+                
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" name="title" id="title" value="{{.Question.Title}}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
+                </div>
+
+                <div>
+                    <label for="statement" class="block text-sm font-medium text-gray-700">Problem Statement</label>
+                    <textarea name="statement" id="statement" rows="4"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>{{.Question.Statement}}</textarea>
+                </div>
+
+                <div>
+                    <label for="timeLimit" class="block text-sm font-medium text-gray-700">Time Limit (ms)</label>
+                    <input type="number" name="timeLimit" id="timeLimit" value="{{.Question.TimeLimitMs}}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
+                </div>
+
+                <div>
+                    <label for="memoryLimit" class="block text-sm font-medium text-gray-700">Memory Limit (MB)</label>
+                    <input type="number" name="memoryLimit" id="memoryLimit" value="{{.Question.MemoryLimitMb}}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>
+                </div>
+
+                <div>
+                    <label for="testInput" class="block text-sm font-medium text-gray-700">Test Input</label>
+                    <textarea name="testInput" id="testInput" rows="4"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>{{.Question.TestInput}}</textarea>
+                </div>
+
+                <div>
+                    <label for="testOutput" class="block text-sm font-medium text-gray-700">Test Output</label>
+                    <textarea name="testOutput" id="testOutput" rows="4"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        required>{{.Question.TestOutput}}</textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <a href="/published-questions"
+                        class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{end}} 

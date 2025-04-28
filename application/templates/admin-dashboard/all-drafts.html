@@ -1,0 +1,48 @@
+{{define "content"}}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">All Draft Questions</h1>
+        <a href="/create-question-form" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Create New Question
+        </a>
+    </div>
+
+    {{if .QuestionsWithOwners}}
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created By</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time Limit</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Memory Limit</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {{range .QuestionsWithOwners}}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{.Question.Title}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.Owner.Username}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.Question.CreatedAt}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.Question.TimeLimitMs}}ms</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{.Question.MemoryLimitMb}}MB</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <a href="/edit-question-form?id={{.Question.ID}}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <a href="/publish-question?id={{.Question.ID}}" class="text-green-600 hover:text-green-900 mr-3">Publish</a>
+                        <a href="/delete-question?id={{.Question.ID}}" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure you want to delete this question?')">Delete</a>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <div class="text-center py-12">
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No draft questions</h3>
+        <p class="mt-1 text-sm text-gray-500">There are no draft questions yet.</p>
+    </div>
+    {{end}}
+</div>
+{{end}} 

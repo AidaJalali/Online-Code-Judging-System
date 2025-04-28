@@ -186,7 +186,7 @@ func (r *UserRepository) VerifyPassword(hashedPassword, password string) bool {
 
 func (r *UserRepository) GetUserByID(id int64) (*models.User, error) {
 	query := `
-		SELECT id, username, password_hash, role
+		SELECT id, username, role
 		FROM users
 		WHERE id = $1
 	`
@@ -195,7 +195,6 @@ func (r *UserRepository) GetUserByID(id int64) (*models.User, error) {
 	err := r.db.QueryRow(query, id).Scan(
 		&user.ID,
 		&user.Username,
-		&user.Password,
 		&user.Role,
 	)
 

@@ -35,13 +35,39 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := PageData{
-		Title:     "Questions",
-		User:      user,
-		Questions: questions,
+	// Get owners for all questions
+	type QuestionWithOwner struct {
+		Question models.Question
+		Owner    *models.User
+	}
+	var questionsWithOwners []QuestionWithOwner
+
+	for _, q := range questions {
+		owner, err := h.userRepo.GetUserByID(q.OwnerID)
+		if err != nil {
+			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
+			continue
+		}
+		questionsWithOwners = append(questionsWithOwners, QuestionWithOwner{
+			Question: q,
+			Owner:    toModelsUser(owner),
+		})
 	}
 
-	tmpl, err := template.ParseFiles("templates/base.html", "templates/questions.html")
+	data := struct {
+		Title               string
+		User                *models.User
+		QuestionsWithOwners []QuestionWithOwner
+	}{
+		Title:               "Published Questions",
+		User:                user,
+		QuestionsWithOwners: questionsWithOwners,
+	}
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/user-dashboard/published-questions.html",
+	)
 	if err != nil {
 		logger.Error("Failed to parse questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -374,10 +400,15 @@ func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if question == nil {
+		http.Error(w, "Question not found", http.StatusNotFound)
+		return
+	}
+
 	funcMap := template.FuncMap{"add": func(a, b int) int { return a + b }}
 	tmpl, err := template.New("base.html").Funcs(funcMap).ParseFiles(
 		"templates/base.html",
-		"templates/admin-dashboard/create-question-form.html",
+		"templates/user-dashboard/edit-question-form.html",
 	)
 	if err != nil {
 		logger.Error("Failed to parse edit question template: %v", err)
@@ -385,18 +416,12 @@ func (h *Handler) EditQuestionForm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := struct {
-		Title   string
-		User    *models.User
-		Draft   *models.Question
-		Error   string
-		Success string
-	}{
-		Title:   "Edit Question",
-		User:    user,
-		Draft:   question,
-		Error:   "",
-		Success: "",
+	data := PageData{
+		Title:    "Edit Question",
+		User:     user,
+		Question: question,
+		Error:    "",
+		Success:  "",
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
@@ -463,37 +488,41 @@ func (h *Handler) ViewQuestion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// MyQuestions handles the page that shows a user's draft questions
+// MyQuestions handles the page that shows a user's own draft questions
 func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
+	logger.Info("MyQuestions handler called")
+
 	if r.Method != "GET" {
+		logger.Error("Invalid method for MyQuestions: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	user, err := h.getAuthenticatedUser(r)
-	if err != nil || user == nil {
+	if err != nil {
+		logger.Error("Failed to get authenticated user: %v", err)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
+	if user == nil {
+		logger.Error("No authenticated user found")
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+	logger.Info("User authenticated: %s (ID: %d)", user.Username, user.ID)
 
-	// Get user's drafts
-	drafts, err := h.draftRepo.GetDraftsByUserID(user.ID)
+	// Get user's draft questions
+	questions, err := h.questionRepo.GetDraftsByUserID(user.ID)
 	if err != nil {
-		logger.Error("Failed to fetch drafts: %v", err)
+		logger.Error("Failed to fetch user's draft questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	data := struct {
-		Title     string
-		User      *models.User
-		Questions []models.Question
-		IsAdmin   bool
-	}{
-		Title:     "My Questions",
+	data := PageData{
+		Title:     "My Draft Questions",
 		User:      user,
-		Questions: drafts,
-		IsAdmin:   user.Role == "admin",
+		Questions: questions,
 	}
 
 	tmpl, err := template.ParseFiles(
@@ -513,18 +542,28 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// PublishedQuestions handles the page that shows all published questions with their owners
+// PublishedQuestions handles the page that shows all published questions
 func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
+	logger.Info("PublishedQuestions handler called")
+
 	if r.Method != "GET" {
+		logger.Error("Invalid method for PublishedQuestions: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	user, err := h.getAuthenticatedUser(r)
-	if err != nil || user == nil {
+	if err != nil {
+		logger.Error("Failed to get authenticated user: %v", err)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
+	if user == nil {
+		logger.Error("No authenticated user found")
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+	logger.Info("User authenticated: %s (ID: %d)", user.Username, user.ID)
 
 	// Get all published questions
 	questions, err := h.questionRepo.GetPublishedQuestions()
@@ -533,6 +572,7 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
+	logger.Info("Found %d published questions", len(questions))
 
 	// Get owners for all questions
 	type QuestionWithOwner struct {
@@ -552,17 +592,17 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 			Owner:    toModelsUser(owner),
 		})
 	}
+	logger.Info("Processed %d questions with owner information", len(questionsWithOwners))
 
-	data := struct {
-		Title               string
-		User                *models.User
-		QuestionsWithOwners []QuestionWithOwner
-	}{
-		Title:               "Published Questions",
-		User:                user,
-		QuestionsWithOwners: questionsWithOwners,
+	data := PageData{
+		Title:     "Published Questions",
+		User:      user,
+		Questions: questions,
+		Error:     "",
+		Success:   "",
 	}
 
+	logger.Info("Attempting to parse templates for PublishedQuestions")
 	tmpl, err := template.ParseFiles(
 		"templates/base.html",
 		"templates/user-dashboard/published-questions.html",
@@ -573,11 +613,13 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	logger.Info("Attempting to execute template for PublishedQuestions")
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		logger.Error("Failed to execute published questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+	logger.Info("PublishedQuestions handler completed successfully")
 }
 
 // Drafts handles the drafts page that shows unpublished questions
@@ -607,7 +649,7 @@ func (h *Handler) Drafts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get user's draft questions
-	questions, err := h.questionRepo.GetDraftQuestionsByUser(user.ID)
+	questions, err := h.questionRepo.GetDraftsByUserID(user.ID)
 	if err != nil {
 		http.Error(w, "Database error", http.StatusInternalServerError)
 		return
@@ -757,5 +799,73 @@ func (h *Handler) DeleteQuestion(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
 	} else {
 		http.Redirect(w, r, "/my-questions", http.StatusSeeOther)
+	}
+}
+
+// AllDrafts handles the page that shows all draft questions for admins
+func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Check if user is authenticated and is admin
+	user, err := h.getAuthenticatedUser(r)
+	if err != nil || user == nil || user.Role != "admin" {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		return
+	}
+
+	// Get all draft questions
+	questions, err := h.questionRepo.GetDraftQuestions()
+	if err != nil {
+		logger.Error("Failed to fetch draft questions: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Get owners for all questions
+	type QuestionWithOwner struct {
+		Question models.Question
+		Owner    *models.User
+	}
+	var questionsWithOwners []QuestionWithOwner
+
+	for _, q := range questions {
+		owner, err := h.userRepo.GetUserByID(q.OwnerID)
+		if err != nil {
+			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
+			continue
+		}
+		questionsWithOwners = append(questionsWithOwners, QuestionWithOwner{
+			Question: q,
+			Owner:    toModelsUser(owner),
+		})
+	}
+
+	data := struct {
+		Title               string
+		User                *models.User
+		QuestionsWithOwners []QuestionWithOwner
+	}{
+		Title:               "All Draft Questions",
+		User:                user,
+		QuestionsWithOwners: questionsWithOwners,
+	}
+
+	tmpl, err := template.ParseFiles(
+		"templates/base.html",
+		"templates/admin-dashboard/all-drafts.html",
+	)
+	if err != nil {
+		logger.Error("Failed to parse all drafts template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		logger.Error("Failed to execute all drafts template: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

@@ -28,10 +28,11 @@ func (r *DraftRepository) SaveDraft(draft *models.Question) error {
 				statement = $2,
 				time_limit_ms = $3,
 				memory_limit_mb = $4,
+				status = $5,
 				updated_at = NOW(),
-				test_input = $5,
-				test_output = $6
-			WHERE owner_id = $7 AND status = 'draft'
+				test_input = $6,
+				test_output = $7
+			WHERE owner_id = $8 AND status = 'draft'
 			RETURNING id
 		`
 
@@ -41,6 +42,7 @@ func (r *DraftRepository) SaveDraft(draft *models.Question) error {
 			draft.Statement,
 			draft.TimeLimitMs,
 			draft.MemoryLimitMb,
+			draft.Status,
 			draft.TestInput,
 			draft.TestOutput,
 			draft.OwnerID,
@@ -52,7 +54,7 @@ func (r *DraftRepository) SaveDraft(draft *models.Question) error {
 				title, statement, time_limit_ms, memory_limit_mb, 
 				status, created_at, updated_at, owner_id, 
 				test_input, test_output
-			) VALUES ($1, $2, $3, $4, 'draft', NOW(), NOW(), $5, $6, $7)
+			) VALUES ($1, $2, $3, $4, $5, NOW(), NOW(), $6, $7, $8)
 			RETURNING id
 		`
 
@@ -62,6 +64,7 @@ func (r *DraftRepository) SaveDraft(draft *models.Question) error {
 			draft.Statement,
 			draft.TimeLimitMs,
 			draft.MemoryLimitMb,
+			draft.Status,
 			draft.OwnerID,
 			draft.TestInput,
 			draft.TestOutput,

@@ -49,7 +49,8 @@ type QuestionRepository interface {
 	GetAllQuestions() ([]models.Question, error)
 	GetQuestionByID(id string) (*models.Question, error)
 	GetPublishedQuestions() ([]models.Question, error)
-	GetDraftQuestionsByUser(userID int64) ([]models.Question, error)
+	GetDraftQuestions() ([]models.Question, error)
+	GetDraftsByUserID(userID int64) ([]models.Question, error)
 	UpdateQuestion(question *models.Question) error
 	DeleteQuestion(id string) error
 }

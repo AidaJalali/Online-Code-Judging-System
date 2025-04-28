@@ -52,6 +52,8 @@ func main() {
 	mux.HandleFunc("/admin-dashboard", handler.AdminDashboard)
 	mux.HandleFunc("/questions", handler.Questions)
 	mux.HandleFunc("/my-questions", handler.MyQuestions)
+	mux.HandleFunc("/published-questions", handler.PublishedQuestions)
+	mux.HandleFunc("/all-drafts", handler.AllDrafts)
 	mux.HandleFunc("/create-question", handler.CreateQuestionForm)
 	mux.HandleFunc("/create-question-form", handler.CreateQuestionForm)
 	mux.HandleFunc("/manage-questions", handler.ManageQuestions)
