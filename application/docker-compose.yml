@@ -1,17 +1,24 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: online_judge
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - "8080:8080"
+    environment:
+      - DB_HOST=82eab2ea-bbbc-4025-9858-5fa2738ec7e4.hsvc.ir
+      - DB_PORT=32215
+      - DB_USER=postgres
+      - DB_PASSWORD=KwuujJsBtnS4cTbowdpZYjdlKy8Vk0Du
+      - DB_NAME=postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./migrations:/docker-entrypoint-initdb.d
+      - ./templates:/app/templates
+      - ./static:/app/static
+    networks:
+      - app-network
 
-volumes:
-  postgres_data: 
+networks:
+  app-network:
+    driver: bridge 

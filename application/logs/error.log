@@ -159,3 +159,6 @@ ERROR: 2025/04/28 21:55:32 logger.go:44: [2025-04-28 21:55:32] Failed to fetch u
 ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to create submissions table: pq: invalid input value for enum submission_status: "Pending"
 ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to create tables: pq: invalid input value for enum submission_status: "Pending"
 ERROR: 2025/04/28 22:50:40 logger.go:44: [2025-04-28 22:50:40] Failed to initialize database: error creating tables: pq: invalid input value for enum submission_status: "Pending"
+ERROR: 2025/04/28 23:28:36 logger.go:44: [2025-04-28 23:28:36] Failed to parse create question template: open templates/user-dashboard/create-question-form.html: The system cannot find the file specified.
+ERROR: 2025/04/28 23:28:39 logger.go:44: [2025-04-28 23:28:39] Failed to parse create question template: open templates/user-dashboard/create-question-form.html: The system cannot find the file specified.
+ERROR: 2025/04/28 23:30:34 logger.go:44: [2025-04-28 23:30:34] Failed to parse create question template: open templates/user-dashboard/create-question-form.html: The system cannot find the file specified.
