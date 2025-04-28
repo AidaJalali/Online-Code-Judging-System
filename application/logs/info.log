@@ -1432,3 +1432,31 @@ INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Executing query:
 		ORDER BY created_at DESC
 	
 INFO: 2025/04/28 20:00:26 logger.go:39: [2025-04-28 20:00:26] Successfully retrieved 3 questions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] PublishedQuestions handler called
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] User authenticated: adminadmin (ID: 13)
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Getting all published questions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Database connection successful
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Found question: ID=23, Title=dff, Status=published
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Found question: ID=21, Title=dsdjs, Status=published
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Found question: ID=9, Title=power 2 , Status=published
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Successfully retrieved 3 published questions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Found 3 published questions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Processed 3 questions with owner information
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Attempting to parse templates for PublishedQuestions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] Attempting to execute template for PublishedQuestions
+INFO: 2025/04/28 20:02:08 logger.go:39: [2025-04-28 20:02:08] PublishedQuestions handler completed successfully
+INFO: 2025/04/28 20:02:13 logger.go:39: [2025-04-28 20:02:13] Database connection successful
+INFO: 2025/04/28 20:02:13 logger.go:39: [2025-04-28 20:02:13] Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+INFO: 2025/04/28 20:02:13 logger.go:39: [2025-04-28 20:02:13] Successfully retrieved 3 questions
