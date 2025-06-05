@@ -11,15 +11,15 @@ type Repository struct {
 }
 
 func (r *Repository) CreateUser(user *models.User) error {
-	logger.Println("Creating user in database with role: %s", user.Role)
+	logger.Printf("Creating user in database with role: %s", user.Role)
 	_, err := r.db.Exec(`
 		INSERT INTO users (username, password, role)
 		VALUES ($1, $2, $3)
 	`, user.Username, user.Password, user.Role)
 	if err != nil {
-		logger.Println("Failed to create user in database: %v", err)
+		logger.Printf("Failed to create user in database: %v", err)
 		return err
 	}
-	logger.Println("Successfully created user %s with role %s in database", user.Username, user.Role)
+	logger.Printf("Successfully created user %s with role %s in database", user.Username, user.Role)
 	return nil
 }

@@ -681,7 +681,8 @@ func (h *Handler) Drafts(w http.ResponseWriter, r *http.Request) {
 		Questions: questions,
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

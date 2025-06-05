@@ -129,3 +129,35 @@ func (r *SubmissionRepository) SaveSubmissionResult(result judge.Result) error {
 	)
 	return err
 }
+
+// GetSubmissionByID gets a full submission by its ID
+func (r *SubmissionRepository) GetSubmissionByID(id int64) (*models.Submission, error) {
+	query := `
+		SELECT id, question_id, user_id, code, language, status, message, time_taken, memory_used, created_at
+		FROM submissions
+		WHERE id = $1
+	`
+
+	var submission models.Submission
+	err := r.db.QueryRow(query, id).Scan(
+		&submission.ID,
+		&submission.QuestionID,
+		&submission.UserID,
+		&submission.Code,
+		&submission.Language,
+		&submission.Status,
+		&submission.Message,
+		&submission.TimeTaken,
+		&submission.MemoryUsed,
+		&submission.CreatedAt,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &submission, nil
+}

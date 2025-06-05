@@ -58,13 +58,15 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Input</label>
-                                    <textarea name="test_input[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$testCase.Input}}</textarea>
+                                    <input type="text" name="test_input[]" maxlength="50" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                        value="{{$testCase.Input}}">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Output</label>
-                                    <textarea name="test_output[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{$testCase.Output}}</textarea>
+                                    <input type="text" name="test_output[]" maxlength="50" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                        value="{{$testCase.Output}}">
                                 </div>
                             </div>
                             {{end}}
@@ -79,13 +81,13 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Input</label>
-                                    <textarea name="test_input[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                                    <input type="text" name="test_input[]" maxlength="50" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Output</label>
-                                    <textarea name="test_output[]" rows="3" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                                    <input type="text" name="test_output[]" maxlength="50" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                 </div>
                             </div>
                         {{end}}
@@ -123,13 +125,13 @@ function addTestCase() {
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Input</label>
-            <textarea name="test_input[]" rows="3" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+            <input type="text" name="test_input[]" maxlength="50" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Output</label>
-            <textarea name="test_output[]" rows="3" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+            <input type="text" name="test_output[]" maxlength="50" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
         </div>
     `;
     testCases.appendChild(newTestCase);

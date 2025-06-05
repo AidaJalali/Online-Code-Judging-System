@@ -30,3 +30,523 @@
 		ORDER BY created_at DESC
 	
 2025/06/05 18:23:11 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:56:48 logger.go:61: Application started
+2025/06/05 18:56:48 logger.go:61: Initializing database connection...
+2025/06/05 18:56:48 logger.go:61: Opening database connection...
+2025/06/05 18:56:48 logger.go:61: Pinging database...
+2025/06/05 18:56:48 logger.go:61: Database connection successful
+2025/06/05 18:56:48 logger.go:61: Testing database access...
+2025/06/05 18:56:48 logger.go:61: Database access test successful
+2025/06/05 18:56:48 logger.go:61: Creating tables if they don't exist...
+2025/06/05 18:56:48 logger.go:61: Creating users table...
+2025/06/05 18:56:48 logger.go:61: Users table created successfully
+2025/06/05 18:56:48 logger.go:61: Creating questions table...
+2025/06/05 18:56:48 logger.go:61: Questions table created successfully
+2025/06/05 18:56:48 logger.go:61: Creating submissions table...
+2025/06/05 18:56:48 logger.go:61: Submissions table created successfully
+2025/06/05 18:56:48 logger.go:61: Tables created successfully
+2025/06/05 18:56:48 logger.go:61: Inserting test data...
+2025/06/05 18:56:48 logger.go:61: Checking for existing test data...
+2025/06/05 18:56:48 logger.go:61: Checking for test user...
+2025/06/05 18:56:48 logger.go:61: Test user not found, creating...
+2025/06/05 18:56:48 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 18:56:48 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 18:56:48 logger.go:61: Verifying test data...
+2025/06/05 18:56:48 logger.go:61: Found %d questions in database 0
+2025/06/05 18:56:48 logger.go:61: Found %d users in database 0
+2025/06/05 18:57:07 logger.go:61: Database connection successful
+2025/06/05 18:57:07 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:07 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:36 logger.go:61: Application started
+2025/06/05 18:57:36 logger.go:61: Initializing database connection...
+2025/06/05 18:57:36 logger.go:61: Opening database connection...
+2025/06/05 18:57:36 logger.go:61: Pinging database...
+2025/06/05 18:57:36 logger.go:61: Database connection successful
+2025/06/05 18:57:36 logger.go:61: Testing database access...
+2025/06/05 18:57:36 logger.go:61: Database access test successful
+2025/06/05 18:57:36 logger.go:61: Creating tables if they don't exist...
+2025/06/05 18:57:36 logger.go:61: Creating users table...
+2025/06/05 18:57:36 logger.go:61: Users table created successfully
+2025/06/05 18:57:36 logger.go:61: Creating questions table...
+2025/06/05 18:57:36 logger.go:61: Questions table created successfully
+2025/06/05 18:57:36 logger.go:61: Creating submissions table...
+2025/06/05 18:57:36 logger.go:61: Submissions table created successfully
+2025/06/05 18:57:36 logger.go:61: Tables created successfully
+2025/06/05 18:57:36 logger.go:61: Inserting test data...
+2025/06/05 18:57:36 logger.go:61: Checking for existing test data...
+2025/06/05 18:57:36 logger.go:61: Checking for test user...
+2025/06/05 18:57:36 logger.go:61: Test user not found, creating...
+2025/06/05 18:57:36 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 18:57:36 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 18:57:36 logger.go:61: Verifying test data...
+2025/06/05 18:57:36 logger.go:61: Found %d questions in database 0
+2025/06/05 18:57:36 logger.go:61: Found %d users in database 0
+2025/06/05 18:57:39 logger.go:61: Database connection successful
+2025/06/05 18:57:39 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:39 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:40 logger.go:61: Database connection successful
+2025/06/05 18:57:40 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:40 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:40 logger.go:61: Database connection successful
+2025/06/05 18:57:40 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:40 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:40 logger.go:61: Database connection successful
+2025/06/05 18:57:40 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:40 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:40 logger.go:61: Database connection successful
+2025/06/05 18:57:40 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:40 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 18:57:41 logger.go:61: Database connection successful
+2025/06/05 18:57:41 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 18:57:41 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 19:00:08 logger.go:61: Application started
+2025/06/05 19:00:08 logger.go:61: Initializing database connection...
+2025/06/05 19:00:08 logger.go:61: Opening database connection...
+2025/06/05 19:00:08 logger.go:61: Pinging database...
+2025/06/05 19:00:08 logger.go:61: Database connection successful
+2025/06/05 19:00:08 logger.go:61: Testing database access...
+2025/06/05 19:00:08 logger.go:61: Database access test successful
+2025/06/05 19:00:08 logger.go:61: Creating tables if they don't exist...
+2025/06/05 19:00:08 logger.go:61: Creating users table...
+2025/06/05 19:00:08 logger.go:61: Users table created successfully
+2025/06/05 19:00:08 logger.go:61: Creating questions table...
+2025/06/05 19:00:08 logger.go:61: Questions table created successfully
+2025/06/05 19:00:08 logger.go:61: Creating submissions table...
+2025/06/05 19:00:08 logger.go:61: Submissions table created successfully
+2025/06/05 19:00:08 logger.go:61: Tables created successfully
+2025/06/05 19:00:08 logger.go:61: Inserting test data...
+2025/06/05 19:00:08 logger.go:61: Checking for existing test data...
+2025/06/05 19:00:08 logger.go:61: Checking for test user...
+2025/06/05 19:00:08 logger.go:61: Test user not found, creating...
+2025/06/05 19:00:08 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:00:08 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:00:08 logger.go:61: Verifying test data...
+2025/06/05 19:00:08 logger.go:61: Found %d questions in database 0
+2025/06/05 19:00:08 logger.go:61: Found %d users in database 0
+2025/06/05 19:06:12 logger.go:61: Application started
+2025/06/05 19:06:12 logger.go:61: Initializing database connection...
+2025/06/05 19:06:12 logger.go:61: Opening database connection...
+2025/06/05 19:06:12 logger.go:61: Pinging database...
+2025/06/05 19:06:13 logger.go:61: Database connection successful
+2025/06/05 19:06:13 logger.go:61: Testing database access...
+2025/06/05 19:06:13 logger.go:61: Database access test successful
+2025/06/05 19:06:13 logger.go:61: Creating tables if they don't exist...
+2025/06/05 19:06:13 logger.go:61: Creating users table...
+2025/06/05 19:06:13 logger.go:61: Users table created successfully
+2025/06/05 19:06:13 logger.go:61: Creating questions table...
+2025/06/05 19:06:13 logger.go:61: Questions table created successfully
+2025/06/05 19:06:13 logger.go:61: Creating submissions table...
+2025/06/05 19:06:13 logger.go:61: Submissions table created successfully
+2025/06/05 19:06:13 logger.go:61: Tables created successfully
+2025/06/05 19:06:13 logger.go:61: Inserting test data...
+2025/06/05 19:06:13 logger.go:61: Checking for existing test data...
+2025/06/05 19:06:13 logger.go:61: Checking for test user...
+2025/06/05 19:06:13 logger.go:61: Test user not found, creating...
+2025/06/05 19:06:13 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:06:13 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:06:13 logger.go:61: Verifying test data...
+2025/06/05 19:06:13 logger.go:61: Found %d questions in database 0
+2025/06/05 19:06:13 logger.go:61: Found %d users in database 0
+2025/06/05 19:06:39 logger.go:61: Database connection successful
+2025/06/05 19:06:39 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:06:39 logger.go:61: Failed to query all questions: %v pq: column "test_input" does not exist
+2025/06/05 19:12:20 logger.go:61: Application started
+2025/06/05 19:12:20 logger.go:61: Initializing database connection...
+2025/06/05 19:12:20 logger.go:61: Opening database connection...
+2025/06/05 19:12:20 logger.go:61: Pinging database...
+2025/06/05 19:12:20 logger.go:61: Database connection successful
+2025/06/05 19:12:20 logger.go:61: Testing database access...
+2025/06/05 19:12:20 logger.go:61: Database access test successful
+2025/06/05 19:12:20 logger.go:61: Creating tables if they don't exist...
+2025/06/05 19:12:20 logger.go:61: Creating users table...
+2025/06/05 19:12:20 logger.go:61: Users table created successfully
+2025/06/05 19:12:20 logger.go:61: Creating questions table...
+2025/06/05 19:12:20 logger.go:61: Questions table created successfully
+2025/06/05 19:12:20 logger.go:61: Creating submissions table...
+2025/06/05 19:12:20 logger.go:61: Submissions table created successfully
+2025/06/05 19:12:20 logger.go:61: Tables created successfully
+2025/06/05 19:12:20 logger.go:61: Inserting test data...
+2025/06/05 19:12:20 logger.go:61: Checking for existing test data...
+2025/06/05 19:12:20 logger.go:61: Checking for test user...
+2025/06/05 19:12:20 logger.go:61: Test user not found, creating...
+2025/06/05 19:12:20 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:12:20 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:12:20 logger.go:61: Verifying test data...
+2025/06/05 19:12:20 logger.go:61: Found %d questions in database 0
+2025/06/05 19:12:20 logger.go:61: Found %d users in database 0
+2025/06/05 19:12:27 logger.go:61: Database connection successful
+2025/06/05 19:12:27 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:12:27 logger.go:61: Successfully retrieved %d questions 0
+2025/06/05 19:12:57 logger.go:61: Register page accessed
+2025/06/05 19:13:09 logger.go:61: Registration attempt for user: %s with role: %s mahdixak admin
+2025/06/05 19:13:09 logger.go:61: Registering user with role: %s admin
+2025/06/05 19:13:09 logger.go:61: Registration failed for user %s: Password missing digit mahdixak
+2025/06/05 19:13:21 logger.go:61: Registration attempt for user: %s with role: %s mahdixak admin
+2025/06/05 19:13:21 logger.go:61: Registering user with role: %s admin
+2025/06/05 19:13:22 logger.go:61: Failed to create user %s: %v mahdixak pq: null value in column "email" of relation "users" violates not-null constraint
+2025/06/05 19:16:00 logger.go:61: Registration attempt for user: %s with role: %s mahdixak admin
+2025/06/05 19:16:32 logger.go:61: Registering user with role: %s admin
+2025/06/05 19:16:49 logger.go:61: Failed to create user %s: %v mahdixak pq: null value in column "email" of relation "users" violates not-null constraint
+2025/06/05 19:17:12 logger.go:61: Registration attempt for user: %s with role: %s mahdixak admin
+2025/06/05 19:17:19 logger.go:61: Registering user with role: %s admin
+2025/06/05 19:19:20 logger.go:61: Failed to create user %s: %v mahdixak pq: null value in column "email" of relation "users" violates not-null constraint
+2025/06/05 19:19:32 logger.go:61: Registration attempt for user: %s with role: %s armin admin
+2025/06/05 19:19:32 logger.go:61: Registering user with role: %s admin
+2025/06/05 19:19:43 logger.go:61: Successfully registered user: %s with role: %s armin admin
+2025/06/05 19:19:43 logger.go:61: Redirecting admin user %s to admin dashboard armin
+2025/06/05 19:19:43 logger.go:61: Admin dashboard access attempt by user %s with role %s armin admin
+2025/06/05 19:19:43 logger.go:61: Rendering admin dashboard for user %s armin
+2025/06/05 19:20:41 logger.go:61: PublishedQuestions handler called
+2025/06/05 19:20:41 logger.go:61: User authenticated: %s (ID: %d) armin 4
+2025/06/05 19:20:41 logger.go:61: Getting all published questions
+2025/06/05 19:20:41 logger.go:61: Database connection successful
+2025/06/05 19:20:41 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+2025/06/05 19:20:41 logger.go:61: Successfully retrieved %d published questions 0
+2025/06/05 19:20:41 logger.go:61: Found %d published questions 0
+2025/06/05 19:20:41 logger.go:61: Processed %d questions with owner information 0
+2025/06/05 19:20:41 logger.go:61: Attempting to parse templates for PublishedQuestions
+2025/06/05 19:20:41 logger.go:61: Attempting to execute template for PublishedQuestions
+2025/06/05 19:20:41 logger.go:61: PublishedQuestions handler completed successfully
+2025/06/05 19:20:46 logger.go:61: Database connection successful
+2025/06/05 19:20:46 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:20:46 logger.go:61: Successfully retrieved %d questions 0
+2025/06/05 19:20:48 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:21:09 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:21:25 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:21:27 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:21:29 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:22:03 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:22:10 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:22:14 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:23:51 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:23:52 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:23:57 logger.go:61: Failed to parse create question template: %v open templates/user-dashboard/create-question-form.html: no such file or directory
+2025/06/05 19:24:14 logger.go:61: Application started
+2025/06/05 19:24:14 logger.go:61: Initializing database connection...
+2025/06/05 19:24:14 logger.go:61: Opening database connection...
+2025/06/05 19:24:14 logger.go:61: Pinging database...
+2025/06/05 19:24:14 logger.go:61: Database connection successful
+2025/06/05 19:24:14 logger.go:61: Testing database access...
+2025/06/05 19:24:14 logger.go:61: Database access test successful
+2025/06/05 19:24:14 logger.go:61: Creating tables if they don't exist...
+2025/06/05 19:24:14 logger.go:61: Creating users table...
+2025/06/05 19:24:14 logger.go:61: Users table created successfully
+2025/06/05 19:24:14 logger.go:61: Creating questions table...
+2025/06/05 19:24:14 logger.go:61: Questions table created successfully
+2025/06/05 19:24:14 logger.go:61: Creating submissions table...
+2025/06/05 19:24:14 logger.go:61: Submissions table created successfully
+2025/06/05 19:24:14 logger.go:61: Tables created successfully
+2025/06/05 19:24:14 logger.go:61: Inserting test data...
+2025/06/05 19:24:14 logger.go:61: Checking for existing test data...
+2025/06/05 19:24:14 logger.go:61: Checking for test user...
+2025/06/05 19:24:14 logger.go:61: Test user not found, creating...
+2025/06/05 19:24:14 logger.go:61: Failed to create test user: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:24:14 logger.go:61: Error inserting test data: %v pq: invalid input value for enum user_role: "user"
+2025/06/05 19:24:14 logger.go:61: Verifying test data...
+2025/06/05 19:24:14 logger.go:61: Found %d questions in database 0
+2025/06/05 19:24:14 logger.go:61: Found %d users in database 1
+2025/06/05 19:31:22 logger.go:61: Creating question: %s power2
+2025/06/05 19:31:22 logger.go:61: Successfully created question with ID %d 5
+2025/06/05 19:31:22 logger.go:61: Database connection successful
+2025/06/05 19:31:22 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:31:22 logger.go:61: Successfully retrieved %d questions 1
+2025/06/05 19:31:27 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:31:27 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:31:30 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:31:30 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:31:30 logger.go:61: Failed to execute edit question template: %v template: edit-question-form.html:43:41: executing "content" at <.Question.TestCases>: can't evaluate field TestCases in type *models.Question
+2025/06/05 19:31:39 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:31:39 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:31:39 logger.go:61: Failed to execute edit question template: %v template: edit-question-form.html:43:41: executing "content" at <.Question.TestCases>: can't evaluate field TestCases in type *models.Question
+2025/06/05 19:31:50 logger.go:61: Admin dashboard access attempt by user %s with role %s armin admin
+2025/06/05 19:31:50 logger.go:61: Rendering admin dashboard for user %s armin
+2025/06/05 19:31:53 logger.go:61: PublishedQuestions handler called
+2025/06/05 19:31:53 logger.go:61: User authenticated: %s (ID: %d) armin 4
+2025/06/05 19:31:53 logger.go:61: Getting all published questions
+2025/06/05 19:31:53 logger.go:61: Database connection successful
+2025/06/05 19:31:53 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+2025/06/05 19:31:53 logger.go:61: Found question: ID=%d, Title=%s, Status=%s 5 power2 published
+2025/06/05 19:31:53 logger.go:61: Successfully retrieved %d published questions 1
+2025/06/05 19:31:53 logger.go:61: Found %d published questions 1
+2025/06/05 19:31:53 logger.go:61: Processed %d questions with owner information 1
+2025/06/05 19:31:53 logger.go:61: Attempting to parse templates for PublishedQuestions
+2025/06/05 19:31:53 logger.go:61: Attempting to execute template for PublishedQuestions
+2025/06/05 19:31:53 logger.go:61: PublishedQuestions handler completed successfully
+2025/06/05 19:31:59 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:31:59 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:37:57 logger.go:61: Admin dashboard access attempt by user %s with role %s armin admin
+2025/06/05 19:37:57 logger.go:61: Rendering admin dashboard for user %s armin
+2025/06/05 19:40:45 logger.go:61: Database connection successful
+2025/06/05 19:40:45 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:40:45 logger.go:61: Successfully retrieved %d questions 1
+2025/06/05 19:40:49 logger.go:61: PublishedQuestions handler called
+2025/06/05 19:40:49 logger.go:61: User authenticated: %s (ID: %d) armin 4
+2025/06/05 19:40:49 logger.go:61: Getting all published questions
+2025/06/05 19:40:49 logger.go:61: Database connection successful
+2025/06/05 19:40:49 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+2025/06/05 19:40:49 logger.go:61: Found question: ID=%d, Title=%s, Status=%s 5 power2 published
+2025/06/05 19:40:49 logger.go:61: Successfully retrieved %d published questions 1
+2025/06/05 19:40:49 logger.go:61: Found %d published questions 1
+2025/06/05 19:40:49 logger.go:61: Processed %d questions with owner information 1
+2025/06/05 19:40:49 logger.go:61: Attempting to parse templates for PublishedQuestions
+2025/06/05 19:40:49 logger.go:61: Attempting to execute template for PublishedQuestions
+2025/06/05 19:40:49 logger.go:61: PublishedQuestions handler completed successfully
+2025/06/05 19:40:50 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:40:50 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:41:19 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:41:19 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:41:21 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:41:21 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:41:35 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:41:35 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:42:48 logger.go:61: Application started
+2025/06/05 19:42:48 logger.go:61: Initializing database connection...
+2025/06/05 19:42:48 logger.go:61: Opening database connection...
+2025/06/05 19:42:48 logger.go:61: Pinging database...
+2025/06/05 19:42:48 logger.go:61: Database connection successful
+2025/06/05 19:42:48 logger.go:61: Testing database access...
+2025/06/05 19:42:48 logger.go:61: Database access test successful
+2025/06/05 19:42:48 logger.go:61: Creating tables if they don't exist...
+2025/06/05 19:42:48 logger.go:61: Creating users table...
+2025/06/05 19:42:48 logger.go:61: Users table created successfully
+2025/06/05 19:42:48 logger.go:61: Creating questions table...
+2025/06/05 19:42:48 logger.go:61: Questions table created successfully
+2025/06/05 19:42:48 logger.go:61: Creating submissions table...
+2025/06/05 19:42:48 logger.go:61: Submissions table created successfully
+2025/06/05 19:42:48 logger.go:61: Tables created successfully
+2025/06/05 19:42:48 logger.go:61: Inserting test data...
+2025/06/05 19:42:48 logger.go:61: Checking for existing test data...
+2025/06/05 19:42:48 logger.go:61: Test data already exists (%d questions found), skipping insertion 1
+2025/06/05 19:42:48 logger.go:61: Test data inserted successfully
+2025/06/05 19:42:48 logger.go:61: Verifying test data...
+2025/06/05 19:42:48 logger.go:61: Found %d questions in database 1
+2025/06/05 19:42:48 logger.go:61: Found %d users in database 1
+2025/06/05 19:42:54 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:42:54 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:44:01 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:44:01 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 19:49:32 logger.go:61: PublishedQuestions handler called
+2025/06/05 19:49:32 logger.go:61: User authenticated: %s (ID: %d) armin 4
+2025/06/05 19:49:32 logger.go:61: Getting all published questions
+2025/06/05 19:49:32 logger.go:61: Database connection successful
+2025/06/05 19:49:32 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+2025/06/05 19:49:32 logger.go:61: Found question: ID=%d, Title=%s, Status=%s 5 power2 published
+2025/06/05 19:49:32 logger.go:61: Successfully retrieved %d published questions 1
+2025/06/05 19:49:32 logger.go:61: Found %d published questions 1
+2025/06/05 19:49:32 logger.go:61: Processed %d questions with owner information 1
+2025/06/05 19:49:32 logger.go:61: Attempting to parse templates for PublishedQuestions
+2025/06/05 19:49:32 logger.go:61: Attempting to execute template for PublishedQuestions
+2025/06/05 19:49:32 logger.go:61: PublishedQuestions handler completed successfully
+2025/06/05 19:49:35 logger.go:61: Database connection successful
+2025/06/05 19:49:35 logger.go:61: Executing query: %s 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 19:49:35 logger.go:61: Successfully retrieved %d questions 1
+2025/06/05 19:49:36 logger.go:61: Fetching question with ID: %s 5
+2025/06/05 19:49:36 logger.go:61: Successfully fetched question with ID %s 5
+2025/06/05 20:20:59 logger.go:61: Application started
+2025/06/05 20:20:59 logger.go:61: Initializing database connection...
+2025/06/05 20:20:59 logger.go:61: Opening database connection...
+2025/06/05 20:20:59 logger.go:61: Pinging database...
+2025/06/05 20:20:59 logger.go:61: Database connection successful
+2025/06/05 20:20:59 logger.go:61: Testing database access...
+2025/06/05 20:20:59 logger.go:61: Database access test successful
+2025/06/05 20:20:59 logger.go:61: Creating tables if they don't exist...
+2025/06/05 20:20:59 logger.go:61: Creating users table...
+2025/06/05 20:20:59 logger.go:61: Users table created successfully
+2025/06/05 20:20:59 logger.go:61: Creating questions table...
+2025/06/05 20:20:59 logger.go:61: Questions table created successfully
+2025/06/05 20:20:59 logger.go:61: Creating submissions table...
+2025/06/05 20:20:59 logger.go:61: Submissions table created successfully
+2025/06/05 20:20:59 logger.go:61: Tables created successfully
+2025/06/05 20:20:59 logger.go:61: Inserting test data...
+2025/06/05 20:20:59 logger.go:61: Checking for existing test data...
+2025/06/05 20:20:59 logger.go:61: Test data already exists (%d questions found), skipping insertion 1
+2025/06/05 20:20:59 logger.go:61: Test data inserted successfully
+2025/06/05 20:20:59 logger.go:61: Verifying test data...
+2025/06/05 20:20:59 logger.go:61: Found %d questions in database 1
+2025/06/05 20:20:59 logger.go:61: Found %d users in database 1
+2025/06/05 20:21:10 logger.go:55: Database connection successful
+2025/06/05 20:21:10 logger.go:55: Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+		       status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		ORDER BY created_at DESC
+	
+2025/06/05 20:21:10 logger.go:55: Successfully retrieved 1 questions
+2025/06/05 20:21:19 logger.go:61: Register page accessed
+2025/06/05 20:21:34 logger.go:61: Registration attempt for user: %s with role: %s niloofar regular
+2025/06/05 20:21:34 logger.go:61: Registering user with role: %s regular
+2025/06/05 20:21:34 logger.go:61: Successfully registered user: %s with role: %s niloofar regular
+2025/06/05 20:21:34 logger.go:61: Redirecting regular user %s to user dashboard niloofar
+2025/06/05 20:21:36 logger.go:61: MyQuestions handler called
+2025/06/05 20:21:36 logger.go:61: User authenticated: %s (ID: %d) niloofar 5
+2025/06/05 20:21:36 logger.go:55: Getting draft questions for user ID: 5
+2025/06/05 20:21:36 logger.go:55: Database connection successful
+2025/06/05 20:21:36 logger.go:55: Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'draft' AND owner_id = $1
+		ORDER BY created_at DESC
+	 with userID=5
+2025/06/05 20:21:36 logger.go:55: Successfully retrieved 0 draft questions for user 5
+2025/06/05 20:21:39 logger.go:61: PublishedQuestions handler called
+2025/06/05 20:21:39 logger.go:61: User authenticated: %s (ID: %d) niloofar 5
+2025/06/05 20:21:39 logger.go:55: Getting all published questions
+2025/06/05 20:21:39 logger.go:55: Database connection successful
+2025/06/05 20:21:39 logger.go:55: Executing query: 
+		SELECT id, title, statement, time_limit_ms, memory_limit_mb, 
+			   status, owner_id, created_at, updated_at, test_input, test_output
+		FROM questions
+		WHERE status = 'published'
+		ORDER BY created_at DESC
+	
+2025/06/05 20:21:39 logger.go:55: Found question: ID=5, Title=power2, Status=published
+2025/06/05 20:21:39 logger.go:55: Successfully retrieved 1 published questions
+2025/06/05 20:21:39 logger.go:61: Found %d published questions 1
+2025/06/05 20:21:39 logger.go:61: Processed %d questions with owner information 1
+2025/06/05 20:21:39 logger.go:61: Attempting to parse templates for PublishedQuestions
+2025/06/05 20:21:39 logger.go:61: Attempting to execute template for PublishedQuestions
+2025/06/05 20:21:39 logger.go:61: PublishedQuestions handler completed successfully
+2025/06/05 20:21:40 logger.go:55: Fetching question with ID: 5
+2025/06/05 20:21:40 logger.go:55: Successfully fetched question with ID 5
+2025/06/05 20:21:46 logger.go:55: Fetching question with ID: 5
+2025/06/05 20:21:46 logger.go:55: Successfully fetched question with ID 5
+2025/06/05 20:29:18 logger.go:55: Fetching question with ID: 5
+2025/06/05 20:29:18 logger.go:55: Successfully fetched question with ID 5
+2025/06/05 20:32:00 logger.go:61: Application started
+2025/06/05 20:32:00 logger.go:61: Initializing database connection...
+2025/06/05 20:32:00 logger.go:61: Opening database connection...
+2025/06/05 20:32:00 logger.go:61: Pinging database...
+2025/06/05 20:32:00 logger.go:61: Database connection successful
+2025/06/05 20:32:00 logger.go:61: Testing database access...
+2025/06/05 20:32:00 logger.go:61: Database access test successful
+2025/06/05 20:32:00 logger.go:61: Creating tables if they don't exist...
+2025/06/05 20:32:00 logger.go:61: Creating users table...
+2025/06/05 20:32:00 logger.go:61: Users table created successfully
+2025/06/05 20:32:00 logger.go:61: Creating questions table...
+2025/06/05 20:32:00 logger.go:61: Questions table created successfully
+2025/06/05 20:32:00 logger.go:61: Creating submissions table...
+2025/06/05 20:32:00 logger.go:61: Submissions table created successfully
+2025/06/05 20:32:00 logger.go:61: Tables created successfully
+2025/06/05 20:32:00 logger.go:61: Inserting test data...
+2025/06/05 20:32:00 logger.go:61: Checking for existing test data...
+2025/06/05 20:32:00 logger.go:61: Test data already exists (%d questions found), skipping insertion 1
+2025/06/05 20:32:00 logger.go:61: Test data inserted successfully
+2025/06/05 20:32:00 logger.go:61: Verifying test data...
+2025/06/05 20:32:00 logger.go:61: Found %d questions in database 1
+2025/06/05 20:32:00 logger.go:61: Found %d users in database 2
+2025/06/05 20:32:13 logger.go:55: Fetching question with ID: 5
+2025/06/05 20:32:13 logger.go:55: Successfully fetched question with ID 5
+2025/06/05 20:34:29 logger.go:61: Application started
+2025/06/05 20:34:29 logger.go:61: Initializing database connection...
+2025/06/05 20:34:29 logger.go:61: Opening database connection...
+2025/06/05 20:34:29 logger.go:61: Pinging database...
+2025/06/05 20:34:29 logger.go:61: Database connection successful
+2025/06/05 20:34:29 logger.go:61: Testing database access...
+2025/06/05 20:34:29 logger.go:61: Database access test successful
+2025/06/05 20:34:29 logger.go:61: Creating tables if they don't exist...
+2025/06/05 20:34:29 logger.go:61: Creating users table...
+2025/06/05 20:34:29 logger.go:61: Users table created successfully
+2025/06/05 20:34:29 logger.go:61: Creating questions table...
+2025/06/05 20:34:29 logger.go:61: Questions table created successfully
+2025/06/05 20:34:29 logger.go:61: Creating submissions table...
+2025/06/05 20:34:29 logger.go:61: Submissions table created successfully
+2025/06/05 20:34:29 logger.go:61: Tables created successfully
+2025/06/05 20:34:29 logger.go:61: Inserting test data...
+2025/06/05 20:34:29 logger.go:61: Checking for existing test data...
+2025/06/05 20:34:29 logger.go:61: Test data already exists (%d questions found), skipping insertion 1
+2025/06/05 20:34:29 logger.go:61: Test data inserted successfully
+2025/06/05 20:34:29 logger.go:61: Verifying test data...
+2025/06/05 20:34:29 logger.go:61: Found %d questions in database 1
+2025/06/05 20:34:29 logger.go:61: Found %d users in database 2
+2025/06/05 20:34:35 logger.go:55: Fetching question with ID: 5
+2025/06/05 20:34:35 logger.go:55: Successfully fetched question with ID 5

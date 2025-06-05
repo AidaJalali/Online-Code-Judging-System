@@ -49,12 +49,20 @@ This project aims to build a simplified online judging system similar to platfor
 -   Initial status: "Pending Review".
 -   Processed by a separate **judging service**.
 -   Possible results:
-    -   ✅ OK
-    -   ❌ Compile Error
+    -   ✅ Accepted
+    -   ❌ Compilation Error
     -   ❌ Wrong Answer
     -   ❌ Memory Limit Exceeded
     -   ❌ Time Limit Exceeded
     -   ❌ Runtime Error
+-   Submission Processing:
+    -   When a submission is made, it is marked as "Pending"
+    -   The system retrieves the question's time and memory limits
+    -   The code is executed in a Docker container with the specified limits
+    -   The output is compared with the expected output
+    -   The submission status is updated based on the result
+    -   Results include execution time and memory usage
+    -   Temporary files are cleaned up after processing
 
 ### Question & Submission Pages
 
@@ -366,3 +374,61 @@ sudo docker run --name online-judge -e POSTGRES_PASSWORD=secret123 -e POSTGRES_D
 - Make sure the credentials in `config.yaml` match your Docker environment variables.
 - If running the app inside a Docker container, use `host.docker.internal` for the `host` value.
 - The database `online-judge` must exist (created by the `POSTGRES_DB` env variable above).
+
+## Code Runner Architecture (Isolated Docker Execution)
+
+### Overview
+Each code submission is executed in a dedicated Docker container (a "code runner") to ensure security, resource isolation, and scalability. The main application communicates with the code runner via an internal API, sending the submitted code, test case input, and resource limits (memory, time).
+
+### Workflow
+1. **Submission:**
+   - User submits code via the question answer form.
+   - The main application collects the code, test case input, expected output, and the question's memory/time limits.
+
+2. **Runner Initialization:**
+   - The main app launches a new Docker container for each submission using the Docker client.
+   - The container is started with:
+     - **CPU limit:** 1 core
+     - **Memory limit:** as specified by the question
+     - **Time limit:** enforced by the runner logic
+     - **No network access**
+     - **No access to the application database or host file system**
+
+3. **Code Execution:**
+   - The code and input are sent to the container (e.g., via mounted files or stdin).
+   - The runner compiles (if needed) and executes the code inside the container.
+   - The runner enforces the time and memory limits, terminating the process if exceeded.
+
+4. **Result Collection:**
+   - The runner captures the program's output and exit status.
+   - The output is sent back to the main application via an internal API response.
+
+5. **Validation:**
+   - The main application compares the runner's output to the expected output for the test case.
+   - The result (OK, Wrong Answer, Time Limit Exceeded, Memory Limit Exceeded, etc.) is recorded and shown to the user.
+
+### Security & Isolation
+- **Each code runner is a short-lived Docker container.**
+- **No network, DB, or host FS access** is allowed for the container.
+- **Resource limits** (CPU, memory, time) are strictly enforced.
+- Containers are terminated after execution to prevent lingering processes.
+
+### Example Docker Run Command
+```
+docker run --rm \
+  --cpus=1 \
+  --memory=128m \
+  --network=none \
+  -v /tmp/code:/code:ro \
+  code-runner-image:latest
+```
+
+- Replace `128m` with the question's memory limit.
+- The code and input can be provided via a mounted volume or sent to the container at runtime.
+
+### Internal API
+- The main app and code runner communicate via an internal API (e.g., HTTP on localhost, or via Docker exec/stdin/stdout).
+- The runner returns the program output, exit code, and resource usage.
+
+### Extensibility
+- This architecture allows for easy scaling (multiple runners in parallel) and supports additional languages by building new runner images.

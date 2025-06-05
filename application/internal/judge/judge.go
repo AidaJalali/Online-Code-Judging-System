@@ -2,7 +2,9 @@ package judge
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"online-judge/internal/types"
 	"os"
 	"os/exec"
@@ -17,6 +19,8 @@ type Submission struct {
 	Code      string
 	Language  string
 	TestCases []types.TestCase
+	TimeLimit int // seconds
+	MemoryMB  int // megabytes
 }
 
 // Result represents the result of judging a submission
@@ -28,117 +32,102 @@ type Result struct {
 	MemoryUsed   int64
 }
 
+type runnerResult struct {
+	Stdout   string `json:"stdout"`
+	Stderr   string `json:"stderr"`
+	ExitCode int    `json:"exit_code"`
+	TimeMs   int64  `json:"time_ms"`
+	Error    string `json:"error,omitempty"`
+}
+
 // Judge compiles and runs the submission against test cases
 func Judge(submission Submission) (Result, error) {
-	result := Result{
-		SubmissionID: submission.ID,
-	}
+	result := Result{SubmissionID: submission.ID}
 
-	// Create temporary directory for compilation
-	tempDir, err := os.MkdirTemp("", "judge-*")
-	if err != nil {
-		return result, fmt.Errorf("failed to create temp directory: %v", err)
-	}
-	defer os.RemoveAll(tempDir)
-
-	// Write submission code to file
-	filePath := filepath.Join(tempDir, getFileName(submission.Language))
-	if err := os.WriteFile(filePath, []byte(submission.Code), 0644); err != nil {
-		return result, fmt.Errorf("failed to write submission file: %v", err)
-	}
-
-	// Compile the code
-	if err := compileCode(filePath, submission.Language); err != nil {
-		result.Status = "Compilation Error"
-		result.Message = err.Error()
+	if strings.ToLower(submission.Language) != "go" {
+		result.Status = "Unsupported Language"
+		result.Message = "Only Go is supported."
 		return result, nil
 	}
 
-	// Run test cases
-	startTime := time.Now()
+	tempDir, err := os.MkdirTemp("", "judge-docker-*")
+	if err != nil {
+		return result, fmt.Errorf("failed to create temp dir: %v", err)
+	}
+	defer os.RemoveAll(tempDir)
+
+	codePath := filepath.Join(tempDir, "code.go")
+	inputPath := filepath.Join(tempDir, "input.txt")
+	resultPath := filepath.Join(tempDir, "result.json")
+
+	// Write code file
+	if err := os.WriteFile(codePath, []byte(submission.Code), 0644); err != nil {
+		return result, fmt.Errorf("failed to write code: %v", err)
+	}
+
+	totalStart := time.Now()
 	for i, testCase := range submission.TestCases {
-		output, err := runTestCase(filePath, testCase.Input, submission.Language)
-		if err != nil {
+		if err := os.WriteFile(inputPath, []byte(testCase.Input), 0644); err != nil {
+			result.Status = "Internal Error"
+			result.Message = fmt.Sprintf("Failed to write input for test case %d: %v", i+1, err)
+			return result, nil
+		}
+
+		// Build docker run command
+		mem := fmt.Sprintf("%dm", submission.MemoryMB)
+		cpu := "1"
+		timeout := fmt.Sprintf("%d", submission.TimeLimit)
+		dockerArgs := []string{
+			"run", "--rm",
+			"--cpus=" + cpu,
+			"--memory=" + mem,
+			"--network=none",
+			"-v", tempDir + ":/code",
+			"-e", "TIMEOUT_SEC=" + timeout,
+			"code-runner-image:latest",
+		}
+		cmd := exec.Command("docker", dockerArgs...)
+		var outBuf, errBuf bytes.Buffer
+		cmd.Stdout = &outBuf
+		cmd.Stderr = &errBuf
+		if err := cmd.Run(); err != nil {
 			result.Status = "Runtime Error"
-			result.Message = fmt.Sprintf("Test case %d: %v", i+1, err)
+			result.Message = fmt.Sprintf("Docker error (test case %d): %v, %s", i+1, err, errBuf.String())
 			return result, nil
 		}
 
-		if !compareOutput(output, testCase.Output) {
+		// Read result.json
+		data, err := ioutil.ReadFile(resultPath)
+		if err != nil {
+			result.Status = "Internal Error"
+			result.Message = fmt.Sprintf("Failed to read runner result (test case %d): %v", i+1, err)
+			return result, nil
+		}
+		var rr runnerResult
+		if err := json.Unmarshal(data, &rr); err != nil {
+			result.Status = "Internal Error"
+			result.Message = fmt.Sprintf("Failed to parse runner result (test case %d): %v", i+1, err)
+			return result, nil
+		}
+		if rr.Error != "" {
+			result.Status = "Runtime Error"
+			result.Message = fmt.Sprintf("Test case %d: %s", i+1, rr.Error)
+			return result, nil
+		}
+		if rr.ExitCode != 0 {
+			result.Status = "Runtime Error"
+			result.Message = fmt.Sprintf("Test case %d: %s", i+1, rr.Stderr)
+			return result, nil
+		}
+		if !compareOutput(rr.Stdout, testCase.Output) {
 			result.Status = "Wrong Answer"
-			result.Message = fmt.Sprintf("Test case %d: Expected %s, got %s", i+1, testCase.Output, output)
+			result.Message = fmt.Sprintf("Test case %d: Expected '%s', got '%s'", i+1, testCase.Output, rr.Stdout)
 			return result, nil
 		}
 	}
-
 	result.Status = "Accepted"
-	result.TimeTaken = time.Since(startTime)
+	result.TimeTaken = time.Since(totalStart)
 	return result, nil
-}
-
-func getFileName(language string) string {
-	switch strings.ToLower(language) {
-	case "python":
-		return "solution.py"
-	case "java":
-		return "Solution.java"
-	case "cpp":
-		return "solution.cpp"
-	default:
-		return "solution"
-	}
-}
-
-func compileCode(filePath, language string) error {
-	var cmd *exec.Cmd
-
-	switch strings.ToLower(language) {
-	case "python":
-		// Python doesn't need compilation
-		return nil
-	case "java":
-		cmd = exec.Command("javac", filePath)
-	case "cpp":
-		cmd = exec.Command("g++", "-std=c++17", "-O2", filePath, "-o", strings.TrimSuffix(filePath, ".cpp"))
-	default:
-		return fmt.Errorf("unsupported language: %s", language)
-	}
-
-	var stderr bytes.Buffer
-	cmd.Stderr = &stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("compilation error: %s", stderr.String())
-	}
-
-	return nil
-}
-
-func runTestCase(filePath, input, language string) (string, error) {
-	var cmd *exec.Cmd
-
-	switch strings.ToLower(language) {
-	case "python":
-		cmd = exec.Command("python", filePath)
-	case "java":
-		cmd = exec.Command("java", "-cp", filepath.Dir(filePath), "Solution")
-	case "cpp":
-		cmd = exec.Command(strings.TrimSuffix(filePath, ".cpp"))
-	default:
-		return "", fmt.Errorf("unsupported language: %s", language)
-	}
-
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-
-	// Set timeout for execution
-	cmd.Env = append(os.Environ(), "TIMEOUT=5")
-
-	if err := cmd.Run(); err != nil {
-		return "", fmt.Errorf("runtime error: %s", stderr.String())
-	}
-
-	return strings.TrimSpace(stdout.String()), nil
 }
 
 func compareOutput(actual, expected string) bool {
