@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	host     = "b7cc3bd2-3f82-461a-b79f-21b3dd0b7461.hadb.ir"
-	port     = 30226
-	user     = "postgres"
-	password = "feJ9hH6xiSBkT27G4PW5"
-	dbname   = "postgres"
+	host     = "localhost"
+	port     = 5432
+	user     = "mahdi"
+	password = "secret123"
+	dbname   = "online-judge"
 )
 
 func main() {

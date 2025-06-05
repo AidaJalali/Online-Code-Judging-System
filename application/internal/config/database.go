@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	host     = "82eab2ea-bbbc-4025-9858-5fa2738ec7e4.hsvc.ir"
-	port     = 32215
-	user     = "postgres"
-	password = "KwuujJsBtnS4cTbowdpZYjdlKy8Vk0Du"
-	dbname   = "postgres"
+	host     = "localhost"
+	port     = 5432
+	user     = "mahdi"
+	password = "secret123"
+	dbname   = "online-judge"
 )
 
 func InitDB() (*sql.DB, error) {

@@ -1,36 +1,25 @@
 package database
 
 import (
-	"path/filepath"
-	"runtime"
 	"testing"
-
-	"online-judge/internal/config"
 )
 
 func TestDatabaseConnection(t *testing.T) {
-	// Get the absolute path to the config file
-	_, currentFile, _, _ := runtime.Caller(0)
-	configPath := filepath.Join(filepath.Dir(filepath.Dir(filepath.Dir(currentFile))), "configs", "config.yaml")
-
-	// Load configuration
-	cfg, err := config.LoadConfig(configPath)
-	if err != nil {
-		t.Fatalf("Failed to load config: %v", err)
+	// Use hardcoded config for local Postgres
+	cfg := Config{
+		Host:            "localhost",
+		Port:            5432,
+		User:            "mahdi",
+		Password:        "secret123",
+		DBName:          "online-judge",
+		SSLMode:         "disable",
+		MaxOpenConns:    25,
+		MaxIdleConns:    5,
+		ConnMaxLifetime: 0, // or 5 * time.Minute if needed
 	}
 
 	// Initialize database connection
-	db, err := NewDB(Config{
-		Host:            cfg.Database.Host,
-		Port:            cfg.Database.Port,
-		User:            cfg.Database.User,
-		Password:        cfg.Database.Password,
-		DBName:          cfg.Database.DBName,
-		SSLMode:         cfg.Database.SSLMode,
-		MaxOpenConns:    cfg.Database.MaxOpenConns,
-		MaxIdleConns:    cfg.Database.MaxIdleConns,
-		ConnMaxLifetime: cfg.Database.ConnMaxLifetime,
-	})
+	db, err := NewDB(cfg)
 	if err != nil {
 		t.Fatalf("Failed to connect to database: %v", err)
 	}

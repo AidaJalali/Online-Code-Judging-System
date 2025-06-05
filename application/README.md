@@ -262,9 +262,9 @@ Create a `config.yaml` file in the project root with your database configuration
 database:
   host: localhost
   port: 5432
-  user: your_username
-  password: your_password
-  dbname: online_judge
+  user: mahdi
+  password: secret123
+  dbname: online-judge
   sslmode: disable
   max_open_conns: 25
   max_idle_conns: 5
@@ -294,9 +294,9 @@ For additional security, you can use environment variables instead of the config
 # Database configuration
 export DB_HOST=localhost
 export DB_PORT=5432
-export DB_USER=your_username
-export DB_PASSWORD=your_password
-export DB_NAME=online_judge
+export DB_USER=mahdi
+export DB_PASSWORD=secret123
+export DB_NAME=online-judge
 
 # Server configuration
 export SERVER_LISTEN=":8080"
@@ -334,3 +334,35 @@ export RUNNER_CPU_LIMIT=1
    - Use SSL/TLS for database connections in production
    - Implement proper access controls
    - Regularly backup your database
+
+### Database Configuration
+
+The application is configured to connect to a local PostgreSQL database running in a Docker container. The connection settings are defined in `configs/config.yaml`:
+
+```
+database:
+  host: localhost
+  port: 5432
+  user: mahdi
+  password: secret123
+  dbname: online-judge
+  sslmode: disable
+```
+
+- **host**: `localhost` (use `host.docker.internal` if running the app inside another Docker container)
+- **port**: `5432` (default Postgres port)
+- **user**: `mahdi` (as provided)
+- **password**: `secret123` (as provided)
+- **dbname**: `online-judge` (as provided)
+- **sslmode**: `disable` (recommended for local development)
+
+**Example Docker command to run Postgres:**
+```
+sudo docker run --name online-judge -e POSTGRES_PASSWORD=secret123 -e POSTGRES_DB=online-judge -e POSTGRES_USER=mahdi -p 5432:5432 -d postgres:15
+```
+
+**Troubleshooting:**
+- If you get connection errors, ensure the Postgres container is running (`sudo docker ps`).
+- Make sure the credentials in `config.yaml` match your Docker environment variables.
+- If running the app inside a Docker container, use `host.docker.internal` for the `host` value.
+- The database `online-judge` must exist (created by the `POSTGRES_DB` env variable above).
