@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
+	"path/filepath"
+	"regexp"
 )
 
 var (
-	InfoLogger  *log.Logger
-	ErrorLogger *log.Logger
+	AppLogger *log.Logger
 )
 
 func Init() {
@@ -18,28 +18,46 @@ func Init() {
 		log.Fatal("Failed to create logs directory:", err)
 	}
 
-	// Create log files
-	infoFile, err := os.OpenFile("logs/info.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// Find the next available try-<index>.log filename
+	files, err := os.ReadDir("logs")
 	if err != nil {
-		log.Fatal("Failed to open info log file:", err)
+		log.Fatal("Failed to read logs directory:", err)
 	}
 
-	errorFile, err := os.OpenFile("logs/error.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	maxIndex := 0
+	pattern := regexp.MustCompile(`^try-(\\d+)\\.log$`)
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+		matches := pattern.FindStringSubmatch(file.Name())
+		if len(matches) == 2 {
+			var idx int
+			fmt.Sscanf(matches[1], "%d", &idx)
+			if idx > maxIndex {
+				maxIndex = idx
+			}
+		}
+	}
+	newIndex := maxIndex + 1
+	logFileName := filepath.Join("logs", fmt.Sprintf("try-%d.log", newIndex))
+
+	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {
-		log.Fatal("Failed to open error log file:", err)
+		log.Fatal("Failed to open log file:", err)
 	}
 
-	// Initialize loggers
-	InfoLogger = log.New(infoFile, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	ErrorLogger = log.New(errorFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	AppLogger = log.New(logFile, "", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
-func Info(format string, v ...interface{}) {
-	message := fmt.Sprintf(format, v...)
-	InfoLogger.Printf("[%s] %s", time.Now().Format("2006-01-02 15:04:05"), message)
+func Printf(format string, v ...interface{}) {
+	if AppLogger != nil {
+		AppLogger.Printf(format, v...)
+	}
 }
 
-func Error(format string, v ...interface{}) {
-	message := fmt.Sprintf(format, v...)
-	ErrorLogger.Printf("[%s] %s", time.Now().Format("2006-01-02 15:04:05"), message)
+func Println(v ...interface{}) {
+	if AppLogger != nil {
+		AppLogger.Println(v...)
+	}
 }

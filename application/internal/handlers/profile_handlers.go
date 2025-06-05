@@ -17,7 +17,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	// Check if user is authenticated
 	cookie, err := r.Cookie("username")
 	if err != nil {
-		logger.Info("Unauthorized access attempt to profile page: No session cookie")
+		logger.Println("Unauthorized access attempt to profile page: No session cookie")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -25,13 +25,13 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	// Get user data
 	user, err := h.userRepo.GetUserByUsername(cookie.Value)
 	if err != nil {
-		logger.Error("Database error while accessing profile: %v", err)
+		logger.Println("Database error while accessing profile: %v", err)
 		http.Error(w, "Database error", http.StatusInternalServerError)
 		return
 	}
 
 	if user == nil {
-		logger.Info("Unauthorized access attempt to profile page: User not found")
+		logger.Println("Unauthorized access attempt to profile page: User not found")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -42,7 +42,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/profile.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse profile template: %v", err)
+		logger.Println("Failed to parse profile template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -53,7 +53,7 @@ func (h *Handler) Profile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute profile template: %v", err)
+		logger.Println("Failed to execute profile template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

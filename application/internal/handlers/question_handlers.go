@@ -31,7 +31,7 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		logger.Error("Failed to fetch questions: %v", err)
+		logger.Println("Failed to fetch questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -46,7 +46,7 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 	for _, q := range questions {
 		owner, err := h.userRepo.GetUserByID(q.OwnerID)
 		if err != nil {
-			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
+			logger.Println("Failed to fetch owner for question %d: %v", q.ID, err)
 			continue
 		}
 		questionsWithOwners = append(questionsWithOwners, QuestionWithOwner{
@@ -70,14 +70,14 @@ func (h *Handler) Questions(w http.ResponseWriter, r *http.Request) {
 		"templates/public/questions.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse questions template: %v", err)
+		logger.Println("Failed to parse questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute questions template: %v", err)
+		logger.Println("Failed to execute questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -99,7 +99,7 @@ func (h *Handler) SubmitQuestion(w http.ResponseWriter, r *http.Request) {
 	// Fetch question details from the repository
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
-		logger.Error("Failed to fetch question: %v", err)
+		logger.Println("Failed to fetch question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -107,7 +107,7 @@ func (h *Handler) SubmitQuestion(w http.ResponseWriter, r *http.Request) {
 	// Render submit_question template
 	tmpl, err := template.ParseFiles("templates/base.html", "templates/user-dashboard/submit_question.html")
 	if err != nil {
-		logger.Error("Failed to parse submit question template: %v", err)
+		logger.Println("Failed to parse submit question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -119,7 +119,7 @@ func (h *Handler) SubmitQuestion(w http.ResponseWriter, r *http.Request) {
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute submit question template: %v", err)
+		logger.Println("Failed to execute submit question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
@@ -136,7 +136,7 @@ func (h *Handler) ManageQuestions(w http.ResponseWriter, r *http.Request) {
 	// Get all questions from the database
 	questions, err := h.questionRepo.GetAllQuestions()
 	if err != nil {
-		logger.Error("Failed to get questions: %v", err)
+		logger.Println("Failed to get questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -152,13 +152,13 @@ func (h *Handler) ManageQuestions(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/manage-questions.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse manage questions template: %v", err)
+		logger.Println("Failed to parse manage questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute manage questions template: %v", err)
+		logger.Println("Failed to execute manage questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
@@ -209,7 +209,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		if err := r.ParseForm(); err != nil {
-			logger.Error("Failed to parse form: %v", err)
+			logger.Println("Failed to parse form: %v", err)
 			http.Error(w, "Bad request", http.StatusBadRequest)
 			return
 		}
@@ -242,7 +242,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 		draft.SetTestCases(testCases)
 		err = h.draftRepo.SaveDraft(draft)
 		if err != nil {
-			logger.Error("Failed to save draft: %v", err)
+			logger.Println("Failed to save draft: %v", err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
@@ -256,14 +256,14 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 
 			err = h.questionRepo.CreateQuestion(draft)
 			if err != nil {
-				logger.Error("Failed to create question: %v", err)
+				logger.Println("Failed to create question: %v", err)
 				http.Error(w, "Internal server error", http.StatusInternalServerError)
 				return
 			}
 
 			err = h.draftRepo.DeleteDraft(user.ID)
 			if err != nil {
-				logger.Error("Failed to delete draft: %v", err)
+				logger.Println("Failed to delete draft: %v", err)
 			}
 
 			http.Redirect(w, r, "/manage-questions", http.StatusSeeOther)
@@ -278,7 +278,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 	// GET request - show the form
 	draft, err := h.draftRepo.GetDraftByUserID(user.ID)
 	if err != nil {
-		logger.Error("Failed to get draft: %v", err)
+		logger.Println("Failed to get draft: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -289,7 +289,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/create-question-form.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse create question template: %v", err)
+		logger.Println("Failed to parse create question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -310,7 +310,7 @@ func (h *Handler) CreateQuestionForm(w http.ResponseWriter, r *http.Request) {
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute create question template: %v", err)
+		logger.Println("Failed to execute create question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
@@ -338,7 +338,7 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 	// Get the question
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
-		logger.Error("Failed to fetch question: %v", err)
+		logger.Println("Failed to fetch question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -356,7 +356,7 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		if err := r.ParseForm(); err != nil {
-			logger.Error("Failed to parse form: %v", err)
+			logger.Println("Failed to parse form: %v", err)
 			http.Error(w, "Bad request", http.StatusBadRequest)
 			return
 		}
@@ -386,7 +386,7 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 		// Save the updated question
 		err = h.questionRepo.UpdateQuestion(question)
 		if err != nil {
-			logger.Error("Failed to update question: %v", err)
+			logger.Println("Failed to update question: %v", err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
@@ -407,7 +407,7 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/edit-question-form.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse edit question template: %v", err)
+		logger.Println("Failed to parse edit question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -422,7 +422,7 @@ func (h *Handler) EditQuestion(w http.ResponseWriter, r *http.Request) {
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute edit question template: %v", err)
+		logger.Println("Failed to execute edit question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
@@ -448,7 +448,7 @@ func (h *Handler) ViewQuestion(w http.ResponseWriter, r *http.Request) {
 
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
-		logger.Error("Failed to fetch question: %v", err)
+		logger.Println("Failed to fetch question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -464,7 +464,7 @@ func (h *Handler) ViewQuestion(w http.ResponseWriter, r *http.Request) {
 		"templates/admin-dashboard/view-question.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse view question template: %v", err)
+		logger.Println("Failed to parse view question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -479,33 +479,33 @@ func (h *Handler) ViewQuestion(w http.ResponseWriter, r *http.Request) {
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute view question template: %v", err)
+		logger.Println("Failed to execute view question template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
 
 // MyQuestions handles the page that shows a user's own draft questions
 func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
-	logger.Info("MyQuestions handler called")
+	logger.Println("MyQuestions handler called")
 
 	if r.Method != "GET" {
-		logger.Error("Invalid method for MyQuestions: %s", r.Method)
+		logger.Println("Invalid method for MyQuestions: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	user, err := h.getAuthenticatedUser(r)
 	if err != nil {
-		logger.Error("Failed to get authenticated user: %v", err)
+		logger.Println("Failed to get authenticated user: %v", err)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 	if user == nil {
-		logger.Error("No authenticated user found")
+		logger.Println("No authenticated user found")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
-	logger.Info("User authenticated: %s (ID: %d)", user.Username, user.ID)
+	logger.Println("User authenticated: %s (ID: %d)", user.Username, user.ID)
 
 	// If user is admin, redirect to all-drafts page
 	if user.Role == "admin" {
@@ -516,7 +516,7 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 	// Get user's draft questions only
 	questions, err := h.questionRepo.GetDraftsByUserID(user.ID)
 	if err != nil {
-		logger.Error("Failed to fetch user's draft questions: %v", err)
+		logger.Println("Failed to fetch user's draft questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -540,49 +540,49 @@ func (h *Handler) MyQuestions(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/my-questions.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse my questions template: %v", err)
+		logger.Println("Failed to parse my questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute my questions template: %v", err)
+		logger.Println("Failed to execute my questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
 
 // PublishedQuestions handles the page that shows all published questions
 func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
-	logger.Info("PublishedQuestions handler called")
+	logger.Println("PublishedQuestions handler called")
 
 	if r.Method != "GET" {
-		logger.Error("Invalid method for PublishedQuestions: %s", r.Method)
+		logger.Println("Invalid method for PublishedQuestions: %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	user, err := h.getAuthenticatedUser(r)
 	if err != nil {
-		logger.Error("Failed to get authenticated user: %v", err)
+		logger.Println("Failed to get authenticated user: %v", err)
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 	if user == nil {
-		logger.Error("No authenticated user found")
+		logger.Println("No authenticated user found")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
-	logger.Info("User authenticated: %s (ID: %d)", user.Username, user.ID)
+	logger.Println("User authenticated: %s (ID: %d)", user.Username, user.ID)
 
 	// Get all published questions
 	questions, err := h.questionRepo.GetPublishedQuestions()
 	if err != nil {
-		logger.Error("Failed to fetch published questions: %v", err)
+		logger.Println("Failed to fetch published questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
-	logger.Info("Found %d published questions", len(questions))
+	logger.Println("Found %d published questions", len(questions))
 
 	// Get owners for all questions
 	type QuestionWithOwner struct {
@@ -594,7 +594,7 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 	for _, q := range questions {
 		owner, err := h.userRepo.GetUserByID(q.OwnerID)
 		if err != nil {
-			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
+			logger.Println("Failed to fetch owner for question %d: %v", q.ID, err)
 			continue
 		}
 		questionsWithOwners = append(questionsWithOwners, QuestionWithOwner{
@@ -602,7 +602,7 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 			Owner:    toModelsUser(owner),
 		})
 	}
-	logger.Info("Processed %d questions with owner information", len(questionsWithOwners))
+	logger.Println("Processed %d questions with owner information", len(questionsWithOwners))
 
 	data := PageData{
 		Title:     "Published Questions",
@@ -612,24 +612,24 @@ func (h *Handler) PublishedQuestions(w http.ResponseWriter, r *http.Request) {
 		Success:   "",
 	}
 
-	logger.Info("Attempting to parse templates for PublishedQuestions")
+	logger.Println("Attempting to parse templates for PublishedQuestions")
 	tmpl, err := template.ParseFiles(
 		"templates/base.html",
 		"templates/public/published-questions.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse published questions template: %v", err)
+		logger.Println("Failed to parse published questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
-	logger.Info("Attempting to execute template for PublishedQuestions")
+	logger.Println("Attempting to execute template for PublishedQuestions")
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute published questions template: %v", err)
+		logger.Println("Failed to execute published questions template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
-	logger.Info("PublishedQuestions handler completed successfully")
+	logger.Println("PublishedQuestions handler completed successfully")
 }
 
 // Drafts handles the drafts page that shows unpublished questions
@@ -709,7 +709,7 @@ func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
 	// Get the question
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
-		logger.Error("Failed to fetch question: %v", err)
+		logger.Println("Failed to fetch question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -748,7 +748,7 @@ func (h *Handler) PublishQuestion(w http.ResponseWriter, r *http.Request) {
 	// Save the updated question
 	err = h.questionRepo.UpdateQuestion(question)
 	if err != nil {
-		logger.Error("Failed to update question: %v", err)
+		logger.Println("Failed to update question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -780,7 +780,7 @@ func (h *Handler) DeleteQuestion(w http.ResponseWriter, r *http.Request) {
 	// Get the question to check ownership
 	question, err := h.questionRepo.GetQuestionByID(questionID)
 	if err != nil {
-		logger.Error("Failed to fetch question: %v", err)
+		logger.Println("Failed to fetch question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -799,7 +799,7 @@ func (h *Handler) DeleteQuestion(w http.ResponseWriter, r *http.Request) {
 	// Delete the question
 	err = h.questionRepo.DeleteQuestion(questionID)
 	if err != nil {
-		logger.Error("Failed to delete question: %v", err)
+		logger.Println("Failed to delete question: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -829,7 +829,7 @@ func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 	// Get all draft questions only
 	questions, err := h.questionRepo.GetDraftQuestions()
 	if err != nil {
-		logger.Error("Failed to fetch draft questions: %v", err)
+		logger.Println("Failed to fetch draft questions: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -852,7 +852,7 @@ func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 	for _, q := range draftQuestions {
 		owner, err := h.userRepo.GetUserByID(q.OwnerID)
 		if err != nil {
-			logger.Error("Failed to fetch owner for question %d: %v", q.ID, err)
+			logger.Println("Failed to fetch owner for question %d: %v", q.ID, err)
 			continue
 		}
 		questionsWithOwners = append(questionsWithOwners, QuestionWithOwner{
@@ -876,14 +876,14 @@ func (h *Handler) AllDrafts(w http.ResponseWriter, r *http.Request) {
 		"templates/admin-dashboard/all-drafts.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse all drafts template: %v", err)
+		logger.Println("Failed to parse all drafts template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 
 	err = tmpl.ExecuteTemplate(w, "base", data)
 	if err != nil {
-		logger.Error("Failed to execute all drafts template: %v", err)
+		logger.Println("Failed to execute all drafts template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }

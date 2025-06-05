@@ -9,20 +9,15 @@ import (
 	"online-judge/internal/repository"
 )
 
-type TestCase struct {
-	Input  string
-	Output string
-}
-
 func main() {
 	// Initialize logger
 	logger.Init()
-	logger.Info("Application started")
+	logger.Println("Application started")
 
 	// Initialize database connection
 	db, err := config.InitDB()
 	if err != nil {
-		logger.Error("Failed to initialize database: %v", err)
+		logger.Println("Failed to initialize database: %v", err)
 		log.Fatal(err)
 	}
 	defer db.Close()

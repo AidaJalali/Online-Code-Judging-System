@@ -69,7 +69,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 // Register handles user registration
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		logger.Info("Register page accessed")
+		logger.Println("Register page accessed")
 		data := PageData{
 			Title: "Create Account",
 		}
@@ -83,12 +83,12 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		confirmPassword := r.FormValue("confirm_password")
 		roleStr := r.FormValue("role")
 
-		logger.Info("Registration attempt for user: %s with role: %s", username, roleStr)
+		logger.Println("Registration attempt for user: %s with role: %s", username, roleStr)
 
 		// Check if username already exists
 		existingUser, err := h.userRepo.GetUserByUsername(username)
 		if err != nil {
-			logger.Error("Database error while checking username existence: %v", err)
+			logger.Println("Database error while checking username existence: %v", err)
 			data := PageData{
 				Title: "Create Account",
 				Error: "An error occurred while processing your request. Please try again.",
@@ -98,7 +98,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if existingUser != nil {
-			logger.Info("Registration failed for user %s: Username already exists", username)
+			logger.Println("Registration failed for user %s: Username already exists", username)
 			data := PageData{
 				Title: "Create Account",
 				Error: "This username is already taken. Please choose another one.",
@@ -115,7 +115,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		case "admin":
 			role = "admin"
 		default:
-			logger.Error("Invalid role value: %s", roleStr)
+			logger.Println("Invalid role value: %s", roleStr)
 			data := PageData{
 				Title: "Create Account",
 				Error: "Please select a valid role.",
@@ -124,11 +124,11 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		logger.Info("Registering user with role: %s", role)
+		logger.Println("Registering user with role: %s", role)
 
 		// Password validation
 		if len(password) < 6 {
-			logger.Info("Registration failed for user %s: Password too short", username)
+			logger.Println("Registration failed for user %s: Password too short", username)
 			data := PageData{
 				Title: "Create Account",
 				Error: "Password must be at least 6 characters long.",
@@ -149,7 +149,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if !hasDigit {
-			logger.Info("Registration failed for user %s: Password missing digit", username)
+			logger.Println("Registration failed for user %s: Password missing digit", username)
 			data := PageData{
 				Title: "Create Account",
 				Error: "Password must contain at least one digit.",
@@ -159,7 +159,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if !hasLowercase {
-			logger.Info("Registration failed for user %s: Password missing lowercase", username)
+			logger.Println("Registration failed for user %s: Password missing lowercase", username)
 			data := PageData{
 				Title: "Create Account",
 				Error: "Password must contain at least one lowercase letter.",
@@ -169,7 +169,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if password != confirmPassword {
-			logger.Info("Registration failed for user %s: Passwords do not match", username)
+			logger.Println("Registration failed for user %s: Passwords do not match", username)
 			data := PageData{
 				Title: "Create Account",
 				Error: "Passwords do not match. Please make sure both passwords are identical.",
@@ -181,7 +181,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 		// Hash the password
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 		if err != nil {
-			logger.Error("Failed to hash password for user %s: %v", username, err)
+			logger.Println("Failed to hash password for user %s: %v", username, err)
 			data := PageData{
 				Title: "Create Account",
 				Error: "An error occurred while processing your password. Please try again.",
@@ -199,7 +199,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 
 		err = h.userRepo.CreateUser(user)
 		if err != nil {
-			logger.Error("Failed to create user %s: %v", username, err)
+			logger.Println("Failed to create user %s: %v", username, err)
 			data := PageData{
 				Title: "Create Account",
 				Error: "An error occurred while creating your account. Please try again.",
@@ -208,7 +208,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		logger.Info("Successfully registered user: %s with role: %s", username, role)
+		logger.Println("Successfully registered user: %s with role: %s", username, role)
 
 		// Set username cookie
 		http.SetCookie(w, &http.Cookie{
@@ -220,10 +220,10 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 
 		// Redirect based on role
 		if role == "admin" {
-			logger.Info("Redirecting admin user %s to admin dashboard", username)
+			logger.Println("Redirecting admin user %s to admin dashboard", username)
 			http.Redirect(w, r, "/admin-dashboard", http.StatusSeeOther)
 		} else {
-			logger.Info("Redirecting regular user %s to user dashboard", username)
+			logger.Println("Redirecting regular user %s to user dashboard", username)
 			http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
 		}
 	}
@@ -249,13 +249,13 @@ func renderRegisterPage(w http.ResponseWriter, data PageData) {
 		"templates/signup/register.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse register template: %v", err)
+		logger.Println("Failed to parse register template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute register template: %v", err)
+		logger.Println("Failed to execute register template: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

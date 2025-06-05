@@ -64,7 +64,7 @@ func (h *Handler) UserDashboard(w http.ResponseWriter, r *http.Request) {
 	// Get user data
 	user, err := h.userRepo.GetUserByUsername(session.Value)
 	if err != nil {
-		logger.Error("Failed to get user data: %v", err)
+		logger.Println("Failed to get user data: %v", err)
 		http.Error(w, "Database error", http.StatusInternalServerError)
 		return
 	}
@@ -80,7 +80,7 @@ func (h *Handler) UserDashboard(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/user-dashboard.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse user dashboard template: %v", err)
+		logger.Println("Failed to parse user dashboard template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -91,7 +91,7 @@ func (h *Handler) UserDashboard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute user dashboard template: %v", err)
+		logger.Println("Failed to execute user dashboard template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
@@ -106,7 +106,7 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 	// Check if user is authenticated
 	session, err := r.Cookie("username")
 	if err != nil {
-		logger.Info("Unauthorized access attempt to admin dashboard: No session cookie")
+		logger.Println("Unauthorized access attempt to admin dashboard: No session cookie")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
@@ -114,22 +114,22 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 	// Get user data
 	user, err := h.userRepo.GetUserByUsername(session.Value)
 	if err != nil {
-		logger.Error("Database error while accessing admin dashboard: %v", err)
+		logger.Println("Database error while accessing admin dashboard: %v", err)
 		http.Error(w, "Database error", http.StatusInternalServerError)
 		return
 	}
 
 	if user == nil {
-		logger.Info("Unauthorized access attempt to admin dashboard: User not found")
+		logger.Println("Unauthorized access attempt to admin dashboard: User not found")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		return
 	}
 
-	logger.Info("Admin dashboard access attempt by user %s with role %s", user.Username, user.Role)
+	logger.Println("Admin dashboard access attempt by user %s with role %s", user.Username, user.Role)
 
 	// Check if user is admin
 	if user.Role != "admin" {
-		logger.Info("Unauthorized access attempt to admin dashboard by user %s with role %s", user.Username, user.Role)
+		logger.Println("Unauthorized access attempt to admin dashboard by user %s with role %s", user.Username, user.Role)
 		http.Redirect(w, r, "/user-dashboard", http.StatusSeeOther)
 		return
 	}
@@ -140,7 +140,7 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 		"templates/user-dashboard/admin-dashboard.html",
 	)
 	if err != nil {
-		logger.Error("Failed to parse admin dashboard template: %v", err)
+		logger.Println("Failed to parse admin dashboard template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -150,9 +150,9 @@ func (h *Handler) AdminDashboard(w http.ResponseWriter, r *http.Request) {
 		User:  toModelsUser(user),
 	}
 
-	logger.Info("Rendering admin dashboard for user %s", user.Username)
+	logger.Println("Rendering admin dashboard for user %s", user.Username)
 	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
-		logger.Error("Failed to execute admin dashboard template: %v", err)
+		logger.Println("Failed to execute admin dashboard template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
 }
