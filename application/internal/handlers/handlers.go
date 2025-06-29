@@ -154,3 +154,8 @@ func renderTemplate(w http.ResponseWriter, templateName string, data PageData) {
 func (h *Handler) SetQuestionRepo(repo QuestionRepository) {
 	h.questionRepo = repo
 }
+
+func (h *Handler) HealtzFunction(writer http.ResponseWriter, request *http.Request) {
+	writer.WriteHeader(http.StatusOK)
+	writer.Write([]byte("OK"))
+}

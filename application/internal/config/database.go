@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	host     = "localhost"
+	host     = "online-judge-db.mikham-test-konam.svc"
 	port     = 5432
-	user     = "mahdi"
-	password = "secret123"
-	dbname   = "online-judge"
+	user     = "mahdixak"
+	password = "mahdiak0447@1#"
+	dbname   = "online-judge-db"
 )
 
 func InitDB() (*sql.DB, error) {
